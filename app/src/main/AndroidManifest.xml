@@ -24,7 +24,7 @@
         <activity android:name=".Memory" />
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
-        <activity android:name=".Something3"></activity>
+        <activity android:name=".Something3" />
     </application>
 
 </manifest>
