@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+         <activity android:name=".SettingScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
         <activity android:name=".WhiteList" />
         <activity android:name=".CloseList" />
         <activity android:name=".LoginScreen" />
-        <activity android:name=".SettingScreen" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Memory" />
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
