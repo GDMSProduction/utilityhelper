@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
         final ImageButton pressedsettings = (ImageButton) findViewById(R.id.settings);
-        pressedhistory.setOnClickListener(new View.OnClickListener()
+        pressedsettings.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
+        int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
+        int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
+        float batteryPct = level / (float) scale;
+        batteryPct = batteryPct * 100;
 
         // How are we charging?
       //  int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
@@ -126,26 +130,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-      if (status >= 1.91f)
+      if (batteryPct >= 81.00f)
       {
           ImageView view = (ImageView) findViewById(R.id.battery5);
 
           view.setVisibility(ImageView.VISIBLE);
 
       }
-      else if (status >= 1.61f)
+      else if (batteryPct >= 61.0f)
       {
           ImageView view = (ImageView) findViewById(R.id.battery4);
 
           view.setVisibility(ImageView.VISIBLE);
       }
-      else if (status >= 1.41f)
+      else if (batteryPct >= 41.0f)
       {
           ImageView view = (ImageView) findViewById(R.id.battery3);
 
           view.setVisibility(ImageView.VISIBLE);
       }
-      else if (status >= 1.21f)
+      else if (batteryPct >= 21.00f)
       {
           ImageView view = (ImageView) findViewById(R.id.battery2);
 
