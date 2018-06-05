@@ -8,14 +8,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CreateAccount extends AppCompatActivity {
 
+    TextView email = (TextView)  findViewById(R.id.EmaileditText);
+    TextView password = (TextView) findViewById(R.id.PasswordeditText);
+    TextView reenterPassword = (TextView) findViewById(R.id.ReenterPasswordeditText);
+
+    String emailAddress = email.getText().toString();
+    String userPassword = password.getText().toString();
+    String userReEnterPassword = reenterPassword.getText().toString();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
 
 
         Button back = (Button)  findViewById(R.id.BackButton);
@@ -29,14 +39,6 @@ public class CreateAccount extends AppCompatActivity {
         });
 
         Button createAccount = (Button) findViewById(R.id.CreateAccountButton);
-
-        TextView email = (TextView) findViewById(R.id.EmaileditText);
-        TextView password = (TextView) findViewById(R.id.PasswordeditText);
-        TextView reenterPassword = (TextView) findViewById(R.id.ReenterPasswordeditText);
-
-        String emailAddress = email.getText().toString();
-        String userPassword = password.getText().toString();
-        String userReEnterPassword = reenterPassword.getText().toString();
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,10 +47,6 @@ public class CreateAccount extends AppCompatActivity {
                 startActivity(accountButton);
             }
         });
-if (emailAddress == "p" && userPassword == "m" && userPassword == userReEnterPassword) {
-
-
-}
-
     }
+
 }
