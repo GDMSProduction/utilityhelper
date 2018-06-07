@@ -26,12 +26,12 @@ public class History extends AppCompatActivity {
                     "Google                                 2%",
                     "Soundclud                             2%",
                     "Google Store                       1%",
-                    "Xbox                             0%",
+                    "Xbox                                   0%",
                     "JW Alive                               0%",
     };
     ArrayList<String> arrayList;
     ArrayAdapter adapter;
-    List<ActivityManager.RunningAppProcessInfo> list = null;
+    ActivityManager.RunningAppProcessInfo[] list = null;
 
 
     @Override
