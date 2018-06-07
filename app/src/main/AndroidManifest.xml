@@ -9,22 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".History" />
+        <activity android:name=".WhiteList" />
+        <activity android:name=".CloseList" />
+        <activity android:name=".SettingScreen" />
+        <activity android:name=".Memory" />
+        <activity android:name=".Something1" />
+        <activity android:name=".Something2" />
+     <activity android:name=".Something3" />
+        <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".History" />
-        <activity android:name=".WhiteList" />
-        <activity android:name=".CloseList" />
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".SettingScreen" />
-        <activity android:name=".Memory" />
-        <activity android:name=".Something1" />
-        <activity android:name=".Something2" />
-        <activity android:name=".Something3" />
-    </application>
+        </activity>    </application>
 
 </manifest>
