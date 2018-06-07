@@ -31,7 +31,6 @@ public class History extends AppCompatActivity {
     };
     ArrayList<String> arrayList;
     ArrayAdapter adapter;
-    ActivityManager.RunningAppProcessInfo[] list = null;
 
 
     @Override
