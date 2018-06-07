@@ -9,16 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
 
+
+        <activity android:name=".CreateAccount"/>
         <activity android:name=".MainActivity"/>
-=======
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".History" />
-        <activity android:name=".WhiteList" />
->>>>>>> CreateAccount
         <activity android:name=".CloseList" />
         <activity android:name=".SettingScreen" />
         <activity android:name=".Memory" />
@@ -27,22 +21,12 @@
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
         <activity android:name=".Something3" />
-<<<<<<< HEAD
         <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>    </application>
-=======
-        <activity android:name=".CreateAccount">            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
-    </application>
->>>>>>> CreateAccount
-
+</application>
 </manifest>

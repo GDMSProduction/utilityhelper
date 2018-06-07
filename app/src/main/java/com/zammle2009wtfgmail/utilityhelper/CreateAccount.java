@@ -12,15 +12,6 @@ import android.widget.Toast;
 
 public class CreateAccount extends AppCompatActivity {
 
-    TextView email = (TextView)  findViewById(R.id.EmaileditText);
-    TextView password = (TextView) findViewById(R.id.PasswordeditText);
-    TextView reenterPassword = (TextView) findViewById(R.id.ReenterPasswordeditText);
-
-    String emailAddress = email.getText().toString();
-    String userPassword = password.getText().toString();
-    String userReEnterPassword = reenterPassword.getText().toString();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,7 +29,7 @@ public class CreateAccount extends AppCompatActivity {
             }
         });
 
-        Button createAccount = (Button) findViewById(R.id.CreateAccountButton);
+        final Button createAccount = (Button) findViewById(R.id.CreateAccountButton);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
