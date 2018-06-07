@@ -4,7 +4,11 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.zammle2009wtfgmail.utilityhelper"
+<<<<<<< HEAD
         minSdkVersion 24
+=======
+        minSdkVersion 23
+>>>>>>> bacc48d1d0147da288307f6e5f2325199cc21849
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
