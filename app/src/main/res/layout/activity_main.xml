@@ -176,6 +176,14 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="41dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/ArrowLeft"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="481dp" />
+
 
 </android.support.constraint.ConstraintLayout>
 
