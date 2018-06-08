@@ -113,13 +113,10 @@
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:layout_width="378dp"
+        android:layout_width="302dp"
         android:layout_height="84dp"
-        android:layout_marginTop="484dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="481dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -133,7 +130,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/square"
-                app:srcCompat="@drawable/ahistory"/>
+                app:srcCompat="@drawable/ahistory" />
 
             <ImageButton
                 android:id="@+id/clean"
