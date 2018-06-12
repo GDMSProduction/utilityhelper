@@ -11,6 +11,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (MainActivity.this, Something2.class );
+                Intent history = new Intent (MainActivity.this, Something3.class );
                 startActivity(history);
             }
 
@@ -102,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
         Intent batteryStatus = getBaseContext().registerReceiver(null, ifilter);
 
         // Are we charging / charged?
-        float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+       final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+       final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
         int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
         int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
@@ -114,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
       //  int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
       //  boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
       //  boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
+
+        TextView Text = (TextView) findViewById(R.id.DisplayBatteryPower);
+
+
+        String mytext =Float.toString(batteryPct);
+        Text.setText(mytext + "%");
+
 
 
         if (isCharging == true)

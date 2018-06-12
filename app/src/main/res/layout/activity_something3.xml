@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/grey"
     tools:context=".Something3">
 
-    <ListView
-        android:id="@+id/HistoryList"
-        android:layout_width="384dp"
-        android:layout_height="569dp"
+    <TextView
+        android:id="@+id/TestingArea"
+        android:layout_width="380dp"
+        android:layout_height="564dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="4dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
