@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+<<<<<<< HEAD
         <uses-permission
             android:name="android.permission.PACKAGE_USAGE_STATS"
             tools:ignore="ProtectedPermissions" />
@@ -19,6 +20,9 @@
 
 
 
+=======
+        <activity android:name=".CreateAccount"/>
+>>>>>>> 50f0ac3e08799e46cf6495bc4b1d3ac9daadfa02
         <activity android:name=".MainActivity"/>
         <activity android:name=".CloseList" />
         <activity android:name=".SettingScreen" />
@@ -34,7 +38,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+<<<<<<< HEAD
         </activity>    </application>
 
 
+=======
+        </activity>
+</application>
+>>>>>>> 50f0ac3e08799e46cf6495bc4b1d3ac9daadfa02
 </manifest>
