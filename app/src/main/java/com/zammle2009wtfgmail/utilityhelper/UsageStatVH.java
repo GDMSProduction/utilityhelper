@@ -20,9 +20,15 @@ public class UsageStatVH extends RecyclerView.ViewHolder {
         lastTimeUsed = (TextView) itemView.findViewById(R.id.last_used);
     }
 
+
+
     public void bindTo(UsageStatsWrapper usageStatsWrapper) {
         appIcon.setImageDrawable(usageStatsWrapper.getAppIcon());
         appName.setText(usageStatsWrapper.getAppName());
+
+
+
+
         if (usageStatsWrapper.getUsageStats() == null){
             lastTimeUsed.setText("Last time used: never");
         }else if (usageStatsWrapper.getUsageStats().getLastTimeUsed() == 0L){
