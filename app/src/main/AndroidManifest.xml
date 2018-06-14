@@ -13,15 +13,6 @@
         android:theme="@style/AppTheme">
 
 
-        <uses-permission
-            android:name="android.permission.PACKAGE_USAGE_STATS"
-            tools:ignore="ProtectedPermissions"
-
-
-            />
-
-
-
         <activity android:name=".CreateAccount"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".CloseList" />
