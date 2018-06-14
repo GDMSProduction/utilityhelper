@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         TextView Text = (TextView) findViewById(R.id.DisplayBatteryPower);
 
 
-        String mytext =Float.toString(batteryPct);
+        String mytext = Float.toString(batteryPct);
         Text.setText(mytext + "%");
 
 
