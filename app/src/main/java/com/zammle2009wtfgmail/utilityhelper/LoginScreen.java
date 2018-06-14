@@ -13,11 +13,26 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        Button login = (Button) findViewById(R.id.LoginButton);
+       final Button login = (Button) findViewById(R.id.LoginButton);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
+
+                startActivity(changeActivity);
+            }
+        });
+
+
+
+
+
+
+        final Button createAccount = (Button) findViewById(R.id.createaccountButton);
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeActivity = new Intent(LoginScreen.this, CreateAccount.class);
 
                 startActivity(changeActivity);
             }
