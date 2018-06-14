@@ -58,14 +58,9 @@ public class History extends AppCompatActivity implements UsageContract.View {
         adapter = new UsageStatAdapter();
         recyclerView.setAdapter(adapter);
 
-        openSettings();
-
         presenter = new UsagePresenter(this, this);
     }
 
-    private void openSettings() {
-        startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-    }
 
     @Override
     protected void onResume() {
