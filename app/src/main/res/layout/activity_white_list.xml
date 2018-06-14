@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WhiteList">
+    android:background="@drawable/grey"
+    tools:context=".History">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="1000dp"
-        android:layout_height="1000dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/grey" />
+        app:srcCompat="@drawable/awhitelist" />
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="70dp"
-        android:layout_height="65dp"
-        app:srcCompat="@drawable/awhitelist"
-        tools:layout_editor_absoluteX="313dp"
-        tools:layout_editor_absoluteY="2dp" />
 </android.support.constraint.ConstraintLayout>
