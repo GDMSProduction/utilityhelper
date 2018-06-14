@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.ApplicationErrorReport;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ public class UsageStatVH extends RecyclerView.ViewHolder {
         }else if (usageStatsWrapper.getUsageStats().getLastTimeUsed() == 0L){
             lastTimeUsed.setText("Last time used: never");
         } else{
-            lastTimeUsed.setText("Last time used: {DateUtils.format(usageStatsWrapper)}");
+            lastTimeUsed.setText("Forground: " + DateUtils.Forground(usageStatsWrapper) + ", Last time used: " + DateUtils.LastTimeUsed(usageStatsWrapper));
         }
     }
 }
