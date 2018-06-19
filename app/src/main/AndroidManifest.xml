@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zammle2009wtfgmail.utilityhelper">
 
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,15 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".CreateAccount"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".CreateAccount" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".CloseList" />
         <activity android:name=".SettingScreen" />
         <activity android:name=".Memory" />
-        <activity android:name=".History"/>
-        <activity android:name=".WhiteList"/>
+        <activity android:name=".History" />
+        <activity android:name=".WhiteList" />
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
         <activity android:name=".Something3" />
@@ -29,13 +35,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>    </application>
+        </activity>
+        <activity android:name=".DetailAppScreen"></activity>
+    </application>
 
-
-    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>

@@ -13,8 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,7 +36,9 @@ public class History extends AppCompatActivity implements UsageContract.View {
     private TextView permissionMessage;
 
     private UsageContract.Presenter presenter;
+
     private UsageStatAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +78,7 @@ public class History extends AppCompatActivity implements UsageContract.View {
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+
     }
 
     @Override
