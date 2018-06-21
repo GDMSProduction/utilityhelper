@@ -19,20 +19,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class CloseList extends AppCompatActivity implements UsageContract.View{
+public class CloseList extends AppCompatActivity {
 
 
-    public Button listsave, listload;
+    public Button Listsave, Listload;
 
 
-    private UsageContract.Presenter presenter;
-    private UsageStatAdapter adapter;
+
 
 
 
@@ -46,12 +46,67 @@ public class CloseList extends AppCompatActivity implements UsageContract.View{
         setContentView(R.layout.activity_close_list);
 
 
-        listsave = (Button) findViewById(R.id.buttonsave);
-        listload = (Button) findViewById(R.id.buttonload);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UsageStatAdapter();
-        recyclerView.setAdapter(adapter);
+        Listsave = (Button) findViewById(R.id.listsave);
+        Listload = (Button) findViewById(R.id.listload);
+
+
+
+        String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+        String hold = readFile(WhiteList.filename2);
+        Boolean copy = false;
+
+        ArrayList<String> list = new ArrayList<>();
+
+
+
+        String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+        for (int i = 0; i < TextWithTime.length; ++ i)
+        {
+            list.add(TextWithTime[i]);
+        }
+
+
+
+        for (int i = 0; i < newText.length; ++i)
+        {
+
+            for (int z = 0; z < list.size(); z += 3)
+            {
+                if (newText[i] == list.get(z))
+                {
+
+                    copy = true;
+
+                    MainActivity.ToReturn += list.indexOf(z);
+                    MainActivity.ToReturn += list.indexOf(z + 1);
+                    MainActivity.ToReturn += list.indexOf(z + 2);
+                }
+
+            }
+
+
+
+            if (copy == false)
+            {
+                list.add(newText[i] + (System.getProperty("line.separator")));
+                list.add("15" + (System.getProperty("line.separator")));
+                list.add("0" + (System.getProperty("line.separator")));
+
+                MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+            }
+
+            copy = false;
+
+
+
+        }
+
+        saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
 
 
@@ -63,14 +118,14 @@ public class CloseList extends AppCompatActivity implements UsageContract.View{
 
 
 
-        listload.setOnClickListener(new View.OnClickListener() {
+        Listload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        listsave.setOnClickListener(new View.OnClickListener() {
+        Listsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -81,38 +136,61 @@ public class CloseList extends AppCompatActivity implements UsageContract.View{
     }
 
 
-        @Override
-        protected void onResume()
+
+
+    public void saveFile(String file, String text)
+    {
+        try
         {
-        super.onResume();
-
-        presenter.retrieveUsageStats();
-       }
-
-        @Override
-        public void onUsageStatsRetrieved(List<UsageStatsWrapper> list)
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            fos.write(text.getBytes());
+            fos.close();
+          //  Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
+        } catch (Exception e)
         {
-
-           for (int i = 0; i < list.size(); ++i)
-           {
-
-           }
-
-        adapter.setList(list);
-
-
+            e.printStackTrace();
+          //  Toast.makeText(CloseList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
-        @Override
-        public void onUserHasNoPermission()
-        {
 
+
+    }
+
+
+    public String readFile (String file)
+    {
+        String textread = "";
+
+        try
+        {
+            FileInputStream fis = openFileInput(file);
+            int size = fis.available();
+            byte[] buffer = new byte[size];
+            fis.read(buffer);
+            fis.close();
+            textread = new String(buffer);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+          //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
         }
 
-        private void showProgressBar(boolean show)
-        {
+        return textread;
+    }
 
-        }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

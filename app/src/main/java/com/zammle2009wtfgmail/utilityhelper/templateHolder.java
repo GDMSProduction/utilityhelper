@@ -1,5 +1,7 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.renderscript.Int2;
+
 public class templateHolder
 
 
@@ -8,6 +10,7 @@ public class templateHolder
         String  name = "";
         int Int = 60;
         boolean Bools = false;
+        int Int2 = 0;
 
 
 
@@ -20,6 +23,10 @@ public class templateHolder
         {
             return Int;
 
+        }
+        public int getInt2()
+        {
+            return getInt2();
         }
 
         public boolean getbool()
@@ -42,6 +49,9 @@ public class templateHolder
             Bools = b;
         }
 
-
+        public void setInt2 (int i)
+{
+    Int2 = i;
+}
 
 }

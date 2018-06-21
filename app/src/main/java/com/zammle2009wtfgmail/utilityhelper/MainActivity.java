@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
@@ -16,7 +17,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.GONE;
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     private UsageContract.Presenter presenter;
 
-
+    static String ToReturn = "";
 
 
 
@@ -232,6 +237,12 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         }
         catch (Exception e)
         {}
+
+
+
+
+
+
     }
 
     @Override
@@ -251,6 +262,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
     }
+
+
 
 
 }
