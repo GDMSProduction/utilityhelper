@@ -44,6 +44,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        // back button
         final Button back = (Button) findViewById(R.id.BackButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +56,7 @@ public class History extends AppCompatActivity implements UsageContract.View {
             }
         });
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -37,9 +37,10 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/icon"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/icon"
         android:lines="1"
         android:maxLines="1"
         android:paddingTop="8dp"
@@ -48,21 +49,42 @@
 
     <TextView
         android:id="@+id/last_used"
-        android:layout_width="match_parent"
+        android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_toEndOf="@+id/icon"
-        android:paddingBottom="8dp"
+    android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"        android:paddingBottom="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Last used: yesterday at 18.54" />
 
-    <ToggleButton
-        android:id="@+id/expandToggleButton"
+   <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="14dp"
-        android:text="Expand" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:text="THIS IS MY TEXT" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="223dp"
+        android:text="Generic App info" />
+
+    <Switch
+        android:id="@+id/offlistswitch"
+        android:layout_width="103dp"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>

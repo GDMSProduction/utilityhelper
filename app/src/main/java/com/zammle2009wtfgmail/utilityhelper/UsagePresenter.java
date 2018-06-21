@@ -110,6 +110,7 @@ public class UsagePresenter implements UsageContract.Presenter {
 
     private UsageStatsWrapper fromUsageStat(UsageStats usageStats){
         try {
+
             ApplicationInfo ai = packageManager.getApplicationInfo(usageStats.getPackageName(), 0);
             return new UsageStatsWrapper(usageStats, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length());
 

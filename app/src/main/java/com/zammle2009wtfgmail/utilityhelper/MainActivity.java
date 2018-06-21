@@ -3,27 +3,72 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+
+public class MainActivity extends AppCompatActivity  implements UsageContract.View
+{
+
+
+
+
+    private UsageContract.Presenter presenter;
+
+
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
 
-    {
-
-
-        super.onCreate(savedInstanceState);
+    {   super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
+
+
+
+
+      //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+
+        try {
+            presenter = new UsagePresenter(this, this);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
+
+
+
+
+
 
 
         final ImageButton pressedhistory = (ImageButton) findViewById(R.id.history);
@@ -178,6 +223,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        try {
+            super.onResume();
+
+            presenter.retrieveUsageStats();
+        }
+        catch (Exception e)
+        {}
+    }
+
+    @Override
+    public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
+
+    }
+
+    @Override
+    public void onUserHasNoPermission() {
+
+
+    }
+
+    private void showProgressBar(boolean show)
+    {
+
+
+
+    }
 
 
 }
