@@ -62,6 +62,7 @@ public class History extends AppCompatActivity implements UsageContract.View {
         adapter = new UsageStatAdapter();
         recyclerView.setAdapter(adapter);
 
+
         presenter = new UsagePresenter(this, this);
     }
 
@@ -70,7 +71,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
     protected void onResume() {
         super.onResume();
         showProgressBar(true);
-        presenter.retrieveUsageStats();
+            presenter.retrieveUsageStats();
+
     }
 
     @Override
@@ -78,6 +80,7 @@ public class History extends AppCompatActivity implements UsageContract.View {
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+
 
     }
 
