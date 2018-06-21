@@ -81,14 +81,12 @@ public class UsagePresenter implements UsageContract.Presenter {
             for (UsageStats stat : usageStatses) {
                 if (name.equals(stat.getPackageName())) {
                     added = true;
-                    try{
+   try{
                         list.add(fromUsageStat(stat));
 
                     }catch (Exception e){
 
-                    }
-
-                }
+                    }                }
             }
             if (!added) {
                 list.add(fromUsageStat(name));
