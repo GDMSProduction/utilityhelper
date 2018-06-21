@@ -188,6 +188,12 @@ try {
 }
 catch (Exception e)
 {}
+
+
+
+
+
+
         textView.setText(settext);
 
 
