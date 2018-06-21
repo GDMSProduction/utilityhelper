@@ -7,8 +7,9 @@
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:paddingEnd="16dp"
         android:paddingStart="8dp"
         tools:src="@mipmap/ic_launcher" />
@@ -34,4 +35,34 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Last used: yesterday at 18.54" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:text="THIS IS MY TEXT" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="223dp"
+        android:text="Generic App info" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="76dp"
+        android:layout_height="67dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/background_light"
+        android:text="BUTTON"
+        android:visibility="visible" />
+
+
 </RelativeLayout>
+

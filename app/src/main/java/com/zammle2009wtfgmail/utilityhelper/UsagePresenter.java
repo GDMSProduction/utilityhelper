@@ -102,6 +102,7 @@ public class UsagePresenter implements UsageContract.Presenter {
 
     private UsageStatsWrapper fromUsageStat(UsageStats usageStats) throws IllegalArgumentException {
         try {
+
             ApplicationInfo ai = packageManager.getApplicationInfo(usageStats.getPackageName(), 0);
             return new UsageStatsWrapper(usageStats, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString());
 

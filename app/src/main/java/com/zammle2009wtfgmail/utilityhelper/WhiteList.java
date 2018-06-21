@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.content.Context;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,90 +18,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class WhiteList extends AppCompatActivity {
 
     public EditText editText;
     public TextView textView;
     public Button save, load;
 
-    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "UtilityHelperStorage";
+    String filename = "utilityhelperstorage.txt";
+
+    static String text = "";
 
 
-    //////////////////////////// SAVE //////////////////////////////////////////////
-    public static void Save(File file, String[] data) {
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            try {
-                for (int i = 0; i < data.length; i++) {
-                    fos.write(data[i].getBytes());
-                    if (i < data.length - 1) {
-                        fos.write("\n".getBytes());
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //////////////////////// LOAD /////////////////////////////////////////////////////////
-    public static String[] Load(File file) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        String test;
-        int anzahl = 0;
-        try {
-            while ((test = br.readLine()) != null) {
-                anzahl++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            fis.getChannel().position(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String[] array = new String[anzahl];
-
-        String line;
-        int i = 0;
-        try {
-            while ((line = br.readLine()) != null) {
-                array[i] = line;
-                i++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return array;
-    }
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
 
@@ -109,37 +45,69 @@ public class WhiteList extends AppCompatActivity {
         save = (Button) findViewById(R.id.buttonsave);
         load = (Button) findViewById(R.id.buttonload);
 
-        File dir = new File(path);
-        dir.mkdir();
+
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText(readFile(filename));
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                saveFile(filename, text );
+
+             //   saveFile(filename, editText.getText().toString() );
+            }
+        });
 
 
     }
 
 
-    public void buttonSave(View view) {
-        File file = new File(path + "savedFile.txt");
-        String[] saveText = String.valueOf(editText.getText()).split(System.getProperty("line.seperator"));
 
-        editText.setText("");
-        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
-
-        Save(file, saveText);
-    }
-
-    public void buttonLoad(View view) {
-        File file = new File(path + "savedFile.txt");
-        String[] loadText = Load(file);
-        String finalString = "";
-
-        for (int i =0; i < loadText.length; ++i)
+    public void saveFile(String file, String text)
+    {
+        try
         {
-            finalString += loadText[i] + System.getProperty("line.separator");
-
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            fos.write(text.getBytes());
+            fos.close();
+            Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
-            textView.setText(finalString);
+
+
+
     }
 
 
+    public String readFile (String file)
+    {
+        String text = "";
+
+        try
+        {
+            FileInputStream fis = openFileInput(file);
+            int size = fis.available();
+            byte[] buffer = new byte[size];
+            fis.read(buffer);
+            fis.close();
+            text = new String(buffer);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+        }
+
+        return text;
+    }
 
 
 

@@ -3,6 +3,14 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.app.usage.UsageStats;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.Button;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import static com.zammle2009wtfgmail.utilityhelper.WhiteList.text;
 
 public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
@@ -10,10 +18,19 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
     private final Drawable appIcon;
     private final String appName;
 
+
+
+
+    //static String text = "";
+
     public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName) {
         this.usageStats = usageStats;
         this.appIcon = appIcon;
         this.appName = appName;
+
+
+
+        text += this.appName + System.getProperty("line.separator");
     }
 
     public UsageStats getUsageStats() {
@@ -41,4 +58,7 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
                     usageStats.getLastTimeUsed());
         }
     }
+
+
+
 }

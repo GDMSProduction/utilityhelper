@@ -36,6 +36,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
     private UsageContract.Presenter presenter;
     private UsageStatAdapter adapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+
+
     }
 
     @Override
