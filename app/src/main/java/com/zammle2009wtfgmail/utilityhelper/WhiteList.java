@@ -53,8 +53,10 @@ public class WhiteList extends AppCompatActivity {
         try
         {
             FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
+            FileOutputStream fos2 = openFileOutput(filename2, Context.MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
+            fos2.close();
             //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
@@ -125,49 +127,68 @@ public class WhiteList extends AppCompatActivity {
                 hold.setInt(tryint);
                 hold.setBools(trybool);
 
-                AppInfo.add(hold);
 
+
+                try {
+                    AppInfo.add(hold);
+                }
+                catch (Exception e)
+                {
+
+                }
 
 
             }
         }
+
+///////////////////// compares both files /////////////////////////////////////////////////////
 
         String[] Split2 = text.split(System.getProperty("line.separator"));
 
         Boolean found = false;
+try {
+    for (int x = 0; x < Split2.length; ++x) {
 
-        for (int x = 0; x < Split2.length; ++x)
-        {
-
-            for (int y = 0; y < AppInfo.size(); ++y)
-            {
-                if (Split2[x] == AppInfo.get(y).getname() )
-                {
-                    found = true;
-                    break;
-                }
+        for (int y = 0; y < AppInfo.size(); ++y) {
+            if (Split2[x] == AppInfo.get(y).getname()) {
+                found = true;
+                break;
             }
+        }
 
-            if (found == false)
-            {
-                templateHolder Adding = new templateHolder();
-                Adding.setName(Split2[x]);
-                Adding.setInt(15);
-                Boolean b = false;
-                Adding.setBools(b);
+        if (found == false || AppInfo.size() == 0) {
+            templateHolder Adding = new templateHolder();
+            Adding.setName(Split2[x]);
+            Adding.setInt(15);
+            Boolean b = false;
+            Adding.setBools(b);
 
-                AppInfo.add(Adding);
+            AppInfo.add(Adding);
 
-
-            }
-
-            found = false;
 
         }
 
+        found = false;
 
+    }
+}
+catch (Exception e)
+{
 
-        textView.setText(textread);
+}
+        String settext="";
+
+try {
+    for (int i = 0; i < AppInfo.size(); ++i) {
+        settext += AppInfo.get(i).getname();
+        settext += AppInfo.get(i).getInt();
+        settext += AppInfo.get(i).getbool();
+
+    }
+}
+catch (Exception e)
+{}
+        textView.setText(settext);
 
 
 
