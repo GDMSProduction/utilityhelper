@@ -1,38 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="@drawable/grey">
+    android:layout_height="match_parent"
+    android:background="@drawable/grey"
+    tools:context=".History">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_alignParentStart="true"
-        android:paddingEnd="16dp"
-        android:paddingStart="8dp"
-        tools:src="@mipmap/ic_launcher" />
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/title"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/icon"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingTop="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Google" />
+        android:layout_height="797dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BackButton"
+        app:layout_constraintVertical_bias="0.043">
 
-    <TextView
-        android:id="@+id/last_used"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_toEndOf="@id/icon"
-        android:paddingBottom="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        tools:text="Last used: yesterday at 18.54" />
+    </android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/listload"
+        android:layout_width="81dp"
+        android:layout_height="75dp"
+        android:background="@drawable/awhitelist"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="2dp" />
+
+    <Button
+        android:id="@+id/listsave"
+        android:layout_width="80dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="488dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>
