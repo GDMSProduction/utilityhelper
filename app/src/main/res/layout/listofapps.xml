@@ -49,34 +49,13 @@
 
     <TextView
         android:id="@+id/last_used"
-        android:layout_width="286dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"        android:paddingBottom="8dp"
+        android:layout_below="@+id/title"
+        android:layout_toEndOf="@+id/icon"
+        android:paddingBottom="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Last used: yesterday at 18.54" />
-
-   <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
-        android:text="THIS IS MY TEXT" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="223dp"
-        android:text="Generic App info" />
 
     <Switch
         android:id="@+id/offlistswitch"
@@ -85,6 +64,14 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:visibility="invisible" />
+
+    <ToggleButton
+        android:id="@+id/expandToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/offlistswitch"
+        android:text="ToggleButton" />
 
 
 </RelativeLayout>

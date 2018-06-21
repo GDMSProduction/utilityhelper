@@ -53,16 +53,6 @@ public class CloseList extends AppCompatActivity implements UsageContract.View{
         adapter = new UsageStatAdapter();
         recyclerView.setAdapter(adapter);
 
-
-
-
-
-
-
-
-
-
-
         listload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

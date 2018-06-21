@@ -24,7 +24,8 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
     //static String text = "";
 
-    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName) {        this.usageStats = usageStats;
+    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, float percent) {
+        this.usageStats = usageStats;
         this.appIcon = appIcon;
         this.appName = appName;
         this.percent = percent;

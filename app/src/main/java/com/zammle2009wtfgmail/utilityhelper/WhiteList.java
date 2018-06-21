@@ -65,7 +65,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
         String textread = "";
         String[] Split;
 
@@ -164,10 +164,10 @@ public class WhiteList extends AppCompatActivity {
             found = false;
 
         }
+*/
 
 
-
-        textView.setText(textread);
+        textView.setText(text);
 
 
 

@@ -56,7 +56,8 @@ public class History extends AppCompatActivity implements UsageContract.View {
             }
         });
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
