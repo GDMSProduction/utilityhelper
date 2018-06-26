@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ public class CloseList extends AppCompatActivity {
     public Button Listsave, Listload;
 
 
-
+    private UsageStatAdapter adapter;
 
 
 
@@ -46,8 +48,15 @@ public class CloseList extends AppCompatActivity {
         setContentView(R.layout.activity_close_list);
 
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setAdapter(adapter);
         Listsave = (Button) findViewById(R.id.listsave);
         Listload = (Button) findViewById(R.id.listload);
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new templateHolder();
+        recyclerView.setAdapter(adapter);
 
 
 
@@ -133,6 +142,19 @@ public class CloseList extends AppCompatActivity {
         });
 
 
+
+
+         //   List <templateHolder> items ;
+
+
+
+
+
+            recyclerView.setAdapter(adapter);
+
+
+
+
     }
 
 
@@ -178,6 +200,7 @@ public class CloseList extends AppCompatActivity {
 
         return textread;
     }
+
 
 
 

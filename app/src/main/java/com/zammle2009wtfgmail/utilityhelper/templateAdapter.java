@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,23 +9,24 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
+public class templateAdapter extends RecyclerView.Adapter<templateVH> {
 
-    private List<UsageStatsWrapper> list;
+    private List<templateHolder> list;
 
-    public UsageStatAdapter(){
-
+    public templateAdapter(){
         list = new ArrayList<>();
     }
 
     @Override
-    public UsageStatVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public templateVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listofapps, parent, false);
-        return new UsageStatVH(view);
+        return new templateVH(view);
     }
 
+
+
     @Override
-    public void onBindViewHolder(UsageStatVH holder, int position) {
+    public void onBindViewHolder(templateVH holder, int position) {
         holder.bindTo(list.get(position));
     }
 
@@ -33,7 +35,7 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
         return list.size();
     }
 
-    public void setList(List<UsageStatsWrapper> list) {
+    public void setList(List<templateHolder> list) {
         this.list = list;
         notifyDataSetChanged();
     }
