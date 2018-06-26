@@ -15,7 +15,8 @@ public final class templateHolder implements Comparable<templateHolder>
 
     private final Drawable appIcon;
     private final String appName;
-
+    private static int count = 0;
+    String[] newText = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
 
@@ -44,11 +45,20 @@ public final class templateHolder implements Comparable<templateHolder>
         return appIcon;
     }
 
-    public String getAppName() {
-        return appName;
+    public String getAppName()
+    {
+        String temp = newText[count];
+        count += 3;
+        return temp;
     }
 
-    public Switch getSwitch() {return aSwitch;}
+    public Switch getSwitch()
+    {
+
+
+        return aSwitch;
+    }
+
 
     public NumberPicker getNumberPicker() {
         return numberPicker;

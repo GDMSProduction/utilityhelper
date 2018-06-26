@@ -28,14 +28,14 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class CloseList extends AppCompatActivity {
+public class CloseList extends AppCompatActivity implements TemplateContract.View {
 
 
     public Button Listsave, Listload;
 
 
-    private UsageStatAdapter adapter;
-
+    private templateAdapter adapter;
+    private static int CreateOnce = 0;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ public class CloseList extends AppCompatActivity {
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new templateHolder();
+        adapter = new templateAdapter();
         recyclerView.setAdapter(adapter);
 
 
@@ -66,60 +66,58 @@ public class CloseList extends AppCompatActivity {
 
         ArrayList<String> list = new ArrayList<>();
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-        for (int i = 0; i < TextWithTime.length; ++ i)
+        if (CreateOnce == 0)
         {
-            list.add(TextWithTime[i]);
-        }
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
+            }
 
 
+            for (int i = 0; i < newText.length; ++i) {
 
-        for (int i = 0; i < newText.length; ++i)
-        {
+                for (int z = 0; z < list.size(); z += 3) {
+                    if (newText[i] == list.get(z)) {
 
-            for (int z = 0; z < list.size(); z += 3)
-            {
-                if (newText[i] == list.get(z))
-                {
+                        copy = true;
 
-                    copy = true;
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
+                    }
 
-                    MainActivity.ToReturn += list.indexOf(z);
-                    MainActivity.ToReturn += list.indexOf(z + 1);
-                    MainActivity.ToReturn += list.indexOf(z + 2);
                 }
 
+
+                if (copy == false) {
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
+
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+                }
+
+                copy = false;
+
+
             }
 
-
-
-            if (copy == false)
-            {
-                list.add(newText[i] + (System.getProperty("line.separator")));
-                list.add("15" + (System.getProperty("line.separator")));
-                list.add("0" + (System.getProperty("line.separator")));
-
-                MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-
-
-            }
-
-            copy = false;
-
-
-
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CreateOnce += 1;
         }
 
-        saveFile(WhiteList.filename2, MainActivity.ToReturn);
-
-
-
-
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -202,18 +200,11 @@ public class CloseList extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public void onRetrieved(List<templateHolder> list)
+    {
+        adapter.setList(list);
+    }
 }
 
 
