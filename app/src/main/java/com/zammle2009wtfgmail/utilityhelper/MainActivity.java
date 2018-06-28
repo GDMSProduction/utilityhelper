@@ -132,6 +132,21 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             }
 
         });
+
+
+        final ImageButton presseddetails = (ImageButton) findViewById(R.id.detailss);
+        presseddetails.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent history = new Intent (MainActivity.this, information.class );
+                startActivity(history);
+            }
+
+        });
+
+
         final ImageButton pressedsettings = (ImageButton) findViewById(R.id.settings);
         pressedsettings.setOnClickListener(new View.OnClickListener()
         {
@@ -143,6 +158,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             }
 
         });
+
 
 
 

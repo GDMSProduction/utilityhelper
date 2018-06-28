@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">utilityhelper</string>
+    <string name="title_activity_information">information</string>
 </resources>
