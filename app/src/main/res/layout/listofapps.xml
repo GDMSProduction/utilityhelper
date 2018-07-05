@@ -68,10 +68,22 @@
     <ToggleButton
         android:id="@+id/expandToggleButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/offlistswitch"
-        android:text="ToggleButton" />
+        android:background="@drawable/infobutton"
+        android:text="ToggleButton"
+        android:textOff=" "
+        android:textOn=" " />
+
+    <Button
+        android:id="@+id/AppDetailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="222dp"
+        android:text="Button" />
 
 
 </RelativeLayout>

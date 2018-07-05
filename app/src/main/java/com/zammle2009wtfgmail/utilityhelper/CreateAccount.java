@@ -18,22 +18,11 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-
-        Button back = (Button)  findViewById(R.id.BackButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent backButton = new Intent(CreateAccount.this, LoginScreen.class);
-
-                startActivity(backButton);
-            }
-        });
-
         final Button createAccount = (Button) findViewById(R.id.CreateAccountButton);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent accountButton = new Intent(CreateAccount.this, LoginScreen.class);
+                Intent accountButton = new Intent(CreateAccount.this, MainActivity.class);
 
                 startActivity(accountButton);
             }

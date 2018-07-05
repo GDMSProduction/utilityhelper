@@ -14,16 +14,6 @@ public class SettingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_screen);
 
-        Button backButton = (Button) findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent back = new Intent(SettingScreen.this, MainActivity.class);
-
-                startActivity(back);
-            }
-        });
-
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +29,7 @@ public class SettingScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+
             }
         });
 

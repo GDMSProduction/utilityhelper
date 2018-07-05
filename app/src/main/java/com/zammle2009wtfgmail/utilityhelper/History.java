@@ -40,21 +40,13 @@ public class History extends AppCompatActivity implements UsageContract.View {
     private UsageStatAdapter adapter;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        // back button
-        final Button back = (Button) findViewById(R.id.BackButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent backButton = new Intent(History.this, MainActivity.class);
 
-                startActivity(backButton);
-            }
-        });
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
