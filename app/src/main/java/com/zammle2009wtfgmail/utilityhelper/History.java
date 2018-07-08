@@ -5,6 +5,8 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

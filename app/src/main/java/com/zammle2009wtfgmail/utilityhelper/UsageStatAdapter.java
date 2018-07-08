@@ -23,12 +23,14 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH>{
     @Override
     public UsageStatVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listofapps, parent, false);
+
         return new UsageStatVH(view);
     }
 
     @Override
     public void onBindViewHolder(UsageStatVH holder, int position) {
         holder.bindTo(list.get(position));
+        holder.setIsRecyclable(false);
     }
 
     @Override
