@@ -190,53 +190,45 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-        if (isCharging == true)
-        {
-            ImageView view = (ImageView) findViewById(R.id.charge);
 
-            view.setVisibility(ImageView.VISIBLE);
-        }
-        else
-        {
-            ImageView view = (ImageView) findViewById(R.id.charge);
-
-            view.setVisibility(ImageView.INVISIBLE);
-        }
+        
 
 
-      if (batteryPct >= 81.00f)
-      {
-          ImageView view = (ImageView) findViewById(R.id.battery5);
+            if (isCharging == true) {
 
-          view.setVisibility(ImageView.VISIBLE);
+                    ImageView view = (ImageView) findViewById(R.id.charge);
 
-      }
-      else if (batteryPct >= 61.0f)
-      {
-          ImageView view = (ImageView) findViewById(R.id.battery4);
+                    view.setVisibility(ImageView.VISIBLE);
 
-          view.setVisibility(ImageView.VISIBLE);
-      }
-      else if (batteryPct >= 41.0f)
-      {
-          ImageView view = (ImageView) findViewById(R.id.battery3);
+            } else {
+                ImageView view = (ImageView) findViewById(R.id.charge);
 
-          view.setVisibility(ImageView.VISIBLE);
-      }
-      else if (batteryPct >= 21.00f)
-      {
-          ImageView view = (ImageView) findViewById(R.id.battery2);
-
-          view.setVisibility(ImageView.VISIBLE);
-      }
-      else
-      {
-          ImageView view = (ImageView) findViewById(R.id.battery1);
-
-          view.setVisibility(ImageView.VISIBLE);
-      }
+                view.setVisibility(ImageView.INVISIBLE);
+            }
 
 
+            if (batteryPct >= 81.00f) {
+                ImageView view = (ImageView) findViewById(R.id.battery5);
+
+                view.setVisibility(ImageView.VISIBLE);
+
+            } else if (batteryPct >= 61.0f) {
+                ImageView view = (ImageView) findViewById(R.id.battery4);
+
+                view.setVisibility(ImageView.VISIBLE);
+            } else if (batteryPct >= 41.0f) {
+                ImageView view = (ImageView) findViewById(R.id.battery3);
+
+                view.setVisibility(ImageView.VISIBLE);
+            } else if (batteryPct >= 21.00f) {
+                ImageView view = (ImageView) findViewById(R.id.battery2);
+
+                view.setVisibility(ImageView.VISIBLE);
+            } else {
+                ImageView view = (ImageView) findViewById(R.id.battery1);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }
 
 
 
