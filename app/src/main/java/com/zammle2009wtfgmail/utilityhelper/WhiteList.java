@@ -67,9 +67,67 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ArrayList<String> list = new ArrayList<>();
+
+
+        if (CloseList.CreateOnce == 0)
+        {
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
+
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
+            }
+
+
+            for (int i = 0; i < newText.length; ++i) {
+
+                for (int z = 0; z < list.size(); z += 3) {
+                    if (newText[i] == list.get(z)) {
+
+                        copy = true;
+
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
+                    }
+
+                }
+
+
+                if (copy == false) {
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
+
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+                }
+
+                copy = false;
+
+
+            }
+
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CloseList.CreateOnce += 1;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
         textView.setText(MainActivity.ToReturn);
