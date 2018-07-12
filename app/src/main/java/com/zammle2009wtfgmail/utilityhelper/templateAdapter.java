@@ -52,12 +52,16 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
     {
-
+        templateHolder currentItem = mTemplateList.get(position);
+        holder.mImageView.setImageResource(currentItem.getAppIcon());
+        holder.mTextView1.setText(currentItem.getAppName());
+        holder.mSwitch.setChecked(currentItem.getSwitch());
+        holder.mNumber.setValue(currentItem.getNumberPicker());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+       return mTemplateList.size();
     }
 
 }

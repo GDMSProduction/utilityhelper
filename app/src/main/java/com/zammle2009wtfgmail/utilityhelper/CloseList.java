@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -125,8 +126,33 @@ public class CloseList extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+        for (int i = 0; i < TextWithInfo.length; i = i + 3)
+        {
+            String appName = TextWithInfo[i];
+            int Time = Integer.valueOf(TextWithInfo[i+1]);
+            boolean bool = false;
+
+            if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+            {
+                bool = true;
+            }
+            else
+            {
+                bool = false;
+            }
+
+
+
+
+
+
+            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time));
+        }
 
 
 
@@ -136,7 +162,15 @@ public class CloseList extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        mRecycle = findViewById(R.id.myrecycle);
+        mRecycle.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new templateAdapter(Holder);
 
+        mRecycle.setLayoutManager(mLayout);
+        mRecycle.setAdapter(mAdapter);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 
 
@@ -155,9 +189,6 @@ public class CloseList extends AppCompatActivity {
         });
 
 
-
-
-         //   List <templateHolder> items ;
 
 
 

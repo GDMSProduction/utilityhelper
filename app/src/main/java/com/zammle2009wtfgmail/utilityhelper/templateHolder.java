@@ -13,16 +13,16 @@ import android.widget.TextView;
 public  class templateHolder
 {
 
-    private final Drawable appIcon;
+    private final int appIcon;
     private final String appName;
 
 
 
 
-    private NumberPicker numberPicker;
-    private Switch aSwitch;
+    private int numberPicker;
+    private boolean aSwitch;
 
-    public templateHolder(Drawable appIcon, String appName, Switch aswitch, NumberPicker numb)
+    public templateHolder(int appIcon, String appName, boolean aswitch, int numb)
     {
 
         this.appIcon = appIcon;
@@ -40,7 +40,7 @@ public  class templateHolder
     }
 
 
-    public Drawable getAppIcon()
+    public int getAppIcon()
     {
 
         return appIcon;
@@ -52,7 +52,7 @@ public  class templateHolder
         return appName;
     }
 
-    public Switch getSwitch()
+    public boolean getSwitch()
     {
 
 
@@ -60,7 +60,7 @@ public  class templateHolder
     }
 
 
-    public NumberPicker getNumberPicker()
+    public int getNumberPicker()
     {
         return numberPicker;
     }

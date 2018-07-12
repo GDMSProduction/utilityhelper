@@ -71,62 +71,6 @@ public class WhiteList extends AppCompatActivity {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   /*   String[] newText = text.split(System.getProperty("line.separator"));
-        String hold = readFile(filename2);
-        Boolean copy = false;
-
-        ArrayList<String> list = new ArrayList<>();
-
-        String ToReturn = "";
-
-        String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-        for (int i = 0; i < TextWithTime.length; ++ i)
-        {
-            list.add(TextWithTime[i]);
-        }
-
-
-
-        for (int i = 0; i < newText.length; ++i)
-        {
-
-                for (int z = 0; z < list.size(); z += 3)
-                {
-                    if (newText[i] == list.get(z))
-                    {
-
-                        copy = true;
-
-                        ToReturn += list.indexOf(z);
-                        ToReturn += list.indexOf(z + 1);
-                        ToReturn += list.indexOf(z + 2);
-                    }
-
-                }
-
-
-
-            if (copy == false)
-            {
-                list.add(newText[i] + (System.getProperty("line.separator")));
-                list.add("15" + (System.getProperty("line.separator")));
-                list.add("0" + (System.getProperty("line.separator")));
-
-                ToReturn += newText[i] + (System.getProperty("line.separator"));
-                ToReturn += "15" + (System.getProperty("line.separator"));
-                ToReturn += "0" + (System.getProperty("line.separator"));
-
-
-            }
-
-            copy = false;
-
-
-
-        }
-
-        saveFile(filename2, ToReturn);*/
 
         textView.setText(MainActivity.ToReturn);
 
