@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BackButton"
+        app:layout_constraintTop_toBottomOf="@+id/backButton"
         app:layout_constraintVertical_bias="0.317"
         app:srcCompat="@drawable/grey" />
 
@@ -140,7 +140,7 @@
         app:layout_constraintVertical_bias="0.684" />
 
     <Button
-        android:id="@+id/BackButton"
+        android:id="@+id/backButton"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
