@@ -235,6 +235,26 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
 
     @Override
+    public boolean onQueryTextChange(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public void onEditStarted() {
+
+    }
+
+    @Override
+    public void onEditFinished() {
+
+    }
+
+    @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
 
     }

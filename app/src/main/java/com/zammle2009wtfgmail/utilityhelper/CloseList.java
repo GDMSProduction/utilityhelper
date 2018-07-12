@@ -79,7 +79,27 @@ public class CloseList extends AppCompatActivity implements UsageContract.View{
         presenter.retrieveUsageStats();
        }
 
-        @Override
+    @Override
+    public boolean onQueryTextChange(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public void onEditStarted() {
+
+    }
+
+    @Override
+    public void onEditFinished() {
+
+    }
+
+    @Override
         public void onUsageStatsRetrieved(List<UsageStatsWrapper> list)
         {
 

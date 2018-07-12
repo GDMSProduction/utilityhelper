@@ -18,6 +18,7 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH>{
     public UsageStatAdapter(){
 
         list = new ArrayList<>();
+
     }
 
     @Override

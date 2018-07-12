@@ -25,7 +25,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="settings.APPLICATION_DETAILS_SETTINGS" />
+                <action android:name="android.intent.action.SHOW_APP_INFO" />
                 <data android:scheme="package" />
             </intent-filter>
         </activity>

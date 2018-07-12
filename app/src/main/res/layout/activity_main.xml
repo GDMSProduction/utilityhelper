@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery5"/>
+        app:srcCompat="@drawable/abattery5" />
 
 
     <ImageView
@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="@+id/battery1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery3"/>
+        app:srcCompat="@drawable/abattery3" />
 
 
     <ImageView

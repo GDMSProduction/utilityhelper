@@ -18,17 +18,19 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
     private final Drawable appIcon;
     private final String appName;
     private final float percent;
+    private final String packageName;
 
 
 
 
     //static String text = "";
 
-    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, float percent) {
+    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, float percent, String packageName) {
         this.usageStats = usageStats;
         this.appIcon = appIcon;
         this.appName = appName;
         this.percent = percent;
+        this.packageName = packageName;
 
         text += this.appName + System.getProperty("line.separator");    }
 
@@ -46,8 +48,11 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
     public float getPercent(){ return percent; }
 
+    public String getPackageName(){return packageName;}
+
     @Override
     public int compareTo(@NonNull UsageStatsWrapper usageStatsWrapper) {
+
         if (usageStats == null && usageStatsWrapper.getUsageStats() != null) {
             return 1;
         } else if (usageStatsWrapper.getUsageStats() == null && usageStats != null) {
@@ -59,7 +64,6 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
                     usageStats.getLastTimeUsed());
         }
     }
-
 
 
 }
