@@ -25,9 +25,11 @@ public class CloseList extends AppCompatActivity {
 
     public static int CreateOnce = 0;
     private RecyclerView mRecycle;
-    private RecyclerView.Adapter mAdapter;
+    private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
 
+
+    static ArrayList<templateHolder> Holder = new ArrayList<>();
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +47,7 @@ public class CloseList extends AppCompatActivity {
 
 
 
-       final ArrayList<templateHolder> Holder = new ArrayList<>();
+
 
 
 
@@ -159,6 +161,20 @@ public class CloseList extends AppCompatActivity {
         mRecycle.setLayoutManager(mLayout);
         mRecycle.setAdapter(mAdapter);
 
+
+
+        mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+
+                changeItem(position, templateAdapter.newValue);
+
+            }
+        });
+
+
+
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 
@@ -181,17 +197,32 @@ public class CloseList extends AppCompatActivity {
             {
                 String UpdateSave ="";
 
-                /*
+
 
                 for (int i = 0; i < Holder.size(); ++i)
                 {
-                    UpdateSave += Holder.indexOf(i);
+
+
+                    UpdateSave += Holder.get(i).getAppName() + (System.getProperty("line.separator"));
+
+
+
+                    UpdateSave += Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+
+                    if (Holder.get(i).getSwitch() == true)
+                    {
+                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                    }
+                    else
+                    {
+                        UpdateSave += '0' + (System.getProperty("line.separator"));
+                    }
                 }
 
-                */
 
 
 
+                MainActivity.ToReturn = UpdateSave;
 
 
 
@@ -266,6 +297,16 @@ public class CloseList extends AppCompatActivity {
         return textread;
     }
 
+    public void changeItem(int position, int value)
+    {
+        if (templateAdapter.again == 0)
+        {
+            Holder.get(position).SetValue(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.again +=1;
+        }
+
+    }
 
 
 }

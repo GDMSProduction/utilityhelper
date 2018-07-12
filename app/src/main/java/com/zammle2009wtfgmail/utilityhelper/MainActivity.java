@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         // Are we charging / charged?
        final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-       final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+      final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
         int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
         int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;

@@ -17,23 +17,69 @@ import java.util.List;
 
 public class templateAdapter extends RecyclerView.Adapter<templateAdapter.ExampleViewHolder>
 {
-    private ArrayList<templateHolder> mTemplateList;
+    static int newValue = 5;
+    static int again = 0;
 
-    public static class ExampleViewHolder extends RecyclerView.ViewHolder {
+    private ArrayList<templateHolder> mTemplateList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener
+    {
+        void OnItemClick(int position);
+    }
+
+
+
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        mListener = listener;
+    }
+
+    public  class ExampleViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView mImageView;
         public TextView mTextView1;
         public NumberPicker mNumber;
         public Switch mSwitch;
 
-        public ExampleViewHolder(View itemView) {
+
+        public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             mImageView = itemView.findViewById(R.id.Myicon);
             mTextView1 = itemView.findViewById(R.id.Mytitle);
             mNumber = itemView.findViewById(R.id.editNumber);
             mSwitch = itemView.findViewById(R.id.switch1);
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                        public void onClick(View v)
+                {
+                    if (listener != null)
+                    {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION)
+                        {
+                            listener.OnItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            mNumber.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                    newValue = newVal;
+                    again = 0;
+                }
+            });
+
+            
+
+
         }
+
 
 
     }
@@ -46,7 +92,7 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.whitelistlayout,parent,false);
-        ExampleViewHolder evh = new ExampleViewHolder(v);
+        ExampleViewHolder evh = new ExampleViewHolder(v, mListener);
         return evh;
     }
 
