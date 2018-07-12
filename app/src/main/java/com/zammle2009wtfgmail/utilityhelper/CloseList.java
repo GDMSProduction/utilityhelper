@@ -48,13 +48,17 @@ public class CloseList extends AppCompatActivity {
         setContentView(R.layout.activity_close_list);
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+
 
         Listsave = (Button) findViewById(R.id.Save);
         Listload = (Button) findViewById(R.id.Load);
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<templateHolder> Holder = new ArrayList<>();
+
+
+
 
 
 
@@ -64,11 +68,13 @@ public class CloseList extends AppCompatActivity {
         String hold = readFile(WhiteList.filename2);
         Boolean copy = false;
 
-        ArrayList<String> list = new ArrayList<>();
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ArrayList<String> list = new ArrayList<>();
+
 
         if (CreateOnce == 0)
         {

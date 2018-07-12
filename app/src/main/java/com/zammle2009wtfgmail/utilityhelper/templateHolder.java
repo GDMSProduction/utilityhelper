@@ -10,13 +10,12 @@ import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public final class templateHolder implements Comparable<templateHolder>
+public  class templateHolder
 {
 
     private final Drawable appIcon;
     private final String appName;
-    private static int count = 0;
-    String[] newText = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
 
 
 
@@ -41,15 +40,16 @@ public final class templateHolder implements Comparable<templateHolder>
     }
 
 
-    public Drawable getAppIcon() {
+    public Drawable getAppIcon()
+    {
+
         return appIcon;
     }
 
     public String getAppName()
     {
-        String temp = newText[count];
-        count += 3;
-        return temp;
+
+        return appName;
     }
 
     public Switch getSwitch()
@@ -60,12 +60,10 @@ public final class templateHolder implements Comparable<templateHolder>
     }
 
 
-    public NumberPicker getNumberPicker() {
+    public NumberPicker getNumberPicker()
+    {
         return numberPicker;
     }
 
-    @Override
-    public int compareTo(@NonNull templateHolder o) {
-        return 0;
-    }
+
 }
