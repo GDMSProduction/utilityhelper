@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp">
@@ -35,15 +36,42 @@
         android:layout_centerVertical="true" />
 
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="113dp"
+        android:layout_marginTop="9dp"
+        android:background="@color/cardview_light_background"
+        app:srcCompat="@drawable/white" />
+
     <NumberPicker
         android:id="@+id/editNumber"
-        android:layout_width="76dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="106dp"
+        android:layout_marginTop="0dp"
+        android:addStatesFromChildren="false"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:scaleX="2.75"
+        android:scaleY="2.75"
+        android:fadeScrollbars="false"
+        android:inputType="textPersonName"
+        android:isScrollContainer="false"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/switch1"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/timer" />
 
 
 </RelativeLayout>

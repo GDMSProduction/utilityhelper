@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,73 +68,75 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   /*   String[] newText = text.split(System.getProperty("line.separator"));
-        String hold = readFile(filename2);
-        Boolean copy = false;
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ArrayList<String> list = new ArrayList<>();
 
-        String ToReturn = "";
 
-        String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-        for (int i = 0; i < TextWithTime.length; ++ i)
+        if (CloseList.CreateOnce == 0)
         {
-            list.add(TextWithTime[i]);
-        }
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
+
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
+            }
 
 
+            for (int i = 0; i < newText.length; ++i) {
 
-        for (int i = 0; i < newText.length; ++i)
-        {
-
-                for (int z = 0; z < list.size(); z += 3)
-                {
-                    if (newText[i] == list.get(z))
-                    {
+                for (int z = 0; z < list.size(); z += 3) {
+                    if (newText[i] == list.get(z)) {
 
                         copy = true;
 
-                        ToReturn += list.indexOf(z);
-                        ToReturn += list.indexOf(z + 1);
-                        ToReturn += list.indexOf(z + 2);
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
                     }
 
                 }
 
 
+                if (copy == false) {
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
 
-            if (copy == false)
-            {
-                list.add(newText[i] + (System.getProperty("line.separator")));
-                list.add("15" + (System.getProperty("line.separator")));
-                list.add("0" + (System.getProperty("line.separator")));
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
 
-                ToReturn += newText[i] + (System.getProperty("line.separator"));
-                ToReturn += "15" + (System.getProperty("line.separator"));
-                ToReturn += "0" + (System.getProperty("line.separator"));
+
+                }
+
+                copy = false;
 
 
             }
 
-            copy = false;
-
-
-
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CloseList.CreateOnce += 1;
         }
 
-        saveFile(filename2, ToReturn);*/
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
         textView.setText(MainActivity.ToReturn);
 
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         load.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +156,7 @@ public class WhiteList extends AppCompatActivity {
         });
 
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 
     }
@@ -198,6 +202,7 @@ public class WhiteList extends AppCompatActivity {
 
         return textread;
     }
+
 
 
 

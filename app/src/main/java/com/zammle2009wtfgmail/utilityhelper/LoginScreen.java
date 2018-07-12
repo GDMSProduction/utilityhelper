@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class LoginScreen extends AppCompatActivity {
@@ -20,6 +21,8 @@ public class LoginScreen extends AppCompatActivity {
                 Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
 
                 startActivity(changeActivity);
+
+
             }
         });
 
@@ -39,6 +42,6 @@ public class LoginScreen extends AppCompatActivity {
         });
 
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 }

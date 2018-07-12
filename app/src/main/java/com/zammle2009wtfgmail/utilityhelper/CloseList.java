@@ -1,43 +1,35 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Context;
-import android.os.Environment;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Adapter;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
-public class CloseList extends AppCompatActivity implements TemplateContract.View {
+public class CloseList extends AppCompatActivity {
 
 
     public Button Listsave, Listload;
 
 
-    private templateAdapter adapter;
-    private static int CreateOnce = 0;
+
+    public static int CreateOnce = 0;
+    private RecyclerView mRecycle;
+    private templateAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayout;
 
 
+    static ArrayList<templateHolder> Holder = new ArrayList<>();
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,30 +40,38 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
         setContentView(R.layout.activity_close_list);
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(adapter);
+
+
         Listsave = (Button) findViewById(R.id.Save);
-        Listload = (Button) findViewById(R.id.Load);
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new templateAdapter();
-        recyclerView.setAdapter(adapter);
+      //  Listload = (Button) findViewById(R.id.Load);
 
 
 
-        String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-        String hold = readFile(WhiteList.filename2);
-        Boolean copy = false;
 
-        ArrayList<String> list = new ArrayList<>();
+
+
+
+
+
+
+
+
+
+
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        ArrayList<String> list = new ArrayList<>();
+
+
         if (CreateOnce == 0)
         {
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
+
             String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
             for (int i = 0; i < TextWithTime.length; ++i) {
@@ -117,8 +117,33 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+        for (int i = 0; i < TextWithInfo.length; i = i + 3)
+        {
+            String appName = TextWithInfo[i];
+            int Time = Integer.valueOf(TextWithInfo[i+1]);
+            boolean bool = false;
+
+            if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+            {
+                bool = true;
+            }
+            else
+            {
+                bool = false;
+            }
+
+
+
+
+
+
+            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time));
+        }
 
 
 
@@ -128,34 +153,100 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        mRecycle = findViewById(R.id.myrecycle);
+        mRecycle.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new templateAdapter(Holder);
+
+        mRecycle.setLayoutManager(mLayout);
+        mRecycle.setAdapter(mAdapter);
 
 
 
-
-        Listload.setOnClickListener(new View.OnClickListener() {
+        mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void OnItemClick(int position) {
+
+                changeItem(position, templateAdapter.newValue);
 
             }
         });
 
+
+
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
+
+       /* Listload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+
+
+        //////////////////////////////////////////////////////////////////
+        /////////////////////// Update Saves /////////////////////////////
+        //////////////////////////////////////////////////////////////////
         Listsave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                String UpdateSave ="";
 
+
+
+                for (int i = 0; i < Holder.size(); ++i)
+                {
+
+
+                    UpdateSave += Holder.get(i).getAppName() + (System.getProperty("line.separator"));
+
+
+
+                    UpdateSave += Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+
+                    if (Holder.get(i).getSwitch() == true)
+                    {
+                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                    }
+                    else
+                    {
+                        UpdateSave += '0' + (System.getProperty("line.separator"));
+                    }
+                }
+
+
+
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            }
+        });
+
+
+
+        final Button back = (Button) findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backButton = new Intent(CloseList.this, MainActivity.class);
+
+                startActivity(backButton);
             }
         });
 
 
 
 
-         //   List <templateHolder> items ;
 
 
-
-
-
-            recyclerView.setAdapter(adapter);
 
 
 
@@ -172,11 +263,11 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
             FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
-          //  Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
-          //  Toast.makeText(CloseList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CloseList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -206,12 +297,18 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
         return textread;
     }
 
-
-    @Override
-    public void onRetrieved(List<templateHolder> list)
+    public void changeItem(int position, int value)
     {
-        adapter.setList(list);
+        if (templateAdapter.again == 0)
+        {
+            Holder.get(position).SetValue(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.again +=1;
+        }
+
     }
+
+
 }
 
 

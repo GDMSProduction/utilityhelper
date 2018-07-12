@@ -1,14 +1,10 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Intent;
-import android.icu.text.IDNA;
-import android.os.UserHandle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -19,7 +15,7 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
 
 
-        Button back = (Button)  findViewById(R.id.BackButton);
+        Button back = (Button)  findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

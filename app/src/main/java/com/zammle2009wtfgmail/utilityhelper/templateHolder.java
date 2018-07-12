@@ -5,25 +5,27 @@ import android.renderscript.Int2;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public final class templateHolder implements Comparable<templateHolder>
+public  class templateHolder
 {
 
-    private final Drawable appIcon;
+    private final int appIcon;
     private final String appName;
-    private static int count = 0;
-    String[] newText = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
 
-    private NumberPicker numberPicker;
-    private Switch aSwitch;
 
-    public templateHolder(Drawable appIcon, String appName, Switch aswitch, NumberPicker numb)
+    private int numberPicker;
+    private boolean aSwitch;
+    private int newValues = 5;
+    private boolean newBools = true;
+
+    public templateHolder(int appIcon, String appName, boolean aswitch, int numb)
     {
 
         this.appIcon = appIcon;
@@ -41,18 +43,50 @@ public final class templateHolder implements Comparable<templateHolder>
     }
 
 
-    public Drawable getAppIcon() {
+    public void SetValue(int num)
+    {
+        numberPicker = num;
+    }
+
+    public void SetBool(boolean bool)
+    {
+        newBools = bool;
+    }
+
+    public int GetValue()
+    {
+        return newValues;
+    }
+
+    public boolean GetBools()
+    {
+        return newBools;
+    }
+
+    public void changeNumber1(int number)
+    {
+        numberPicker = number;
+    }
+
+    public void changeBool1(boolean bool)
+    {
+        aSwitch = bool;
+    }
+
+
+    public int getAppIcon()
+    {
+
         return appIcon;
     }
 
     public String getAppName()
     {
-        String temp = newText[count];
-        count += 3;
-        return temp;
+
+        return appName;
     }
 
-    public Switch getSwitch()
+    public boolean getSwitch()
     {
 
 
@@ -60,12 +94,10 @@ public final class templateHolder implements Comparable<templateHolder>
     }
 
 
-    public NumberPicker getNumberPicker() {
+    public int getNumberPicker()
+    {
         return numberPicker;
     }
 
-    @Override
-    public int compareTo(@NonNull templateHolder o) {
-        return 0;
-    }
+
 }

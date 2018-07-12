@@ -8,7 +8,7 @@
     tools:context=".CloseList">
 
     <Button
-        android:id="@+id/BackButton"
+        android:id="@+id/backButton"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
@@ -55,6 +55,7 @@
         android:background="@drawable/awhitelist"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.266"
@@ -63,14 +64,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/myrecycle"
         android:layout_width="match_parent"
         android:layout_height="797dp"
         android:layout_marginTop="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/BackButton">
+        app:layout_constraintTop_toBottomOf="@+id/backButton">
 
     </android.support.v7.widget.RecyclerView>
 
