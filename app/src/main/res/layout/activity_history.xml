@@ -17,11 +17,10 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/grey" />
 
-    <android.support.v7.widget.Toolbar
+   <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="87dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="87dp"        android:layout_marginBottom="8dp"
         android:background="@color/primary"
         app:layout_constraintBottom_toTopOf="@+id/recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,8 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar">
-
+   app:layout_constraintTop_toBottomOf="@+id/toolBar">
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

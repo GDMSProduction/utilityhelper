@@ -170,6 +170,15 @@
                 app:srcCompat="@drawable/timer" />
 
             <ImageButton
+                android:id="@+id/detailss"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/square"
+                app:srcCompat="@drawable/details" />
+
+
+            <ImageButton
                 android:id="@+id/settings"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"

@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">utilityhelper</string>
-    <string name="title">Search</string>
-    <string name="action_search">Search</string>
-</resources>
+ <string name="title_activity_information">information</string> <string name="title">Search</string>
+    <string name="action_search">Search</string></resources>

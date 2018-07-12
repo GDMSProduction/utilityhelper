@@ -5,13 +5,11 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.app.ActivityManager;
-import android.content.Intent;
+import android.app.ActivityManager;import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
-import android.support.v4.view.MenuItemCompat;
+import android.provider.Settings;import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,20 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ArrayAdapter;import android.widget.Button;
+<<<<<<< HEAD
+=======
 import android.widget.ListAdapter;
 import android.widget.ListView;
+>>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -62,6 +57,11 @@ public class History extends AppCompatActivity implements UsageContract.View, an
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+
+
+
+
 
 
         toolbar = (Toolbar) findViewById(R.id.toolBar);

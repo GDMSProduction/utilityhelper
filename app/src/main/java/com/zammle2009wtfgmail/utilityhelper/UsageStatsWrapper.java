@@ -23,6 +23,7 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
 
 
+
     //static String text = "";
 
     public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, float percent, String packageName) {

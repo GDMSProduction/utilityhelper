@@ -23,6 +23,8 @@ public class LoginScreen extends AppCompatActivity {
                 Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
 
                 startActivity(changeActivity);
+
+
             }
         });
 
@@ -42,6 +44,6 @@ public class LoginScreen extends AppCompatActivity {
         });
 
 
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 }

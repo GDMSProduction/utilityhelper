@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,8 +28,8 @@ public class WhiteList extends AppCompatActivity {
     public TextView textView;
     public Button save, load;
 
-    String filename = "utilityhelperstorage.txt";
-    String filename2 = "utilityhelpercloselist.txt";
+    static String filename = "utilityhelperstorage.txt";
+   static  String filename2 = "utilityhelpercloselist.txt";
     List<templateHolder> AppInfo;
 
     static String text = "";
@@ -66,108 +68,76 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+=======
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
         String textread = "";
         String[] Split;
+>>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
 
-        String tryread = "";
-        int tryint = 60;
-        boolean trybool = false;
+        ArrayList<String> list = new ArrayList<>();
 
-        try
+
+        if (CloseList.CreateOnce == 0)
         {
-            FileInputStream fis = openFileInput(filename2);
-            int size = fis.available();
-            byte[] buffer = new byte[size];
-            fis.read(buffer);
-            fis.close();
-            textread = new String(buffer);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
-        }
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
 
-        Split = text.split(System.getProperty("line.separator"));
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-        for (int i = 0; i < Split.length; ++ i)
-        {
-            if (i % 3 == 0)
-            {
-                tryread = Split[i];
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
             }
 
-            else if (i % 3 == 1)
-            {
-                try {
 
+            for (int i = 0; i < newText.length; ++i) {
 
-                    tryint = Integer.parseInt(Split[i]);
-                }
-                catch (Exception e)
-                {}
+                for (int z = 0; z < list.size(); z += 3) {
+                    if (newText[i] == list.get(z)) {
 
-            }
+                        copy = true;
 
-            else if (i % 3 == 2)
-            {
-                try {
-
-
-                    trybool = Boolean.parseBoolean(Split[i]);
-                }
-                catch (Exception e)
-                {}
-
-                templateHolder hold = new templateHolder();
-
-                hold.setName(tryread);
-                hold.setInt(tryint);
-                hold.setBools(trybool);
-
-
-
-                try {
-                    AppInfo.add(hold);
-                }
-                catch (Exception e)
-                {
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
+                    }
 
                 }
 
 
+                if (copy == false) {
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
+
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+                }
+
+                copy = false;
+
+
             }
+
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CloseList.CreateOnce += 1;
         }
 
-///////////////////// compares both files /////////////////////////////////////////////////////
+<<<<<<< HEAD
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        String[] Split2 = text.split(System.getProperty("line.separator"));
-
-        Boolean found = false;
-try {
-    for (int x = 0; x < Split2.length; ++x) {
-
-        for (int y = 0; y < AppInfo.size(); ++y) {
-            if (Split2[x] == AppInfo.get(y).getname()) {
-                found = true;
-                break;
-            }
-        }
-
-        if (found == false || AppInfo.size() == 0) {
-            templateHolder Adding = new templateHolder();
-            Adding.setName(Split2[x]);
-            Adding.setInt(15);
-            Boolean b = false;
-            Adding.setBools(b);
-
-            AppInfo.add(Adding);
-
-
-        }
-
+=======
         found = false;
 
     }
@@ -189,9 +159,19 @@ try {
 catch (Exception e)
 {}
         textView.setText(settext);
+>>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
 
 
+        textView.setText(MainActivity.ToReturn);
 
+<<<<<<< HEAD
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+=======
+>>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,9 +191,9 @@ catch (Exception e)
 
 */
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
     }
-
 
 
     public void saveFile(String file, String text)
@@ -223,11 +203,11 @@ catch (Exception e)
             FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
-            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -251,11 +231,12 @@ catch (Exception e)
         catch (Exception e)
         {
             e.printStackTrace();
-            Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
         }
 
         return textread;
     }
+
 
 
 
