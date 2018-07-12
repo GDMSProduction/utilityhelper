@@ -50,6 +50,7 @@ public class CloseList extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -180,6 +181,9 @@ public class CloseList extends AppCompatActivity {
 
 
        /* Listload.setOnClickListener(new View.OnClickListener() {
+=======
+        listload.setOnClickListener(new View.OnClickListener() {
+>>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
             @Override
             public void onClick(View v) {
 

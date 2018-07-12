@@ -53,8 +53,10 @@ public class UsagePresenter implements UsageContract.Presenter {
         List<UsageStats> stats = new ArrayList<>();
         stats.addAll(usageStats.values());
 
-        List<UsageStatsWrapper> finalList = buildUsageStatsWrapper(installedApps, stats);
-        view.onUsageStatsRetrieved(finalList);
+
+            List<UsageStatsWrapper> finalList = buildUsageStatsWrapper(installedApps, stats);
+            view.onUsageStatsRetrieved(finalList);
+
     }
 
     private boolean checkForPermission(Context context) {
@@ -79,12 +81,12 @@ public class UsagePresenter implements UsageContract.Presenter {
             for (UsageStats stat : usageStatses) {
                 if (name.equals(stat.getPackageName())) {
                     added = true;
-                    try {
+   try{
                         list.add(fromUsageStat(stat));
-                    }
-                    catch (Exception e)
-                    {}
-                }
+
+                    }catch (Exception e){
+
+                    }                }
             }
             if (!added) {
                 list.add(fromUsageStat(name));
@@ -94,21 +96,21 @@ public class UsagePresenter implements UsageContract.Presenter {
         return list;
     }
 
-    private UsageStatsWrapper fromUsageStat(String packageName) throws IllegalArgumentException {
+    private UsageStatsWrapper fromUsageStat(String packageName){
         try {
             ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-            return new UsageStatsWrapper(null, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString());
+            return new UsageStatsWrapper(null, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length());
 
         } catch (PackageManager.NameNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    private UsageStatsWrapper fromUsageStat(UsageStats usageStats) throws IllegalArgumentException {
+    private UsageStatsWrapper fromUsageStat(UsageStats usageStats){
         try {
 
             ApplicationInfo ai = packageManager.getApplicationInfo(usageStats.getPackageName(), 0);
-            return new UsageStatsWrapper(usageStats, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString());
+            return new UsageStatsWrapper(usageStats, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length());
 
         } catch (PackageManager.NameNotFoundException e) {
             throw new IllegalArgumentException(e);

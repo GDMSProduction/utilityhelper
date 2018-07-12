@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="64dp">
+
+    <TextView
+        android:id="@+id/MBused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/info"
+        android:layout_below="@+id/info"
+        android:text="Storage Used: 288MB"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="85dp"
+        android:text="Battery Used: 20%"
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/icon"
@@ -28,31 +49,13 @@
 
     <TextView
         android:id="@+id/last_used"
-        android:layout_width="286dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/title"
+        android:layout_toEndOf="@+id/icon"
         android:paddingBottom="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Last used: yesterday at 18.54" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
-        android:text="THIS IS MY TEXT" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="223dp"
-        android:text="Generic App info" />
 
     <Switch
         android:id="@+id/offlistswitch"
@@ -62,6 +65,13 @@
         android:layout_centerVertical="true"
         android:visibility="invisible" />
 
+    <ToggleButton
+        android:id="@+id/expandToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/offlistswitch"
+        android:text="ToggleButton" />
+
 
 </RelativeLayout>
-
