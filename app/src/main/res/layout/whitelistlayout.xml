@@ -37,13 +37,21 @@
 
     <NumberPicker
         android:id="@+id/editNumber"
-        android:layout_width="76dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="106dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginTop="0dp"
+        android:addStatesFromChildren="false"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:scaleX="2.75"
+        android:scaleY="2.75"
+        android:fadeScrollbars="false"
+        android:inputType="textPersonName"
+        android:isScrollContainer="false"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false" />
 
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
@@ -52,11 +53,19 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
     {
+        holder.mNumber.setMaxValue(120);
+        holder.mNumber.setMinValue(5);
+
+
         templateHolder currentItem = mTemplateList.get(position);
         holder.mImageView.setImageResource(currentItem.getAppIcon());
         holder.mTextView1.setText(currentItem.getAppName());
         holder.mSwitch.setChecked(currentItem.getSwitch());
-        holder.mNumber.setValue(currentItem.getNumberPicker());
+
+            holder.mNumber.setValue(currentItem.getNumberPicker());
+
+
+
     }
 
     @Override
