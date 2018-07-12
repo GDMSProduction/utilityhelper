@@ -19,16 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ArrayAdapter;import android.widget.Button;
-<<<<<<< HEAD
-=======
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+
 import android.widget.ListAdapter;
 import android.widget.ListView;
->>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
+
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.GONE;

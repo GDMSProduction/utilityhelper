@@ -43,14 +43,13 @@ public class CloseList extends AppCompatActivity {
 
 
         Listsave = (Button) findViewById(R.id.Save);
-      //  Listload = (Button) findViewById(R.id.Load);
+        //  Listload = (Button) findViewById(R.id.Load);
 
 
 
 
 
 
-<<<<<<< HEAD
 
 
 
@@ -181,9 +180,6 @@ public class CloseList extends AppCompatActivity {
 
 
        /* Listload.setOnClickListener(new View.OnClickListener() {
-=======
-        listload.setOnClickListener(new View.OnClickListener() {
->>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
             @Override
             public void onClick(View v) {
 
@@ -234,54 +230,15 @@ public class CloseList extends AppCompatActivity {
             }
         });
 
-
-
-        final Button back = (Button) findViewById(R.id.backButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent backButton = new Intent(CloseList.this, MainActivity.class);
-
-                startActivity(backButton);
-            }
-        });
-
-
-
-
-
-
-
-
-
-
     }
 
 
 
 
- @Override
-    public boolean onQueryTextChange(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public void onEditStarted() {
-
-    }
-
-    @Override
-    public void onEditFinished() {
-
-    }
-
-    @Override
-        public void onUsageStatsRetrieved(List<UsageStatsWrapper> list)public void onUsageStatsRetrieved(List<UsageStatsWrapper> list)        {
+    public void saveFile(String file, String text)
+    {
+        try
+        {
             FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
             fos.write(text.getBytes());
             fos.close();
@@ -313,7 +270,7 @@ public class CloseList extends AppCompatActivity {
         catch (Exception e)
         {
             e.printStackTrace();
-          //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
         }
 
         return textread;
@@ -332,11 +289,3 @@ public class CloseList extends AppCompatActivity {
 
 
 }
-
-
-
-
-
-
-
-

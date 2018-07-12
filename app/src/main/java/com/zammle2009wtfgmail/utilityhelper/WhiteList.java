@@ -29,7 +29,7 @@ public class WhiteList extends AppCompatActivity {
     public Button save, load;
 
     static String filename = "utilityhelperstorage.txt";
-   static  String filename2 = "utilityhelpercloselist.txt";
+    static  String filename2 = "utilityhelpercloselist.txt";
     List<templateHolder> AppInfo;
 
     static String text = "";
@@ -68,17 +68,10 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-<<<<<<< HEAD
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-=======
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-        String textread = "";
-        String[] Split;
->>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
 
         ArrayList<String> list = new ArrayList<>();
 
@@ -132,46 +125,19 @@ public class WhiteList extends AppCompatActivity {
             CloseList.CreateOnce += 1;
         }
 
-<<<<<<< HEAD
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-=======
-        found = false;
-
-    }
-}
-catch (Exception e)
-{
-
-
-}
-        String settext="";
-
-try {
-    for (int i = 0; i < AppInfo.size(); ++i) {
-        settext += AppInfo.get(i).getname();
-        settext += AppInfo.get(i).getInt();
-        settext += AppInfo.get(i).getbool();
-    }
-}
-catch (Exception e)
-{}
-        textView.setText(settext);
->>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
 
 
         textView.setText(MainActivity.ToReturn);
 
-<<<<<<< HEAD
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-=======
->>>>>>> 91a50dd9e23db7b75e4bde046e52f7938637a5cf
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,13 +151,13 @@ catch (Exception e)
             {
                 saveFile(filename, text );
 
-             //   saveFile(filename, editText.getText().toString() );
+                //   saveFile(filename, editText.getText().toString() );
             }
         });
 
-*/
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 
     }
 
@@ -207,7 +173,7 @@ catch (Exception e)
         } catch (Exception e)
         {
             e.printStackTrace();
-          //  Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
 
