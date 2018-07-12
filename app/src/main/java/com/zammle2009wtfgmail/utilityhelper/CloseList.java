@@ -28,13 +28,13 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class CloseList extends AppCompatActivity implements TemplateContract.View {
+public class CloseList extends AppCompatActivity {
 
 
     public Button Listsave, Listload;
 
 
-    private templateAdapter adapter;
+
     private static int CreateOnce = 0;
 
 
@@ -49,14 +49,14 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerView.setAdapter(adapter);
+
         Listsave = (Button) findViewById(R.id.Save);
         Listload = (Button) findViewById(R.id.Load);
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new templateAdapter();
-        recyclerView.setAdapter(adapter);
+
+
 
 
 
@@ -155,7 +155,7 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
 
 
 
-            recyclerView.setAdapter(adapter);
+
 
 
 
@@ -207,11 +207,7 @@ public class CloseList extends AppCompatActivity implements TemplateContract.Vie
     }
 
 
-    @Override
-    public void onRetrieved(List<templateHolder> list)
-    {
-        adapter.setList(list);
-    }
+
 }
 
 
