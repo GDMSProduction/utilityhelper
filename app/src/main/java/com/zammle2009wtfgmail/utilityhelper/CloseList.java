@@ -36,7 +36,9 @@ public class CloseList extends AppCompatActivity {
 
 
     private static int CreateOnce = 0;
-
+    private RecyclerView mRecycle;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayout;
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
