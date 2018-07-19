@@ -37,14 +37,19 @@ public class WhiteList extends AppCompatActivity {
 
     static String text = "";
 
+///////////////////////
+    // MAJOR CHANGES//
+    ////////////////////
+
 
 
     private RecyclerView mRecycle;
-    private TemplateAdapter2 mAdapter;
+    private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
 
 
-    static ArrayList<TemplateHolder2> Holder2 = new ArrayList<>();
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
@@ -57,24 +62,23 @@ public class WhiteList extends AppCompatActivity {
         setContentView(R.layout.activity_white_list);
 
 
+
+
+
         save = (Button) findViewById(R.id.Save2);
         load = (Button) findViewById(R.id.Load2);
+        //  Listload = (Button) findViewById(R.id.Load);
 
 
 
-        try
-        {
-            FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
-            FileOutputStream fos2 = openFileOutput(filename2, Context.MODE_PRIVATE);
-            fos.write(text.getBytes());
-            fos.close();
-            fos2.close();
-            //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
-        }
+
+
+
+
+
+
+
+
 
 
 
@@ -114,27 +118,16 @@ public class WhiteList extends AppCompatActivity {
                 }
 
 
-                if (copy == false) {
-                    if (newText[i] == "utilityhelper")
-                    {
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
+                if (copy == false)
+                {
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "1" + (System.getProperty("line.separator"));
-                    }
-                    else
-                    {
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    }
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
 
                 }
 
@@ -149,9 +142,11 @@ public class WhiteList extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        CloseList.Holder.clear();
 
         String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
@@ -164,7 +159,7 @@ public class WhiteList extends AppCompatActivity {
                 boolean bool = true;
 
 
-                Holder2.add(new TemplateHolder2(R.drawable.defaulticon, appName, bool, Time));
+                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time));
             }
         }
 
@@ -179,19 +174,19 @@ public class WhiteList extends AppCompatActivity {
         mRecycle = findViewById(R.id.myrecycle2);
         mRecycle.setHasFixedSize(true);
         mLayout = new LinearLayoutManager(this);
-        mAdapter = new TemplateAdapter2(Holder2);
+        mAdapter = new templateAdapter(CloseList.Holder);
 
         mRecycle.setLayoutManager(mLayout);
         mRecycle.setAdapter(mAdapter);
 
 
 
-        mAdapter.setOnItemClickListener2(new TemplateAdapter2.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick2(int position) {
+            public void OnItemClick(int position) {
 
-
-                changeBools2(position, TemplateAdapter2.appBool2);
+                changeItem(position, templateAdapter.newValue);
+                changeBools(position, templateAdapter.appBool);
 
             }
         });
@@ -203,9 +198,29 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+       /* Listload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+
+
         //////////////////////////////////////////////////////////////////
         /////////////////////// Update Saves /////////////////////////////
         //////////////////////////////////////////////////////////////////
+        load.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent history = new Intent (WhiteList.this, CloseList.class );
+                startActivity(history);
+            }
+
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -214,17 +229,17 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-                for (int i = 0; i < Holder2.size(); ++i)
+                for (int i = 0; i < CloseList.Holder.size(); ++i)
                 {
 
 
-                    UpdateSave += Holder2.get(i).getAppName() + (System.getProperty("line.separator"));
+                    UpdateSave += CloseList.Holder.get(i).getAppName() + (System.getProperty("line.separator"));
 
 
 
-                    UpdateSave += Holder2.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+                    UpdateSave += CloseList.Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
 
-                    if (Holder2.get(i).getSwitch() == true)
+                    if (CloseList.Holder.get(i).getSwitch() == true)
                     {
                         UpdateSave += '1' + (System.getProperty("line.separator"));
                     }
@@ -245,26 +260,9 @@ public class WhiteList extends AppCompatActivity {
             }
         });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-
-                Intent history = new Intent (WhiteList.this, CloseList.class );
-                startActivity(history);
-
-
-            }
-        });
-
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-
     }
+
+
 
 
     public void saveFile(String file, String text)
@@ -303,23 +301,33 @@ public class WhiteList extends AppCompatActivity {
         catch (Exception e)
         {
             e.printStackTrace();
-            //Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
         }
 
         return textread;
     }
 
-
-    public void changeBools2(int position, boolean value)
+    public void changeItem(int position, int value)
     {
-        if (TemplateAdapter2.againBool2 == 0)
+        if (templateAdapter.again == 0)
         {
-            Holder2.get(position).SetBool(value);
+            CloseList.Holder.get(position).SetValue(value);
             mAdapter.notifyItemChanged(position);
-            TemplateAdapter2.againBool2 +=1;
+            templateAdapter.again +=1;
         }
 
     }
 
+
+    public void changeBools(int position, boolean value)
+    {
+        if (templateAdapter.againBool == 0)
+        {
+            CloseList.Holder.get(position).SetBool(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.againBool +=1;
+        }
+
+    }
 
 }

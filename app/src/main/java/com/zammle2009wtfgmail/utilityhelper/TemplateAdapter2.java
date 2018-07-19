@@ -29,7 +29,7 @@ public class TemplateAdapter2 extends RecyclerView.Adapter<TemplateAdapter2.Exam
     public interface OnItemClickListener
     {
 
-        void OnItemClick2(int position);
+        void OnItemClick2(int position2);
     }
 
 
@@ -64,22 +64,16 @@ public class TemplateAdapter2 extends RecyclerView.Adapter<TemplateAdapter2.Exam
                 {
                     if (listener != null)
                     {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION)
+                        int position2 = getAdapterPosition();
+                        if (position2 != RecyclerView.NO_POSITION)
                         {
-                            listener.OnItemClick2(position);
+                            listener.OnItemClick2(position2);
                         }
                     }
                 }
             });
 
-            mNumber.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                @Override
-                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    newValue2 = newVal;
-                    again2 = 0;
-                }
-            });
+
 
             mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -105,23 +99,37 @@ public class TemplateAdapter2 extends RecyclerView.Adapter<TemplateAdapter2.Exam
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.whitelistlayout,parent,false);
         ExampleViewHolder evh = new ExampleViewHolder(v, mListener);
+
         return evh;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position2)
     {
-        holder.mNumber.setMaxValue(120);
-        holder.mNumber.setMinValue(5);
 
 
-        TemplateHolder2 currentItem = mTemplateList.get(position);
-        holder.mImageView.setImageResource(currentItem.getAppIcon());
-        holder.mTextView1.setText(currentItem.getAppName());
-        holder.mSwitch.setChecked(currentItem.getSwitch());
 
-        holder.mNumber.setValue(currentItem.getNumberPicker());
 
+
+        try {
+            holder.mNumber.setMaxValue(120);
+            holder.mNumber.setMinValue(5);
+
+
+            TemplateHolder2 currentItem = mTemplateList.get(position2);
+
+            holder.mImageView.setImageResource(currentItem.getAppIcon());
+
+            holder.mTextView1.setText(currentItem.getAppName());
+            holder.mSwitch.setChecked(currentItem.getSwitch());
+
+            holder.mNumber.setValue(currentItem.getNumberPicker());
+
+        }
+        catch (Exception e)
+        {
+
+        }
 
 
     }

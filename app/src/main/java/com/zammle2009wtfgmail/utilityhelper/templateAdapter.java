@@ -105,6 +105,7 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
     {
+
         holder.mNumber.setMaxValue(120);
         holder.mNumber.setMinValue(5);
 

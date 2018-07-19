@@ -94,19 +94,9 @@ public class CloseList extends AppCompatActivity {
                 }
 
 
-                if (copy == false) {
-                    if (newText[i] == "utilityhelper")
-                    {
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
+                if (copy == false)
+                {
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "1" + (System.getProperty("line.separator"));
-                    }
-                    else
-                    {
                         list.add(newText[i] + (System.getProperty("line.separator")));
                         list.add("15" + (System.getProperty("line.separator")));
                         list.add("0" + (System.getProperty("line.separator")));
@@ -114,7 +104,7 @@ public class CloseList extends AppCompatActivity {
                         MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
                         MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
                         MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    }
+
                 }
 
                 copy = false;
@@ -130,6 +120,8 @@ public class CloseList extends AppCompatActivity {
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        CloseList.Holder.clear();
 
         String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
