@@ -37,7 +37,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/white"
         android:layout_width="64dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
@@ -66,7 +66,7 @@
         android:scrollbarAlwaysDrawVerticalTrack="false" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/switch3"

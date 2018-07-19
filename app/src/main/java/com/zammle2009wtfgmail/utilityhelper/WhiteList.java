@@ -159,7 +159,7 @@ public class WhiteList extends AppCompatActivity {
                 boolean bool = true;
 
 
-                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time));
+                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, false));
             }
         }
 
@@ -226,31 +226,46 @@ public class WhiteList extends AppCompatActivity {
             public void onClick(View v)
             {
                 String UpdateSave ="";
-
+                String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
                 for (int i = 0; i < CloseList.Holder.size(); ++i)
                 {
+                    for (int x = 0; x < TextWithInfo.length; x = x + 3)
 
-
-                    UpdateSave += CloseList.Holder.get(i).getAppName() + (System.getProperty("line.separator"));
-
-
-
-                    UpdateSave += CloseList.Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
-
-                    if (CloseList.Holder.get(i).getSwitch() == true)
                     {
-                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                        if (CloseList.Holder.get(i).getAppName() == TextWithInfo[x])
+
+                        {
+                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                            if (CloseList.Holder.get(i).getSwitch() == true)
+                            {
+                                TextWithInfo[x+2] = String.valueOf(1);
+                            }
+                            else
+                            {
+                                TextWithInfo[x+2] = String.valueOf(0);
+                            }
+
+
+                        }
+
+
+
                     }
-                    else
-                    {
-                        UpdateSave += '0' + (System.getProperty("line.separator"));
-                    }
+
+
+
                 }
 
 
 
+                for (int i = 0; i < TextWithInfo.length; ++i)
+                {
+                    UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
+
+                }
 
                 MainActivity.ToReturn = UpdateSave;
 

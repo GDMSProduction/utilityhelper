@@ -41,6 +41,8 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
         public TextView mTextView1;
         public NumberPicker mNumber;
         public Switch mSwitch;
+        public ImageView White;
+        public ImageView clock;
 
 
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
@@ -50,6 +52,10 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mTextView1 = itemView.findViewById(R.id.Mytitle);
             mNumber = itemView.findViewById(R.id.editNumber);
             mSwitch = itemView.findViewById(R.id.switch3);
+            White = itemView.findViewById(R.id.white);
+            clock = itemView.findViewById(R.id.clock);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener()
             {
@@ -106,16 +112,27 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
     {
 
+
+
         holder.mNumber.setMaxValue(120);
         holder.mNumber.setMinValue(5);
 
 
         templateHolder currentItem = mTemplateList.get(position);
+
+        if (currentItem.GetVis() == false)
+        {
+            holder.mNumber.setVisibility(View.INVISIBLE);
+            holder.clock.setVisibility(View.INVISIBLE);
+            holder.White.setVisibility(View.INVISIBLE);
+        }
+
         holder.mImageView.setImageResource(currentItem.getAppIcon());
         holder.mTextView1.setText(currentItem.getAppName());
         holder.mSwitch.setChecked(currentItem.getSwitch());
 
             holder.mNumber.setValue(currentItem.getNumberPicker());
+
 
 
 

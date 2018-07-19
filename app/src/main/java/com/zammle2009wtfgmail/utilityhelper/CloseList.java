@@ -138,6 +138,7 @@ public class CloseList extends AppCompatActivity {
             else
             {
                 bool = false;
+
             }
 
 
@@ -145,7 +146,7 @@ public class CloseList extends AppCompatActivity {
 
 
 
-            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time));
+            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true));
         }
 
 

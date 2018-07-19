@@ -22,16 +22,17 @@ public  class templateHolder
 
     private int numberPicker;
     private boolean aSwitch;
+    private boolean Visible;
 
 
-    public templateHolder(int appIcon, String appName, boolean aswitch, int numb)
+    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis)
     {
 
         this.appIcon = appIcon;
         this.appName = appName;
         this.numberPicker = numb;
         this.aSwitch = aswitch;
-
+        this.Visible = mVis;
 
 
 
@@ -41,6 +42,7 @@ public  class templateHolder
 
     }
 
+    public boolean GetVis() {return Visible;}
 
     public void SetValue(int num)
     {
