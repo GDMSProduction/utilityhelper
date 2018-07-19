@@ -1,9 +1,12 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,8 +27,8 @@ import java.util.List;
 
 public class WhiteList extends AppCompatActivity {
 
-    public EditText editText;
-    public TextView textView;
+
+
     public Button save, load;
 
     static String filename = "utilityhelperstorage.txt";
@@ -34,6 +37,14 @@ public class WhiteList extends AppCompatActivity {
 
     static String text = "";
 
+
+
+    private RecyclerView mRecycle;
+    private TemplateAdapter2 mAdapter;
+    private RecyclerView.LayoutManager mLayout;
+
+
+    static ArrayList<TemplateHolder2> Holder2 = new ArrayList<>();
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
@@ -45,10 +56,9 @@ public class WhiteList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
 
-        editText = (EditText) findViewById(R.id.editText);
-        textView = (TextView) findViewById(R.id.textView);
-        save = (Button) findViewById(R.id.buttonsave);
-        load = (Button) findViewById(R.id.buttonload);
+
+        save = (Button) findViewById(R.id.Save2);
+        load = (Button) findViewById(R.id.Load2);
 
 
 
@@ -128,30 +138,122 @@ public class WhiteList extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////// Spliting information from text file //////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+        for (int i = 0; i < TextWithInfo.length; i = i + 3)
+        {
+            if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+            {
+                String appName = TextWithInfo[i];
+                int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                boolean bool = true;
+
+
+                Holder2.add(new TemplateHolder2(R.drawable.defaulticon, appName, bool, Time));
+            }
+        }
 
 
 
-        textView.setText(MainActivity.ToReturn);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////// List of adapters //////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        mRecycle = findViewById(R.id.myrecycle2);
+        mRecycle.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new TemplateAdapter2(Holder2);
+
+        mRecycle.setLayoutManager(mLayout);
+        mRecycle.setAdapter(mAdapter);
+
+
+
+        mAdapter.setOnItemClickListener2(new TemplateAdapter2.OnItemClickListener() {
+            @Override
+            public void OnItemClick2(int position) {
+
+
+                changeBools2(position, TemplateAdapter2.appBool2);
+
+            }
+        });
+
+
+
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
+
+       /* Listload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+
+
+        //////////////////////////////////////////////////////////////////
+        /////////////////////// Update Saves /////////////////////////////
+        //////////////////////////////////////////////////////////////////
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                String UpdateSave ="";
+
+
+
+                for (int i = 0; i < Holder2.size(); ++i)
+                {
+
+
+                    UpdateSave += Holder2.get(i).getAppName() + (System.getProperty("line.separator"));
+
+
+
+                    UpdateSave += Holder2.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+
+                    if (Holder2.get(i).getSwitch() == true)
+                    {
+                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                    }
+                    else
+                    {
+                        UpdateSave += '0' + (System.getProperty("line.separator"));
+                    }
+                }
+
+
+
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            }
+        });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         load.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                textView.setText(readFile(filename));
-            }
-        });
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v)
             {
-                saveFile(filename, text );
 
-                //   saveFile(filename, editText.getText().toString() );
+                Intent history = new Intent (WhiteList.this, CloseList.class );
+                startActivity(history);
+
+
             }
         });
 
@@ -166,14 +268,15 @@ public class WhiteList extends AppCompatActivity {
     {
         try
         {
-            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);;
+
             fos.write(text.getBytes());
             fos.close();
-            //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
-            //  Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -204,6 +307,16 @@ public class WhiteList extends AppCompatActivity {
     }
 
 
+    public void changeBools2(int position, boolean value)
+    {
+        if (TemplateAdapter2.againBool2 == 0)
+        {
+            Holder2.get(position).SetBool(value);
+            mAdapter.notifyItemChanged(position);
+            TemplateAdapter2.againBool2 +=1;
+        }
+
+    }
 
 
 }

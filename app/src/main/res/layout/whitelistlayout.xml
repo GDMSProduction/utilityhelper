@@ -29,7 +29,7 @@
         tools:text="Google" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switch3"
         android:layout_width="108dp"
         android:layout_height="46dp"
         android:layout_alignParentEnd="true"
@@ -69,7 +69,7 @@
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/switch2"
+        android:layout_alignStart="@+id/switch3"
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/timer" />
 
