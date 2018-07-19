@@ -22,8 +22,7 @@ public  class templateHolder
 
     private int numberPicker;
     private boolean aSwitch;
-    private int newValues = 5;
-    private boolean newBools = true;
+
 
     public templateHolder(int appIcon, String appName, boolean aswitch, int numb)
     {
@@ -50,28 +49,16 @@ public  class templateHolder
 
     public void SetBool(boolean bool)
     {
-        newBools = bool;
+        aSwitch = bool;
     }
 
     public int GetValue()
     {
-        return newValues;
+        return numberPicker;
     }
 
-    public boolean GetBools()
-    {
-        return newBools;
-    }
 
-    public void changeNumber1(int number)
-    {
-        numberPicker = number;
-    }
 
-    public void changeBool1(boolean bool)
-    {
-        aSwitch = bool;
-    }
 
 
     public int getAppIcon()

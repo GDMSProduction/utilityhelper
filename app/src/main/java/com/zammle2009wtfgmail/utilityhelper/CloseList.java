@@ -168,6 +168,7 @@ public class CloseList extends AppCompatActivity {
             public void OnItemClick(int position) {
 
                 changeItem(position, templateAdapter.newValue);
+                changeBools(position, templateAdapter.appBool);
 
             }
         });
@@ -220,7 +221,7 @@ public class CloseList extends AppCompatActivity {
                 }
 
 
-
+               
 
                 MainActivity.ToReturn = UpdateSave;
 
@@ -239,7 +240,8 @@ public class CloseList extends AppCompatActivity {
     {
         try
         {
-            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);;
+
             fos.write(text.getBytes());
             fos.close();
             Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
@@ -287,5 +289,16 @@ public class CloseList extends AppCompatActivity {
 
     }
 
+
+    public void changeBools(int position, boolean value)
+    {
+        if (templateAdapter.againBool == 0)
+        {
+            Holder.get(position).SetBool(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.againBool +=1;
+        }
+
+    }
 
 }

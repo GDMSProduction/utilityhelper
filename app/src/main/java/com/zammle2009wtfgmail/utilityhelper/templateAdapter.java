@@ -1,24 +1,24 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class templateAdapter extends RecyclerView.Adapter<templateAdapter.ExampleViewHolder>
 {
     static int newValue = 5;
     static int again = 0;
+    static boolean appBool ;
+    static int againBool = 0;
 
     private ArrayList<templateHolder> mTemplateList;
     private OnItemClickListener mListener;
@@ -49,7 +49,7 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mImageView = itemView.findViewById(R.id.Myicon);
             mTextView1 = itemView.findViewById(R.id.Mytitle);
             mNumber = itemView.findViewById(R.id.editNumber);
-            mSwitch = itemView.findViewById(R.id.switch1);
+            mSwitch = itemView.findViewById(R.id.switch2);
 
             itemView.setOnClickListener(new View.OnClickListener()
             {
@@ -75,8 +75,14 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
                 }
             });
 
-            
-
+            mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // do something, the isChecked will be
+                   appBool = mSwitch.isChecked();
+                    againBool = 0;
+                    // true if the switch is in the On position
+                }
+            });
 
         }
 
