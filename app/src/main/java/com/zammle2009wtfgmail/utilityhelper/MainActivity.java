@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -133,18 +134,18 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         });
 
+    //testing
+        final ListView presseddetails = (ListView) findViewById(R.id.selectionListView);
+        presseddetails.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent selectionList = new Intent (MainActivity.this, listviewSelection.class );
+                startActivity(selectionList);
+            }
 
-//        final ImageButton presseddetails = (ImageButton) findViewById(R.id.specdetial);
-//        presseddetails.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                Intent history = new Intent (MainActivity.this, information.class );
-//                startActivity(history);
-//            }
-//
-//        });
+        });
 
 
         final ImageButton pressedsettings = (ImageButton) findViewById(R.id.settings);
