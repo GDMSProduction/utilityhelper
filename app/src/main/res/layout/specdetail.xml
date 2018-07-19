@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:id="@+id/specdetial">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -67,79 +68,90 @@
         android:layout_height="wrap_content"
 
         android:text="CPU Usage"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="245dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Active Cores"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="276dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Installed RAM"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="308dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Usable RAM"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="339dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Free RAM"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="371dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Batter Remaining"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="403dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Battery Voltage"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="435dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Batter Voltage"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="466dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Batter Temperature"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="498dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Charging"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="530dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        tools:layout_editor_absoluteX="16dp" />
 
 </android.support.constraint.ConstraintLayout>
