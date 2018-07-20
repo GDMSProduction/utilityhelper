@@ -39,6 +39,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".specDetail" />
         <activity android:name=".listviewSelection">
+
+        </activity>
+        <activity android:name=".Hardware_Spec">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,7 +52,6 @@
                 <data android:scheme="package" />
             </intent-filter>
         </activity>
-        <activity android:name=".Hardware_Spec"></activity>
     </application>
 
 </manifest>
