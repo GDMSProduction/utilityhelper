@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                     try
                     {
 
-                        if (newText[i+2] != "1" || newText[i+3] != "com.zammle2009wtfgmail.utilityhelper")
+                        if (Integer.valueOf(newText[i+2]) == 1 && newText[i+3] != "com.zammle2009wtfgmail.utilityhelper")
                         {
                             final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                             am.killBackgroundProcesses(newText[i + 3]);
