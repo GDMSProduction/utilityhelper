@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">utilityhelper</string>
- <string name="title_activity_information">information</string>
-    <string name="action_search">Search</string></resources>
+   <string name="title_activity_information">information</string>
+    <string name="title">Search</string>
+    <string name="action_search">Search</string>
+    <string name="BatteryRemaining">batteryRemain</string>
+    <string name="BatteryTemperature">BatteryTemp</string>
+    <string name="BatteryIsCharging">ifCharging</string>
+    <string name="BatteryVoltage">voltage</string>
+</resources>
