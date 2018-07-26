@@ -7,21 +7,19 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-=======
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
->>>>>>> master
+
 
     <application
         android:name=".App"
@@ -41,33 +39,22 @@
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
         <activity android:name=".Something3" />
+        <activity android:name=".Hardware_Spec"/>
         <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-<<<<<<< HEAD
 
                 <action android:name="android.intent.action.SHOW_APP_INFO" />
 
                 <data android:scheme="package" />
-=======
->>>>>>> master
+
             </intent-filter>
         </activity>
         <activity
             android:name=".information"
             android:label="@string/title_activity_information"
             android:theme="@style/AppTheme" />
-        <activity android:name=".listviewSelection">
-
-<<<<<<< HEAD
-        </activity>
-        <activity android:name=".Hardware_Spec">
-
-        </activity>
     </application>
-
-=======
->>>>>>> master
 </manifest>
