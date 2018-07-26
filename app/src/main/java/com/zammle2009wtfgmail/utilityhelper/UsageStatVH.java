@@ -70,9 +70,9 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
         percent.setVisibility(View.INVISIBLE);
         //lastTimeUsed.setVisibility(View.INVISIBLE);
         details.setVisibility(View.INVISIBLE);
-        appIcon.getLayoutParams().height = 100;
+        appIcon.getLayoutParams().height = 130;
         details.getLayoutParams().height = 100;
-        expand.getLayoutParams().height = 130;
+
 
 
 
