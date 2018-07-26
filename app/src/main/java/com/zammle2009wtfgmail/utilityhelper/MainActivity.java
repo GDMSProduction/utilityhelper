@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Image;
 import android.os.BatteryManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -135,18 +137,19 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         });
 
+    //testing
+        final ImageButton presseddetails = (ImageButton) findViewById(R.id.SpecDetail);
+        presseddetails.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
 
-//        final ImageButton presseddetails = (ImageButton) findViewById(R.id.specdetial);
-//        presseddetails.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                Intent history = new Intent (MainActivity.this, information.class );
-//                startActivity(history);
-//            }
-//
-//        });
+                Intent hardWareDetial = new Intent (MainActivity.this, Hardware_Spec.class );
+                startActivity(hardWareDetial);
+            }
+
+        });
 
 
         final ImageButton pressedsettings = (ImageButton) findViewById(R.id.settings);
@@ -314,6 +317,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
 
     /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
+
     @Override
     public boolean onQueryTextChange(String query) {
         return false;
@@ -331,6 +335,11 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     @Override
     public void onEditFinished() {
+
+    }
+
+    @Override
+    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
 
     }
 

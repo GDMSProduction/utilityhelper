@@ -13,6 +13,7 @@ public interface UsageContract {
 
         void onEditFinished();
 
+        void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList);
         void onUsageStatsRetrieved(List<UsageStatsWrapper> list);
         void onUserHasNoPermission();
     }
