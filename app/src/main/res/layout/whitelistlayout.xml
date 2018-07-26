@@ -8,9 +8,9 @@
     <ImageView
         android:id="@+id/Myicon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:paddingEnd="16dp"
         android:paddingStart="8dp"
         tools:src="@mipmap/ic_launcher" />
@@ -29,7 +29,7 @@
         tools:text="Google" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switch3"
         android:layout_width="108dp"
         android:layout_height="46dp"
         android:layout_alignParentEnd="true"
@@ -37,7 +37,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/white"
         android:layout_width="64dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
@@ -66,10 +66,10 @@
         android:scrollbarAlwaysDrawVerticalTrack="false" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/switch1"
+        android:layout_alignStart="@+id/switch3"
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/timer" />
 

@@ -1,24 +1,24 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class templateAdapter extends RecyclerView.Adapter<templateAdapter.ExampleViewHolder>
 {
     static int newValue = 5;
     static int again = 0;
+    static boolean appBool ;
+    static int againBool = 0;
 
     private ArrayList<templateHolder> mTemplateList;
     private OnItemClickListener mListener;
@@ -41,6 +41,8 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
         public TextView mTextView1;
         public NumberPicker mNumber;
         public Switch mSwitch;
+        public ImageView White;
+        public ImageView clock;
 
 
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
@@ -49,7 +51,11 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mImageView = itemView.findViewById(R.id.Myicon);
             mTextView1 = itemView.findViewById(R.id.Mytitle);
             mNumber = itemView.findViewById(R.id.editNumber);
-            mSwitch = itemView.findViewById(R.id.switch1);
+            mSwitch = itemView.findViewById(R.id.switch3);
+            White = itemView.findViewById(R.id.white);
+            clock = itemView.findViewById(R.id.clock);
+
+
 
             itemView.setOnClickListener(new View.OnClickListener()
             {
@@ -75,8 +81,14 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
                 }
             });
 
-            
-
+            mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // do something, the isChecked will be
+                   appBool = mSwitch.isChecked();
+                    againBool = 0;
+                    // true if the switch is in the On position
+                }
+            });
 
         }
 
@@ -99,16 +111,28 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position)
     {
+
+
+
         holder.mNumber.setMaxValue(120);
         holder.mNumber.setMinValue(5);
 
 
         templateHolder currentItem = mTemplateList.get(position);
+
+        if (currentItem.GetVis() == false)
+        {
+            holder.mNumber.setVisibility(View.INVISIBLE);
+            holder.clock.setVisibility(View.INVISIBLE);
+            holder.White.setVisibility(View.INVISIBLE);
+        }
+
         holder.mImageView.setImageResource(currentItem.getAppIcon());
         holder.mTextView1.setText(currentItem.getAppName());
         holder.mSwitch.setChecked(currentItem.getSwitch());
 
             holder.mNumber.setValue(currentItem.getNumberPicker());
+
 
 
 

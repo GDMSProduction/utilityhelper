@@ -1,9 +1,12 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,8 +27,8 @@ import java.util.List;
 
 public class WhiteList extends AppCompatActivity {
 
-    public EditText editText;
-    public TextView textView;
+
+
     public Button save, load;
 
     static String filename = "utilityhelperstorage.txt";
@@ -33,6 +36,19 @@ public class WhiteList extends AppCompatActivity {
     List<templateHolder> AppInfo;
 
     static String text = "";
+
+///////////////////////
+    // MAJOR CHANGES//
+    ////////////////////
+
+
+
+    private RecyclerView mRecycle;
+    private templateAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayout;
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,26 +61,24 @@ public class WhiteList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
 
-        editText = (EditText) findViewById(R.id.editText);
-        textView = (TextView) findViewById(R.id.textView);
-        save = (Button) findViewById(R.id.buttonsave);
-        load = (Button) findViewById(R.id.buttonload);
 
 
 
-        try
-        {
-            FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
-            FileOutputStream fos2 = openFileOutput(filename2, Context.MODE_PRIVATE);
-            fos.write(text.getBytes());
-            fos.close();
-            fos2.close();
-            //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
-        }
+
+        save = (Button) findViewById(R.id.Save2);
+        load = (Button) findViewById(R.id.Load2);
+        //  Listload = (Button) findViewById(R.id.Load);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,9 +103,9 @@ public class WhiteList extends AppCompatActivity {
             }
 
 
-            for (int i = 0; i < newText.length; ++i) {
+            for (int i = 0; i < newText.length; i = i + 2) {
 
-                for (int z = 0; z < list.size(); z += 3) {
+                for (int z = 0; z < list.size(); z += 4) {
                     if (newText[i] == list.get(z)) {
 
                         copy = true;
@@ -99,20 +113,34 @@ public class WhiteList extends AppCompatActivity {
                         MainActivity.ToReturn += list.indexOf(z);
                         MainActivity.ToReturn += list.indexOf(z + 1);
                         MainActivity.ToReturn += list.indexOf(z + 2);
+                        MainActivity.ToReturn += list.indexOf(z+3);
                     }
 
                 }
 
 
-                if (copy == false) {
+                if (copy == false)
+                {
+
                     list.add(newText[i] + (System.getProperty("line.separator")));
                     list.add("15" + (System.getProperty("line.separator")));
                     list.add("0" + (System.getProperty("line.separator")));
+                    try {
+                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                    }
+                    catch (Exception e)
+                    {}
+
 
                     MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
                     MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
                     MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-
+                    // new
+                    try {
+                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                    }
+                    catch (Exception e)
+                    {}
 
                 }
 
@@ -127,53 +155,158 @@ public class WhiteList extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        CloseList.Holder.clear();
 
-        textView.setText(MainActivity.ToReturn);
+        String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+        {
+            if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+            {
+                String appName = TextWithInfo[i];
+                int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                boolean bool = true;
+                String PackageName = TextWithInfo[i+3];
+
+                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, false, PackageName));
+            }
+        }
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////Setting Buttons ///////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        load.setOnClickListener(new View.OnClickListener() {
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////// List of adapters //////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        mRecycle = findViewById(R.id.myrecycle2);
+        mRecycle.setHasFixedSize(true);
+        mLayout = new LinearLayoutManager(this);
+        mAdapter = new templateAdapter(CloseList.Holder);
+
+        mRecycle.setLayoutManager(mLayout);
+        mRecycle.setAdapter(mAdapter);
+
+
+
+        mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int position) {
+
+                changeItem(position, templateAdapter.newValue);
+                changeBools(position, templateAdapter.appBool);
+
+            }
+        });
+
+
+
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
+
+       /* Listload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(readFile(filename));
+
             }
+        });*/
+
+
+
+        //////////////////////////////////////////////////////////////////
+        /////////////////////// Update Saves /////////////////////////////
+        //////////////////////////////////////////////////////////////////
+        load.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent history = new Intent (WhiteList.this, CloseList.class );
+                startActivity(history);
+            }
+
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                saveFile(filename, text );
+                String UpdateSave ="";
+                String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
-                //   saveFile(filename, editText.getText().toString() );
+
+                for (int i = 0; i < CloseList.Holder.size(); ++i)
+                {
+                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                    {
+                        if (CloseList.Holder.get(i).getAppName() == TextWithInfo[x])
+
+                        {
+                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                            if (CloseList.Holder.get(i).getSwitch() == true)
+                            {
+                                TextWithInfo[x+2] = String.valueOf(1);
+                            }
+                            else
+                            {
+                                TextWithInfo[x+2] = String.valueOf(0);
+                            }
+
+
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+
+
+                for (int i = 0; i < TextWithInfo.length; ++i)
+                {
+                    UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
+
+                }
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
             }
         });
 
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-
     }
+
+
 
 
     public void saveFile(String file, String text)
     {
         try
         {
-            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);;
+
             fos.write(text.getBytes());
             fos.close();
-            //Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
-            //  Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WhiteList.this,"Error saving file!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -197,13 +330,33 @@ public class WhiteList extends AppCompatActivity {
         catch (Exception e)
         {
             e.printStackTrace();
-            //Toast.makeText(WhiteList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
         }
 
         return textread;
     }
 
+    public void changeItem(int position, int value)
+    {
+        if (templateAdapter.again == 0)
+        {
+            CloseList.Holder.get(position).SetValue(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.again +=1;
+        }
+
+    }
 
 
+    public void changeBools(int position, boolean value)
+    {
+        if (templateAdapter.againBool == 0)
+        {
+            CloseList.Holder.get(position).SetBool(value);
+            mAdapter.notifyItemChanged(position);
+            templateAdapter.againBool +=1;
+        }
+
+    }
 
 }

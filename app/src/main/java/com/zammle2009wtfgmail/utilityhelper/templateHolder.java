@@ -22,18 +22,19 @@ public  class templateHolder
 
     private int numberPicker;
     private boolean aSwitch;
-    private int newValues = 5;
-    private boolean newBools = true;
+    private boolean Visible;
+    private final String PackageName;
 
-    public templateHolder(int appIcon, String appName, boolean aswitch, int numb)
+
+    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
     {
 
         this.appIcon = appIcon;
         this.appName = appName;
         this.numberPicker = numb;
         this.aSwitch = aswitch;
-
-
+        this.Visible = mVis;
+        this.PackageName = PackageName;
 
 
 
@@ -42,6 +43,9 @@ public  class templateHolder
 
     }
 
+    public String GetPackageName() {return PackageName;}
+
+    public boolean GetVis() {return Visible;}
 
     public void SetValue(int num)
     {
@@ -50,28 +54,16 @@ public  class templateHolder
 
     public void SetBool(boolean bool)
     {
-        newBools = bool;
+        aSwitch = bool;
     }
 
     public int GetValue()
     {
-        return newValues;
+        return numberPicker;
     }
 
-    public boolean GetBools()
-    {
-        return newBools;
-    }
 
-    public void changeNumber1(int number)
-    {
-        numberPicker = number;
-    }
 
-    public void changeBool1(boolean bool)
-    {
-        aSwitch = bool;
-    }
 
 
     public int getAppIcon()
