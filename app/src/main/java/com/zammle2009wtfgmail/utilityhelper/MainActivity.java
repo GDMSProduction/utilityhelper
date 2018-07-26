@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -24,6 +25,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -233,6 +235,64 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
+
+
+
+        final TextView text = (TextView) findViewById(R.id.testview);
+        text.setText(ToReturn);
+
+
+        final Button Close = (Button) findViewById(R.id.closebutton);
+        Close.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                String[] newText = ToReturn.split(System.getProperty("line.separator"));
+
+
+                for (int i = 0; i < newText.length; i = i + 4)
+                {
+                    try
+                    {
+
+                        if (newText[i+2] != "1" || newText[i+3] != "com.zammle2009wtfgmail.utilityhelper")
+                        {
+                            final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                            am.killBackgroundProcesses(newText[i + 3]);
+                            Toast.makeText(MainActivity.this,"Closed " + newText[i+3], Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
+                }
+
+
+                Toast.makeText(MainActivity.this,"Complete", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
+
+
+
+
     }
 
 
@@ -299,6 +359,48 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    public void saveFile(String file, String text)
+    {
+        try
+        {
+            FileOutputStream fos = openFileOutput(file, Context.MODE_PRIVATE);;
+
+            fos.write(text.getBytes());
+            fos.close();
+            Toast.makeText(MainActivity.this,"Saved", Toast.LENGTH_SHORT).show();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.this,"Error saving file!", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
+
+
+    public String readFile (String file)
+    {
+        String textread = "";
+
+        try
+        {
+            FileInputStream fis = openFileInput(file);
+            int size = fis.available();
+            byte[] buffer = new byte[size];
+            fis.read(buffer);
+            fis.close();
+            textread = new String(buffer);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            //  Toast.makeText(CloseList.this,"Error reading file!", Toast.LENGTH_SHORT).show();
+        }
+
+        return textread;
+    }
 
 
 }

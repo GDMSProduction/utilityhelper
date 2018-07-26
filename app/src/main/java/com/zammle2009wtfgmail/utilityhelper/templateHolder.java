@@ -23,9 +23,10 @@ public  class templateHolder
     private int numberPicker;
     private boolean aSwitch;
     private boolean Visible;
+    private final String PackageName;
 
 
-    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis)
+    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
     {
 
         this.appIcon = appIcon;
@@ -33,7 +34,7 @@ public  class templateHolder
         this.numberPicker = numb;
         this.aSwitch = aswitch;
         this.Visible = mVis;
-
+        this.PackageName = PackageName;
 
 
 
@@ -41,6 +42,8 @@ public  class templateHolder
 
 
     }
+
+    public String GetPackageName() {return PackageName;}
 
     public boolean GetVis() {return Visible;}
 
