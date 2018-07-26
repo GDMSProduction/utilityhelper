@@ -103,9 +103,9 @@ public class WhiteList extends AppCompatActivity {
             }
 
 
-            for (int i = 0; i < newText.length; ++i) {
+            for (int i = 0; i < newText.length; i = i + 2) {
 
-                for (int z = 0; z < list.size(); z += 3) {
+                for (int z = 0; z < list.size(); z += 4) {
                     if (newText[i] == list.get(z)) {
 
                         copy = true;
@@ -113,6 +113,7 @@ public class WhiteList extends AppCompatActivity {
                         MainActivity.ToReturn += list.indexOf(z);
                         MainActivity.ToReturn += list.indexOf(z + 1);
                         MainActivity.ToReturn += list.indexOf(z + 2);
+                        MainActivity.ToReturn += list.indexOf(z+3);
                     }
 
                 }
@@ -124,10 +125,22 @@ public class WhiteList extends AppCompatActivity {
                     list.add(newText[i] + (System.getProperty("line.separator")));
                     list.add("15" + (System.getProperty("line.separator")));
                     list.add("0" + (System.getProperty("line.separator")));
+                    try {
+                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                    }
+                    catch (Exception e)
+                    {}
+
 
                     MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
                     MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
                     MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                    // new
+                    try {
+                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                    }
+                    catch (Exception e)
+                    {}
 
                 }
 
@@ -142,6 +155,7 @@ public class WhiteList extends AppCompatActivity {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -150,16 +164,16 @@ public class WhiteList extends AppCompatActivity {
 
         String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
-        for (int i = 0; i < TextWithInfo.length; i = i + 3)
+        for (int i = 0; i < TextWithInfo.length; i = i + 4)
         {
             if (Integer.valueOf(TextWithInfo[i+2]) == 1)
             {
                 String appName = TextWithInfo[i];
                 int Time = Integer.valueOf(TextWithInfo[i + 1]);
                 boolean bool = true;
+                String PackageName = TextWithInfo[i+3];
 
-
-                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, false));
+                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, false, PackageName));
             }
         }
 
@@ -231,7 +245,7 @@ public class WhiteList extends AppCompatActivity {
 
                 for (int i = 0; i < CloseList.Holder.size(); ++i)
                 {
-                    for (int x = 0; x < TextWithInfo.length; x = x + 3)
+                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
 
                     {
                         if (CloseList.Holder.get(i).getAppName() == TextWithInfo[x])
