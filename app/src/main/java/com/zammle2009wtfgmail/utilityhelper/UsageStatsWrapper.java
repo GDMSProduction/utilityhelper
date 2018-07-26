@@ -33,7 +33,11 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
         this.percent = percent;
         this.packageName = packageName;
 
-        text += this.appName + System.getProperty("line.separator");    }
+        ////////////// Jake's Code! /////////////////////
+
+        text += this.appName + System.getProperty("line.separator");
+        text += this.packageName + System.getProperty("line.separator");
+    }
 
     public UsageStats getUsageStats() {
         return usageStats;
