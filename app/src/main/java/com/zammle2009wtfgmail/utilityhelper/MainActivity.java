@@ -3,6 +3,7 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.Image;
 import android.os.BatteryManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -135,14 +136,15 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         });
 
     //testing
-        final ListView presseddetails = (ListView) findViewById(R.id.selectionListView);
+        final ImageButton presseddetails = (ImageButton) findViewById(R.id.SpecDetail);
         presseddetails.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Intent selectionList = new Intent (MainActivity.this, listviewSelection.class );
-                startActivity(selectionList);
+
+                Intent hardWareDetial = new Intent (MainActivity.this, Hardware_Spec.class );
+                startActivity(hardWareDetial);
             }
 
         });

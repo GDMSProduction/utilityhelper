@@ -16,10 +16,11 @@
      >
 
      <TextView
+         android:paddingTop="8dp"
          android:layout_width="0dp"
          android:layout_height="wrap_content"
          android:layout_weight="1"
-         android:text="  Chipset\n" />
+         android:text="   Chipset\n" />
 
      <TextView
          android:text="Chipset"
@@ -39,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Current Frequency\n" />
+            android:text="   Current Frequency\n" />
 
         <TextView
             android:text="Core 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\n"
@@ -60,14 +61,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  CPU Usage\n" />
+            android:text="   CPU Usage\n" />
 
         <TextView
-            android:text="Chipset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,14 +80,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Active Cores\n" />
+            android:text="   Active Cores\n" />
 
         <TextView
-            android:text="Chipset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,14 +99,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Installed RAM\n" />
+            android:text="   Installed RAM\n" />
 
         <TextView
-            android:text="Chipset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -120,14 +118,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Usable RAM\n" />
+            android:text="   Usable RAM\n" />
 
         <TextView
-            android:text="Chipset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,14 +137,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Free RAM\n" />
+            android:text="   Free RAM\n" />
 
         <TextView
-            android:text="Chipset"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -160,14 +156,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Batter Remaining\n" />
+            android:text="   Battery Remaining\n" />
+
 
         <TextView
-            android:text="Chipset"
+            android:id="@+id/batteryRemain"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -180,14 +177,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Battery Voltage\n" />
+            android:text="   Battery Voltage\n" />
 
         <TextView
-            android:text="Chipset"
+            android:id="@+id/batteryVoltage"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
     <LinearLayout
@@ -200,14 +197,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Batter Temperature\n" />
+            android:text="   Batter Temperature\n" />
 
         <TextView
-            android:text="Chipset"
+            android:id="@+id/batteryTemp"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -220,14 +216,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="  Charging\n" />
+            android:text="   Charging\n" />
 
         <TextView
-            android:text="Chipset"
+            android:id="@+id/batteryCharging"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:text="Chipset" />
     </LinearLayout>
 
 
