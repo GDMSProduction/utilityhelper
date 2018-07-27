@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,16 +46,21 @@ public class Hardware_Spec extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware__spec);
+        //instantiate the BatterManager
         bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         batteryRemained = (TextView) findViewById(R.id.batteryRemain);
         batteryCharging = (TextView)findViewById(R.id.batteryCharging);
 
         batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        int ifisCharging = bm.getIntProperty(BatteryManager.BATTERY_STATUS_CHARGING);
+        //intialize an IntentFilter
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = getBaseContext().registerReceiver(null,ifilter);
+        final float chargingStatus = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        final boolean isCharging = chargingStatus== BatteryManager.BATTERY_STATUS_CHARGING|| chargingStatus==BatteryManager.BATTERY_STATUS_FULL;
         String printBatteryLevel = Integer.toString(batLevel);
         batteryRemained.setText(String.valueOf(batLevel) + "%");
 
-        if (bm.isCharging()){
+        if (isCharging){
             batteryCharging.setText("Charging");
         }
         else{
