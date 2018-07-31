@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
@@ -13,7 +16,7 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
     private List<UsageStatsWrapper> list;
     private List<UsageStatsWrapper> filteredList;
 
-    public UsageStatAdapter(){
+    UsageStatAdapter(){
 
         list = new ArrayList<>();
         filteredList = new ArrayList<>();
@@ -31,22 +34,34 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
     @Override
     public void onBindViewHolder(UsageStatVH holder, int position) {
         holder.bindTo(list.get(position));
-        holder.setIsRecyclable(false);
-    }
+        Iterator<UsageStatsWrapper> iter = list.iterator();
+        while (iter.hasNext()) {
+            UsageStatsWrapper str = iter.next();
 
-    public void filter(String text) {
-        list.clear();
-        if(text.isEmpty()){
-            list.addAll(filteredList);
-        } else{
-            text = text.toLowerCase();
-            for( UsageStatsWrapper item: list){
-                if(item.getAppName().toLowerCase().contains(text)){
-                    list.add(item);
-                }
+            if (str.getUsageStats() == null){
+                iter.remove();
+            }else if (str.getUsageStats().getLastTimeUsed() == 0L){
+                iter.remove();
+            }else if (DateUtils.LastTimeUsed(str).contains("Wednesday, December 31, 1969")){
+                iter.remove();
             }
         }
-        notifyDataSetChanged();
+    }
+
+
+
+
+
+
+    public void filterList(String query) {
+        for (int i = 0; i < list.size(); i++) {
+
+            final String text = list.get(i).getAppName();
+            if (text.contains(query)) {
+
+                filteredList.add(list.get(i));
+            }
+        }
     }
 
     @Override

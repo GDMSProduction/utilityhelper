@@ -39,16 +39,13 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
     private ImageView appIcon;
     private TextView appName;
-    private TextView lastTimeUsed;
-    private TextView percent;
-    private RelativeLayout layout;
+    public TextView lastTimeUsed;
     private ToggleButton expand;
-    private Button details;
     Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
     private String packageName;
 
 
-    public UsageStatVH(final View itemView) {
+    UsageStatVH(final View itemView) {
 
         super(itemView);
 
@@ -63,15 +60,8 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
 
         lastTimeUsed = (TextView) itemView.findViewById(R.id.last_used);
-        layout = (RelativeLayout) itemView.findViewById(R.id.layout);
         expand = (ToggleButton) itemView.findViewById(R.id.expandToggleButton);
-        percent = (TextView) itemView.findViewById(R.id.info);
-        details= (Button) itemView.findViewById(R.id.AppDetailButton);
-        percent.setVisibility(View.INVISIBLE);
-        //lastTimeUsed.setVisibility(View.INVISIBLE);
-        details.setVisibility(View.INVISIBLE);
         appIcon.getLayoutParams().height = 130;
-        details.getLayoutParams().height = 100;
 
 
 
@@ -88,30 +78,7 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
                 System.out.println(packageName);
 
                 // Start Activity
-                startActivity(details.getContext(), intent, null);
-
-            }
-        });
-
-
-        expand.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-/*
-                if (isChecked){
-                    layout.getLayoutParams().height = 500;
-                    percent.setVisibility(View.VISIBLE);
-                    lastTimeUsed.setVisibility(View.VISIBLE);
-                    details.setVisibility(View.VISIBLE);
-                }
-                else{
-                    layout.getLayoutParams().height = 130;
-                    percent.setVisibility(View.INVISIBLE);
-                    lastTimeUsed.setVisibility(View.INVISIBLE);
-                    details.setVisibility(View.INVISIBLE);
-                }
-                */
+                startActivity(expand.getContext(), intent, null);
 
             }
         });
@@ -120,11 +87,8 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
     public void bindTo(UsageStatsWrapper usageStatsWrapper) {
 
-        String textPercent = Float.toString(usageStatsWrapper.getPercent());
         appIcon.setImageDrawable(usageStatsWrapper.getAppIcon());
-        percent.setText("Battery used: " + textPercent + "%");
         appName.setText(usageStatsWrapper.getAppName());
-        details.setText(usageStatsWrapper.getAppName());
         packageName = usageStatsWrapper.getPackageName();
 
 
@@ -134,6 +98,7 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
             lastTimeUsed.setText("last time used: never");
         }else if (usageStatsWrapper.getUsageStats().getLastTimeUsed() == 0L){
             lastTimeUsed.setText("last time used: never");
+
         } else{
             lastTimeUsed.setText("last time used: " + DateUtils.LastTimeUsed(usageStatsWrapper));
         }

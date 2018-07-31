@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:drawable = "@drawable/divider_shape">
+    android:layout_height="64dp"
+    android:drawable="@drawable/divider_shape">
 
     <TextView
         android:id="@+id/MBused"

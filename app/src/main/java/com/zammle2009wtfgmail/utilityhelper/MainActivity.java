@@ -1,12 +1,15 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.app.ActivityManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.Image;
 import android.os.BatteryManager;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,7 +58,19 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
+        String CHANNEL_ID = "";
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
 
 
@@ -98,8 +113,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (MainActivity.this, Something1.class );
-                startActivity(history);
+                //Intent history = new Intent (MainActivity.this, Something1.class );
+                //startActivity(history);
             }
 
         });
@@ -120,8 +135,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (MainActivity.this, Something3.class );
-                startActivity(history);
+                //Intent history = new Intent (MainActivity.this, Something3.class );
+                //startActivity(history);
             }
 
         });
@@ -207,7 +222,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
             } else {
                 ImageView view = (ImageView) findViewById(R.id.charge);
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
+// notificationId is a unique int for each notification that you must define
+                //notificationManager.notify(Integer.parseInt(getPackageName()), mBuilder.build());
                 view.setVisibility(ImageView.INVISIBLE);
             }
 
@@ -317,26 +335,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
 
     /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
-
-    @Override
-    public boolean onQueryTextChange(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public void onEditStarted() {
-
-    }
-
-    @Override
-    public void onEditFinished() {
-
-    }
 
     @Override
     public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
