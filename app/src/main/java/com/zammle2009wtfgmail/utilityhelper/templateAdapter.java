@@ -55,6 +55,9 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             White = itemView.findViewById(R.id.white);
             clock = itemView.findViewById(R.id.clock);
 
+            mNumber.setEnabled(false);
+            mSwitch.setEnabled(false);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener()
@@ -76,7 +79,7 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mNumber.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                    newValue = newVal;
+                    mNumber.setValue(newVal);
                     again = 0;
                 }
             });
@@ -84,7 +87,14 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     // do something, the isChecked will be
-                   appBool = mSwitch.isChecked();
+                   if (isChecked == true)
+                   {
+                       mSwitch.setChecked(true);
+                   }
+                   else
+                   {
+                       mSwitch.setChecked(false);
+                   }
                     againBool = 0;
                     // true if the switch is in the On position
                 }

@@ -4,32 +4,19 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.Image;
 import android.os.BatteryManager;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
-
-import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity  implements UsageContract.View
@@ -191,8 +178,19 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
         String mytext = Float.toString(batteryPct);
-        Text.setText(mytext + "%");
 
+        char[] mychars = mytext.toCharArray();
+
+
+        if (batteryPct >= 100)
+        {
+           Text.setText("100%");
+        }
+        else
+            {
+
+            Text.setText(String.valueOf((Integer.valueOf(String.valueOf(mychars[0]))*10)+ Integer.valueOf(String.valueOf(mychars[1])))+"%");
+        }
 
 
 
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
             if (batteryPct >= 81.00f) {
-                ImageView view = (ImageView) findViewById(R.id.battery5);
+                ImageView view = (ImageView) findViewById(R.id.appWindow);
 
                 view.setVisibility(ImageView.VISIBLE);
 
@@ -260,7 +258,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                     try
                     {
 
-                        if (newText[i+2] != "1" || newText[i+3] != "com.zammle2009wtfgmail.utilityhelper")
+                        if (Integer.valueOf(newText[i+2]) == 1)
                         {
                             final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                             am.killBackgroundProcesses(newText[i + 3]);
@@ -268,7 +266,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         }
                         else
                         {
-                            Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                           //Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
                         }
 
 
