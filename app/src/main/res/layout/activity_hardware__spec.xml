@@ -163,8 +163,7 @@
             android:id="@+id/batteryRemain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -183,8 +182,7 @@
             android:id="@+id/batteryVoltage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -222,8 +220,7 @@
             android:id="@+id/batteryCharging"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
 

@@ -24,6 +24,7 @@ public class Hardware_Spec extends AppCompatActivity {
     private TextView batteryCharging;
     private int batLevel;
     private int temperature;
+    private int voltage;
     private BatteryManager bm;
 
 
@@ -31,31 +32,37 @@ public class Hardware_Spec extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware__spec);
+        //show battery temperature, getBatterTemp function defined at the bottom
         temperature = getBatterTemp(this);
-
         batteryTemp = (TextView) findViewById(R.id.batteryTemp);
-
         batteryTemp.setText(String.valueOf(temperature) + " ℃");
 
-        //instantiate the BatterManager
+        //show remaining battery capacity
         bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         batteryRemained = (TextView) findViewById(R.id.batteryRemain);
         batteryCharging = (TextView) findViewById(R.id.batteryCharging);
-
         batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        //intialize an IntentFilter
+        batteryRemained.setText(String.valueOf(batLevel) + "%");
+
+        //checking if the device is currently charging
+        //intent filter, filt the wanted action
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = getBaseContext().registerReceiver(null, ifilter);
         final float chargingStatus = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         final boolean isCharging = chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING || chargingStatus == BatteryManager.BATTERY_STATUS_FULL;
-        String printBatteryLevel = Integer.toString(batLevel);
-        batteryRemained.setText(String.valueOf(batLevel) + "%");
+
 
         if (isCharging) {
             batteryCharging.setText("Charging");
         } else {
             batteryCharging.setText("No");
         }
+
+        //show battery voltage
+        batteryVoltage = (TextView)findViewById(R.id.batteryVoltage);
+        voltage =getBatVoltage(this);
+        batteryVoltage.setText(String.valueOf(voltage)+ " mV");
+
 //    private BroadcastReceiver isCharging = new BroadcastReceiver() {
 //        @Override
 //        public void onReceive(Context context, Intent intent) {
@@ -87,5 +94,12 @@ public class Hardware_Spec extends AppCompatActivity {
         Intent getTheBatteryChange = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int temp = getTheBatteryChange.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
         return temp;
+    }
+    //TODO: Add conversion to Fahrenheit here later
+
+    public static int getBatVoltage (Context context){
+        Intent batInfoReceiver = context.registerReceiver(null,new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int voltage = batInfoReceiver.getIntExtra(BatteryManager.EXTRA_VOLTAGE,0);
+        return voltage;
     }
 }
