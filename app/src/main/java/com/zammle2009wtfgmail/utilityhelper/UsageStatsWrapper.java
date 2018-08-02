@@ -37,6 +37,7 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
         text += this.appName + System.getProperty("line.separator");
         text += this.packageName + System.getProperty("line.separator");
+
     }
 
     public UsageStats getUsageStats() {
