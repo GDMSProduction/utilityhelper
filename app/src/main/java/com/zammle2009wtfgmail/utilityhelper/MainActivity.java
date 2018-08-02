@@ -390,6 +390,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         MainActivity.ToReturn += list.indexOf(z + 1);
                         MainActivity.ToReturn += list.indexOf(z + 2);
                         MainActivity.ToReturn += list.indexOf(z+3);
+                        
                     }
 
                 }

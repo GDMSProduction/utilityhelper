@@ -37,6 +37,13 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
         text += this.appName + System.getProperty("line.separator");
         text += this.packageName + System.getProperty("line.separator");
+        try {
+            text += String.valueOf(this.appIcon) + System.getProperty("line.separator");
+        }
+        catch (Exception e)
+        {
+            text +="fail" + System.getProperty("line.separator");
+        }
     }
 
     public UsageStats getUsageStats() {
