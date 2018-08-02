@@ -38,6 +38,7 @@
       android:background="@drawable/save"
       android:textColor="@android:color/white"
       android:textSize="18sp"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
@@ -140,7 +141,7 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="@+id/appWindow"
       app:layout_constraintTop_toTopOf="@+id/appWindow"
-      app:layout_constraintVertical_bias="0.958" />
+      app:layout_constraintVertical_bias="1.0" />
 
   <ImageView
       android:id="@+id/appwhite"
@@ -212,5 +213,21 @@
       app:layout_constraintStart_toStartOf="@+id/appWindow"
       app:layout_constraintTop_toTopOf="@+id/appWindow"
       app:layout_constraintVertical_bias="0.566" />
+
+  <TextView
+      android:id="@+id/textView3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:text="Touch to add to Blacklist."
+      android:textColor="@android:color/background_dark"
+      android:textSize="24sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.278"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.009" />
 
 </android.support.constraint.ConstraintLayout>

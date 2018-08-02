@@ -43,7 +43,8 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
         public Switch mSwitch;
         public ImageView White;
         public ImageView clock;
-
+        public ImageView IsChecked;
+        public TextView realnum;
 
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -54,6 +55,8 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mSwitch = itemView.findViewById(R.id.switch3);
             White = itemView.findViewById(R.id.white);
             clock = itemView.findViewById(R.id.clock);
+            IsChecked = itemView.findViewById(R.id.checked);
+            realnum = itemView.findViewById(R.id.realnumber);
 
             mNumber.setEnabled(false);
             mSwitch.setEnabled(false);
@@ -130,11 +133,25 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
 
         templateHolder currentItem = mTemplateList.get(position);
 
+
+
+
         if (currentItem.GetVis() == false)
         {
-            holder.mNumber.setVisibility(View.INVISIBLE);
+           // holder.mNumber.setVisibility(View.INVISIBLE);
             holder.clock.setVisibility(View.INVISIBLE);
             holder.White.setVisibility(View.INVISIBLE);
+            holder.IsChecked.setVisibility(View.INVISIBLE);
+            holder.realnum.setVisibility(View.INVISIBLE);
+        }
+
+        if (currentItem.GetVis() == true)
+        {
+           // holder.mNumber.setVisibility(View.VISIBLE);
+            holder.clock.setVisibility(View.VISIBLE);
+            holder.White.setVisibility(View.VISIBLE);
+            holder.IsChecked.setVisibility(View.VISIBLE);
+            holder.realnum.setVisibility(View.VISIBLE);
         }
 
         holder.mImageView.setImageResource(currentItem.getAppIcon());
@@ -142,7 +159,13 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
         holder.mSwitch.setChecked(currentItem.getSwitch());
 
             holder.mNumber.setValue(currentItem.getNumberPicker());
+            try {
+                holder.realnum.setText(String.valueOf(currentItem.getNumberPicker()));
+            }
+            catch (Exception e)
+            {
 
+            }
 
 
 

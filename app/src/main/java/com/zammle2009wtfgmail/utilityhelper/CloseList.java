@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.inputmethodservice.Keyboard;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ public class CloseList extends AppCompatActivity {
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
+
 
     private ImageView mWHite;
     private EditText mAppTime;
@@ -208,7 +211,19 @@ public class CloseList extends AppCompatActivity {
                 {}
 
 
-            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true,PackageName));
+                if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                {
+                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true,PackageName));
+                }
+                else
+                {
+                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, false,PackageName));
+                }
+
+
+
+
+
         }
 
 
@@ -219,13 +234,23 @@ public class CloseList extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+
+
         mRecycle = findViewById(R.id.myrecycle);
         mRecycle.setHasFixedSize(true);
         mLayout = new LinearLayoutManager(this);
         mAdapter = new templateAdapter(Holder);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycle.getContext(), layoutManager.getOrientation());
+
+        mRecycle.addItemDecoration(dividerItemDecoration);
+
+
         mRecycle.setLayoutManager(mLayout);
         mRecycle.setAdapter(mAdapter);
+
 
 
         mAppTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -236,6 +261,9 @@ public class CloseList extends AppCompatActivity {
                 }
             }
         });
+
+
+
 
         mOkay.setOnClickListener(new View.OnClickListener()
         {
@@ -253,8 +281,26 @@ public class CloseList extends AppCompatActivity {
                 {
                     mAppTime.setText("5");
                 }
+
                 Holder.get(temp).SetValue(Integer.valueOf(mAppTime.getText().toString()));
-                Holder.get(temp).SetBool(mSwitch.isEnabled());
+
+                Holder.get(temp).SetBool(mSwitch.isChecked());
+
+
+
+
+                if (mSwitch.isChecked() == true)
+                {
+                    Holder.get(temp).SetVis(true);
+                    Holder.get(temp).SetBool(true);
+
+                }
+                else
+                {
+                    Holder.get(temp).SetVis(false);
+                    Holder.get(temp).SetBool(false);
+                }
+
 
 
                 mWHite.setVisibility(View.INVISIBLE);
@@ -270,7 +316,49 @@ public class CloseList extends AppCompatActivity {
                 mSwitch.setEnabled(false);
                 mAppTime.setEnabled(false);
 
+
+
+                String UpdateSave ="";
+
+
+
+                for (int i = 0; i < Holder.size(); ++i)
+                {
+
+
+                    UpdateSave += Holder.get(i).getAppName() + (System.getProperty("line.separator"));
+
+
+
+                    UpdateSave += Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+
+                    if (Holder.get(i).getSwitch() == true)
+                    {
+                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                    }
+                    else
+                    {
+                        UpdateSave += '0' + (System.getProperty("line.separator"));
+                    }
+
+                    UpdateSave += Holder.get(i).GetPackageName() + (System.getProperty("line.separator"));
+
+
+
+                }
+
+
+
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
                 mAdapter.notifyItemChanged(temp);
+
+
                 hideKeyboard(v);
             }
 
@@ -293,12 +381,25 @@ public class CloseList extends AppCompatActivity {
                 mAppWindow.setVisibility(View.INVISIBLE);
                 mAdd.setVisibility(View.INVISIBLE);
 
+                if (Holder.get(temp).getSwitch())
+                {
+                    Holder.get(temp).SetVis(true);
+                    Holder.get(temp).SetBool(true);
+                }
+                else
+                {
+                    Holder.get(temp).SetVis(false);
+                    Holder.get(temp).SetBool(false);
+                }
+
+
                 mSwitch.setEnabled(false);
                 mAppTime.setEnabled(false);
 
 
 
-                mAdapter.notifyItemChanged(temp);
+
+              //  mAdapter.notifyItemChanged(temp);
                 hideKeyboard(v);
 
 
@@ -427,7 +528,7 @@ public class CloseList extends AppCompatActivity {
 
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();

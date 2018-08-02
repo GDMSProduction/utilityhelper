@@ -26,6 +26,7 @@ public  class templateHolder
     private final String PackageName;
 
 
+
     public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
     {
 
@@ -46,6 +47,7 @@ public  class templateHolder
     public String GetPackageName() {return PackageName;}
 
     public boolean GetVis() {return Visible;}
+    public void SetVis(boolean vis){Visible = vis;}
 
     public void SetValue(int num)
     {

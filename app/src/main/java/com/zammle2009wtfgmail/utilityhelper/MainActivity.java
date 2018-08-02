@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -182,14 +183,30 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         char[] mychars = mytext.toCharArray();
 
 
+        String Totalbattery = "";
+
+        if (batteryPct > 10)
+        {
+            for (int i = 0; i < 2; ++i) {
+                Totalbattery += String.valueOf(mychars[i]);
+            }
+        }
+        else
+        {
+            Totalbattery += String.valueOf(mychars[0]);
+        }
+
+
         if (batteryPct >= 100)
         {
            Text.setText("100%");
         }
-        else
-            {
+        else {
 
-            Text.setText(String.valueOf((Integer.valueOf(String.valueOf(mychars[0]))*10)+ Integer.valueOf(String.valueOf(mychars[1])))+"%");
+            try {
+                Text.setText(Totalbattery + "%");
+            } catch (Exception e)
+            {}
         }
 
 
@@ -239,8 +256,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-        final TextView text = (TextView) findViewById(R.id.testview);
-        text.setText(ToReturn);
+
 
 
         final Button Close = (Button) findViewById(R.id.closebutton);
@@ -342,8 +358,85 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
 
     @Override
-    public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
+    public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)
+    {
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        ArrayList<String> list = new ArrayList<>();
+
+
+        if (CloseList.CreateOnce == 0)
+        {
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
+
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
+            }
+
+
+            for (int i = 0; i < newText.length; i = i + 2) {
+
+                for (int z = 0; z < list.size(); z += 4) {
+                    if (newText[i] == list.get(z)) {
+
+                        copy = true;
+
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
+                        MainActivity.ToReturn += list.indexOf(z+3);
+                    }
+
+                }
+
+
+                if (copy == false)
+                {
+
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
+                    try {
+                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                    }
+                    catch (Exception e)
+                    {}
+
+
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                    // new
+                    try {
+                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                    }
+                    catch (Exception e)
+                    {}
+
+                }
+
+                copy = false;
+
+
+            }
+
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CloseList.CreateOnce += 1;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        final TextView text = (TextView) findViewById(R.id.testview);
+        text.setText(ToReturn);
     }
 
     @Override
