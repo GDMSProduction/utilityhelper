@@ -53,16 +53,11 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
     }
 
     public void filterList(String query) {
-        Iterator<UsageStatsWrapper> iter = list.iterator();
-        while (iter.hasNext()) {
-            UsageStatsWrapper str = iter.next();
-
-            if (str.getAppName().contains(query)){
-                filteredList.add(str);
+        for (UsageStatsWrapper usageStatsWrapper : list){
+            if (usageStatsWrapper.getAppName().contains(query)){
+                System.out.println(query);
             }
         }
-            notifyItemRangeRemoved(0, filteredList.size());
-
     }
 
     @Override
