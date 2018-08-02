@@ -17,7 +17,6 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
     private final UsageStats usageStats;
     private final Drawable appIcon;
     private final String appName;
-    private final float percent;
     private final String packageName;
 
 
@@ -26,11 +25,10 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
 
     //static String text = "";
 
-    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, float percent, String packageName) {
+    public UsageStatsWrapper(UsageStats usageStats, Drawable appIcon, String appName, String packageName) {
         this.usageStats = usageStats;
         this.appIcon = appIcon;
         this.appName = appName;
-        this.percent = percent;
         this.packageName = packageName;
 
         ////////////// Jake's Code! /////////////////////
@@ -51,7 +49,6 @@ public final class UsageStatsWrapper implements Comparable<UsageStatsWrapper> {
         return appName;
     }
 
-    public float getPercent(){ return percent; }
 
     public String getPackageName(){return packageName;}
 

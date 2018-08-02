@@ -17,9 +17,5 @@ public class DateUtils {
         return date.format(usageStatsWrapper.getUsageStats().getLastTimeUsed());
     }
 
-    public static String AppBattetyPercent(BatteryManager batteryManager){
-        DateFormat percent = SimpleDateFormat.getDateInstance(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW);
-        return percent.format(batteryManager.getLongProperty(5));
-    }
 
 }

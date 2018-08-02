@@ -1,10 +1,12 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.BatteryManager;
 import android.provider.Settings;
@@ -103,6 +105,20 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             {
                 Intent history = new Intent (MainActivity.this, History.class );
                 startActivity(history);
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Should we show an explanation?
+                    if (shouldShowRequestPermissionRationale(
+                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        // Explain to the user why we need to read the contacts
+                    }
+
+                    // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                    // app-defined int constant that should be quite unique
+
+                    return;
+                }
             }
 
         });

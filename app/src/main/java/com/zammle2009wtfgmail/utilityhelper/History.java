@@ -5,6 +5,7 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +66,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,8 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
 
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new UsageStatAdapter();
@@ -84,8 +88,8 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
         adapter.notifyDataSetChanged();
 
-
         presenter = new UsagePresenter(this, this);
+
 
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
@@ -100,13 +104,11 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
             @Override
             public boolean onQueryTextChange(String query) {
-                query = query.toLowerCase();
 
-                adapter.filterList((String) query);
+                adapter.filterList(query);
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(History.this));
                 adapter = new UsageStatAdapter();
-                //adapter.setList();
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();  // data set changed
                 return true;
@@ -114,11 +116,10 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         });
     }
 
-
-
     @Override
     public void onFilteredStatsRetrieved(List<UsageStatsWrapper> list) {
-adapter.setFilteredList(list);
+        adapter.setFilteredList(list);
+        adapter.notifyItemRangeChanged(0, list.size());
     }
 
     @Override
@@ -135,6 +136,7 @@ adapter.setFilteredList(list);
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+        adapter.notifyItemRangeRemoved(0,list.size());
     }
 
     @Override

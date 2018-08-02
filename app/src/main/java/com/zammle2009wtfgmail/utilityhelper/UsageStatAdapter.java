@@ -1,5 +1,7 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.Activity;
+import android.app.usage.UsageStats;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +40,7 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
         while (iter.hasNext()) {
             UsageStatsWrapper str = iter.next();
 
+
             if (str.getUsageStats() == null){
                 iter.remove();
             }else if (str.getUsageStats().getLastTimeUsed() == 0L){
@@ -45,23 +48,21 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
             }else if (DateUtils.LastTimeUsed(str).contains("Wednesday, December 31, 1969")){
                 iter.remove();
             }
+
         }
     }
 
-
-
-
-
-
     public void filterList(String query) {
-        for (int i = 0; i < list.size(); i++) {
+        Iterator<UsageStatsWrapper> iter = list.iterator();
+        while (iter.hasNext()) {
+            UsageStatsWrapper str = iter.next();
 
-            final String text = list.get(i).getAppName();
-            if (text.contains(query)) {
-
-                filteredList.add(list.get(i));
+            if (str.getAppName().contains(query)){
+                filteredList.add(str);
             }
         }
+            notifyItemRangeRemoved(0, filteredList.size());
+
     }
 
     @Override
