@@ -23,8 +23,39 @@ public class Hardware_Spec extends AppCompatActivity {
     private TextView batteryVoltage;
     private TextView batteryCharging;
     private int batLevel;
+    private int temperature;
     private BatteryManager bm;
-    private HardwarePropertiesManager myHardWareManager;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hardware__spec);
+        temperature = getBatterTemp(this);
+
+        batteryTemp = (TextView) findViewById(R.id.batteryTemp);
+
+        batteryTemp.setText(String.valueOf(temperature) + " ℃");
+
+        //instantiate the BatterManager
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
+        batteryRemained = (TextView) findViewById(R.id.batteryRemain);
+        batteryCharging = (TextView) findViewById(R.id.batteryCharging);
+
+        batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+        //intialize an IntentFilter
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = getBaseContext().registerReceiver(null, ifilter);
+        final float chargingStatus = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        final boolean isCharging = chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING || chargingStatus == BatteryManager.BATTERY_STATUS_FULL;
+        String printBatteryLevel = Integer.toString(batLevel);
+        batteryRemained.setText(String.valueOf(batLevel) + "%");
+
+        if (isCharging) {
+            batteryCharging.setText("Charging");
+        } else {
+            batteryCharging.setText("No");
+        }
 //    private BroadcastReceiver isCharging = new BroadcastReceiver() {
 //        @Override
 //        public void onReceive(Context context, Intent intent) {
@@ -40,33 +71,7 @@ public class Hardware_Spec extends AppCompatActivity {
 //    = this.getSystemService(HardwarePropertiesManager.class);
 
 //    BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
-//    int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hardware__spec);
-        //instantiate the BatterManager
-        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
-        batteryRemained = (TextView) findViewById(R.id.batteryRemain);
-        batteryCharging = (TextView)findViewById(R.id.batteryCharging);
-
-        batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        //intialize an IntentFilter
-        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent batteryStatus = getBaseContext().registerReceiver(null,ifilter);
-        final float chargingStatus = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        final boolean isCharging = chargingStatus== BatteryManager.BATTERY_STATUS_CHARGING|| chargingStatus==BatteryManager.BATTERY_STATUS_FULL;
-        String printBatteryLevel = Integer.toString(batLevel);
-        batteryRemained.setText(String.valueOf(batLevel) + "%");
-
-        if (isCharging){
-            batteryCharging.setText("Charging");
-        }
-        else{
-            batteryCharging.setText("No");
-        }
-
+//    int batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY
 ////        float [] returnedTemp = myHardWareManager.getDeviceTemperatures(HardwarePropertiesManager.DEVICE_TEMPERATURE_BATTERY,HardwarePropertiesManager.TEMPERATURE_CURRENT);
 //      batteryTemp = (TextView)findViewById(R.id.batteryTemp);
 //        batteryTemp.setText ((int) returnedTemp[0]);
@@ -74,5 +79,13 @@ public class Hardware_Spec extends AppCompatActivity {
 //        Intent batterStatus = this.registerReceiver(null,iFilter);
 
 
+    }
+
+
+    public static int getBatterTemp(Context context) {
+
+        Intent getTheBatteryChange = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int temp = getTheBatteryChange.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
+        return temp;
     }
 }
