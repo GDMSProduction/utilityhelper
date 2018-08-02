@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,18 +39,21 @@ public class WhiteList extends AppCompatActivity {
 
     static String text = "";
 
-///////////////////////
-    // MAJOR CHANGES//
-    ////////////////////
 
 
 
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
+    private Button mOkay;
+    private Button mCancel;
+    private ImageView mWindow;
+    private TextView mAppName;
+    private TextView mBlack;
+    private TextView mBlack2;
 
-
-
+    private boolean OpenAPP = true;
+    static int Position;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +75,20 @@ public class WhiteList extends AppCompatActivity {
         //  Listload = (Button) findViewById(R.id.Load);
 
 
+        mOkay = (Button) findViewById(R.id.appokaybutton2);
+        mCancel = (Button) findViewById(R.id.appcancelbutton2);
+        mAppName = (TextView) findViewById(R.id.appAppname2);
+        mBlack = (TextView) findViewById(R.id.addBlack2);
+        mWindow = (ImageView) findViewById(R.id.appWindow2);
+        mBlack2 = (TextView) findViewById(R.id.addBlack3);
+
+        mWindow.setVisibility(View.INVISIBLE);
+        mBlack.setVisibility(View.INVISIBLE);
+        mAppName.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(View.INVISIBLE);
+        mOkay.setVisibility(View.INVISIBLE);
+        mBlack.setVisibility(View.INVISIBLE);
+        mBlack2.setVisibility(View.INVISIBLE);
 
 
 
@@ -173,7 +192,7 @@ public class WhiteList extends AppCompatActivity {
                 boolean bool = true;
                 String PackageName = TextWithInfo[i+3];
 
-                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, false, PackageName));
+                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, true, PackageName));
             }
         }
 
@@ -185,22 +204,195 @@ public class WhiteList extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
         mRecycle = findViewById(R.id.myrecycle2);
         mRecycle.setHasFixedSize(true);
         mLayout = new LinearLayoutManager(this);
         mAdapter = new templateAdapter(CloseList.Holder);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycle.getContext(), layoutManager.getOrientation());
+
+        mRecycle.addItemDecoration(dividerItemDecoration);
+
+
 
         mRecycle.setLayoutManager(mLayout);
         mRecycle.setAdapter(mAdapter);
 
 
 
+        mOkay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (CloseList.Holder.get(Position).getSwitch() == true)
+                {
+                    OpenAPP = true;
+                    mWindow.setVisibility(View.INVISIBLE);
+                    mBlack.setVisibility(View.INVISIBLE);
+                    mAppName.setVisibility(View.INVISIBLE);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mOkay.setVisibility(View.INVISIBLE);
+                    mBlack2.setVisibility(View.INVISIBLE);
+                    CloseList.Holder.get(Position).SetBool(false);
+                    CloseList.Holder.get(Position).SetVis(false);
+
+
+                    mAdapter.notifyItemChanged(Position);
+                }
+                else
+                {
+                    OpenAPP = true;
+                    mWindow.setVisibility(View.INVISIBLE);
+                    mBlack.setVisibility(View.INVISIBLE);
+                    mAppName.setVisibility(View.INVISIBLE);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mOkay.setVisibility(View.INVISIBLE);
+                    mBlack2.setVisibility(View.INVISIBLE);
+                    CloseList.Holder.get(Position).SetBool(true);
+                    CloseList.Holder.get(Position).SetVis(true);
+
+                    mAdapter.notifyItemChanged(Position);
+                }
+
+
+                String UpdateSave ="";
+                String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+
+                for (int i = 0; i < CloseList.Holder.size(); ++i)
+                {
+                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                    {
+
+                        String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                        String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                        if (tempstring2.equals(tempstring))
+
+                        {
+                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                            if (CloseList.Holder.get(i).getSwitch() == true)
+                            {
+                                TextWithInfo[x+2] = String.valueOf(1);
+                               // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                TextWithInfo[x+2] = String.valueOf(0);
+                              //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                            }
+
+
+
+                        }
+                        else{
+                            //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+
+
+                for (int i = 0; i < TextWithInfo.length; ++i)
+                {
+                    UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
+
+                }
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
+            }
+
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (CloseList.Holder.get(Position).getSwitch() == true)
+                {
+                    OpenAPP = true;
+                    mWindow.setVisibility(View.INVISIBLE);
+                    mBlack.setVisibility(View.INVISIBLE);
+                    mAppName.setVisibility(View.INVISIBLE);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mOkay.setVisibility(View.INVISIBLE);
+                    mBlack2.setVisibility(View.INVISIBLE);
+                    CloseList.Holder.get(Position).SetBool(true);
+                    CloseList.Holder.get(Position).SetVis(true);
+
+                    mAdapter.notifyItemChanged(Position);
+                }
+                else{
+                    OpenAPP = true;
+                    mWindow.setVisibility(View.INVISIBLE);
+                    mBlack.setVisibility(View.INVISIBLE);
+                    mAppName.setVisibility(View.INVISIBLE);
+                    mCancel.setVisibility(View.INVISIBLE);
+                    mOkay.setVisibility(View.INVISIBLE);
+                    mBlack2.setVisibility(View.INVISIBLE);
+                    CloseList.Holder.get(Position).SetBool(false);
+                    CloseList.Holder.get(Position).SetVis(false);
+
+                    mAdapter.notifyItemChanged(Position);
+
+                }
+
+
+            }
+
+        });
+
+
+
         mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(int position) {
+            public void OnItemClick(int position)
+            {
+                if (OpenAPP == true)
+                {
 
-                changeItem(position, templateAdapter.newValue);
-                changeBools(position, templateAdapter.appBool);
+                    if (CloseList.Holder.get(Position).getSwitch() == true)
+                    {
+                        OpenAPP = false;
+                        Position = position;
+                        mAppName.setVisibility(View.VISIBLE);
+                        mBlack.setVisibility(View.VISIBLE);
+                        mWindow.setVisibility(View.VISIBLE);
+                        mOkay.setVisibility(View.VISIBLE);
+                        mCancel.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        OpenAPP = false;
+                        Position = position;
+                        mAppName.setVisibility(View.VISIBLE);
+                        mBlack2.setVisibility(View.VISIBLE);
+                        mWindow.setVisibility(View.VISIBLE);
+                        mOkay.setVisibility(View.VISIBLE);
+                        mCancel.setVisibility(View.VISIBLE);
+                    }
+
+
+                }
+
+
 
             }
         });
@@ -248,7 +440,11 @@ public class WhiteList extends AppCompatActivity {
                     for (int x = 0; x < TextWithInfo.length; x = x + 4)
 
                     {
-                        if (CloseList.Holder.get(i).getAppName() == TextWithInfo[x])
+
+                        String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                        String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                        if (tempstring2.equals(tempstring))
 
                         {
                             TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
@@ -256,13 +452,19 @@ public class WhiteList extends AppCompatActivity {
                             if (CloseList.Holder.get(i).getSwitch() == true)
                             {
                                 TextWithInfo[x+2] = String.valueOf(1);
+                                //Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
                                 TextWithInfo[x+2] = String.valueOf(0);
+                             //   Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                             }
 
 
+
+                        }
+                        else{
+                            //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -302,7 +504,7 @@ public class WhiteList extends AppCompatActivity {
 
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
