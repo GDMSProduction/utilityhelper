@@ -7,23 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.media.Image;
-import android.os.BatteryManager;
-import android.provider.Settings;
+import android.media.Image;import android.os.BatteryManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +23,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity  implements UsageContract.View
@@ -222,8 +210,35 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
         String mytext = Float.toString(batteryPct);
-        Text.setText(mytext + "%");
 
+        char[] mychars = mytext.toCharArray();
+
+
+        String Totalbattery = "";
+
+        if (batteryPct > 10)
+        {
+            for (int i = 0; i < 2; ++i) {
+                Totalbattery += String.valueOf(mychars[i]);
+            }
+        }
+        else
+        {
+            Totalbattery += String.valueOf(mychars[0]);
+        }
+
+
+        if (batteryPct >= 100)
+        {
+           Text.setText("100%");
+        }
+        else {
+
+            try {
+                Text.setText(Totalbattery + "%");
+            } catch (Exception e)
+            {}
+        }
 
 
 
@@ -247,7 +262,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
             if (batteryPct >= 81.00f) {
-                ImageView view = (ImageView) findViewById(R.id.battery5);
+                ImageView view = (ImageView) findViewById(R.id.appWindow);
 
                 view.setVisibility(ImageView.VISIBLE);
 
@@ -275,8 +290,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-        final TextView text = (TextView) findViewById(R.id.testview);
-        text.setText(ToReturn);
+
 
 
         final Button Close = (Button) findViewById(R.id.closebutton);
@@ -294,7 +308,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                     try
                     {
 
-                        if (newText[i+2] != "1" || newText[i+3] != "com.zammle2009wtfgmail.utilityhelper")
+                        if (Integer.valueOf(newText[i+2]) == 1)
                         {
                             final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                             am.killBackgroundProcesses(newText[i + 3]);
@@ -302,7 +316,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         }
                         else
                         {
-                            Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                           //Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -358,8 +372,85 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     }
 
     @Override
-    public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
+    public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)
+    {
+        //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        ArrayList<String> list = new ArrayList<>();
+
+
+        if (CloseList.CreateOnce == 0)
+        {
+            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+            String hold = readFile(WhiteList.filename2);
+            Boolean copy = false;
+
+            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+            for (int i = 0; i < TextWithTime.length; ++i) {
+                list.add(TextWithTime[i]);
+            }
+
+
+            for (int i = 0; i < newText.length; i = i + 2) {
+
+                for (int z = 0; z < list.size(); z += 4) {
+                    if (newText[i] == list.get(z)) {
+
+                        copy = true;
+
+                        MainActivity.ToReturn += list.indexOf(z);
+                        MainActivity.ToReturn += list.indexOf(z + 1);
+                        MainActivity.ToReturn += list.indexOf(z + 2);
+                        MainActivity.ToReturn += list.indexOf(z+3);
+                    }
+
+                }
+
+
+                if (copy == false)
+                {
+
+                    list.add(newText[i] + (System.getProperty("line.separator")));
+                    list.add("15" + (System.getProperty("line.separator")));
+                    list.add("0" + (System.getProperty("line.separator")));
+                    try {
+                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                    }
+                    catch (Exception e)
+                    {}
+
+
+                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                    // new
+                    try {
+                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                    }
+                    catch (Exception e)
+                    {}
+
+                }
+
+                copy = false;
+
+
+            }
+
+            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+            CloseList.CreateOnce += 1;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        final TextView text = (TextView) findViewById(R.id.testview);
+        text.setText(ToReturn);
     }
 
     @Override

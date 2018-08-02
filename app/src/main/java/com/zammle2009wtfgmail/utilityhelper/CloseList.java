@@ -1,14 +1,26 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -21,13 +33,26 @@ public class CloseList extends AppCompatActivity {
 
     public Button Listsave, Listload;
 
-
+    static int temp = 0;
 
     public static int CreateOnce = 0;
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
 
+
+    private ImageView mWHite;
+    private EditText mAppTime;
+    private TextView mTextView;
+    private Button mOkay;
+    private Button mCancel;
+    private Switch mSwitch;
+    private TextView mAppName;
+    private ImageView mAppWindow;
+    private TextView mAdd;
+
+
+    private boolean OpenApp = true;
 
     static ArrayList<templateHolder> Holder = new ArrayList<>();
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,8 +71,29 @@ public class CloseList extends AppCompatActivity {
         //  Listload = (Button) findViewById(R.id.Load);
 
 
+        mWHite = (ImageView)findViewById(R.id.appwhite);
+        mAppTime = (EditText) findViewById(R.id.apptimer);
+        mTextView = (TextView) findViewById(R.id.apptextview);
+        mOkay = (Button) findViewById(R.id.appokaybutton);
+        mCancel = (Button) findViewById(R.id.appcancelbutton);
+        mSwitch = (Switch) findViewById(R.id.appswitch);
+        mAppName = (TextView) findViewById(R.id.appAppname);
+        mAppWindow = (ImageView) findViewById(R.id.appWindow);
+        mAdd = (TextView) findViewById(R.id.addBlack);
 
 
+        mWHite.setVisibility(View.INVISIBLE);
+        mAppTime.setVisibility(View.INVISIBLE);
+        mTextView.setVisibility(View.INVISIBLE);
+        mOkay.setVisibility(View.INVISIBLE);
+        mCancel.setVisibility(View.INVISIBLE);
+        mSwitch.setVisibility(View.INVISIBLE);
+        mAppName.setVisibility(View.INVISIBLE);
+        mAppWindow.setVisibility(View.INVISIBLE);
+        mAdd.setVisibility(View.INVISIBLE);
+
+        mSwitch.setEnabled(false);
+        mAppTime.setEnabled(false);
 
 
 
@@ -165,7 +211,19 @@ public class CloseList extends AppCompatActivity {
                 {}
 
 
-            Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true,PackageName));
+                if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                {
+                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true,PackageName));
+                }
+                else
+                {
+                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, false,PackageName));
+                }
+
+
+
+
+
         }
 
 
@@ -176,22 +234,220 @@ public class CloseList extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+
+
         mRecycle = findViewById(R.id.myrecycle);
         mRecycle.setHasFixedSize(true);
         mLayout = new LinearLayoutManager(this);
         mAdapter = new templateAdapter(Holder);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecycle.getContext(), layoutManager.getOrientation());
+
+        mRecycle.addItemDecoration(dividerItemDecoration);
+
 
         mRecycle.setLayoutManager(mLayout);
         mRecycle.setAdapter(mAdapter);
 
 
 
+        mAppTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+
+
+
+        mOkay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OpenApp = true;
+
+
+                if (Integer.valueOf(mAppTime.getText().toString()) > 120)
+                {
+                    mAppTime.setText("120");
+                }
+                if (Integer.valueOf(mAppTime.getText().toString()) < 5)
+                {
+                    mAppTime.setText("5");
+                }
+
+                Holder.get(temp).SetValue(Integer.valueOf(mAppTime.getText().toString()));
+
+                Holder.get(temp).SetBool(mSwitch.isChecked());
+
+
+
+
+                if (mSwitch.isChecked() == true)
+                {
+                    Holder.get(temp).SetVis(true);
+                    Holder.get(temp).SetBool(true);
+
+                }
+                else
+                {
+                    Holder.get(temp).SetVis(false);
+                    Holder.get(temp).SetBool(false);
+                }
+
+
+
+                mWHite.setVisibility(View.INVISIBLE);
+                mAppTime.setVisibility(View.INVISIBLE);
+                mTextView.setVisibility(View.INVISIBLE);
+                mOkay.setVisibility(View.INVISIBLE);
+                mCancel.setVisibility(View.INVISIBLE);
+                mSwitch.setVisibility(View.INVISIBLE);
+                mAppName.setVisibility(View.INVISIBLE);
+                mAppWindow.setVisibility(View.INVISIBLE);
+                mAdd.setVisibility(View.INVISIBLE);
+
+                mSwitch.setEnabled(false);
+                mAppTime.setEnabled(false);
+
+
+
+                String UpdateSave ="";
+
+
+
+                for (int i = 0; i < Holder.size(); ++i)
+                {
+
+
+                    UpdateSave += Holder.get(i).getAppName() + (System.getProperty("line.separator"));
+
+
+
+                    UpdateSave += Holder.get(i).getNumberPicker() + (System.getProperty("line.separator"));
+
+                    if (Holder.get(i).getSwitch() == true)
+                    {
+                        UpdateSave += '1' + (System.getProperty("line.separator"));
+                    }
+                    else
+                    {
+                        UpdateSave += '0' + (System.getProperty("line.separator"));
+                    }
+
+                    UpdateSave += Holder.get(i).GetPackageName() + (System.getProperty("line.separator"));
+
+
+
+                }
+
+
+
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
+                mAdapter.notifyItemChanged(temp);
+
+
+                hideKeyboard(v);
+            }
+
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                OpenApp = true;
+
+                mWHite.setVisibility(View.INVISIBLE);
+                mAppTime.setVisibility(View.INVISIBLE);
+                mTextView.setVisibility(View.INVISIBLE);
+                mOkay.setVisibility(View.INVISIBLE);
+                mCancel.setVisibility(View.INVISIBLE);
+                mSwitch.setVisibility(View.INVISIBLE);
+                mAppName.setVisibility(View.INVISIBLE);
+                mAppWindow.setVisibility(View.INVISIBLE);
+                mAdd.setVisibility(View.INVISIBLE);
+
+                if (Holder.get(temp).getSwitch())
+                {
+                    Holder.get(temp).SetVis(true);
+                    Holder.get(temp).SetBool(true);
+                }
+                else
+                {
+                    Holder.get(temp).SetVis(false);
+                    Holder.get(temp).SetBool(false);
+                }
+
+
+                mSwitch.setEnabled(false);
+                mAppTime.setEnabled(false);
+
+
+
+
+              //  mAdapter.notifyItemChanged(temp);
+                hideKeyboard(v);
+
+
+
+            }
+
+        });
+
+
+
+
         mAdapter.setOnItemClickListener(new templateAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(int position) {
+            public void OnItemClick(int position)
+            {
 
-                changeItem(position, templateAdapter.newValue);
-                changeBools(position, templateAdapter.appBool);
+                if (OpenApp == true)
+                {
+                    OpenApp = false;
+                    temp = position;
+
+                    mWHite.setVisibility(View.VISIBLE);
+                    mAppTime.setVisibility(View.VISIBLE);
+                    mTextView.setVisibility(View.VISIBLE);
+                    mOkay.setVisibility(View.VISIBLE);
+                    mCancel.setVisibility(View.VISIBLE);
+                    mSwitch.setVisibility(View.VISIBLE);
+                    mAppName.setVisibility(View.VISIBLE);
+                    mAppWindow.setVisibility(View.VISIBLE);
+                    mAdd.setVisibility(View.VISIBLE);
+
+                    mSwitch.setEnabled(true);
+                    mAppTime.setEnabled(true);
+
+
+                    mAppName.setText(Holder.get(temp).getAppName());
+                    mAppTime.setText(String.valueOf(Holder.get(temp).getNumberPicker()));
+
+
+                    if (Holder.get(temp).getSwitch() == true) {
+                        mSwitch.setChecked(true);
+                    } else {
+                        mSwitch.setChecked(false);
+                    }
+
+
+                }
+
 
             }
         });
@@ -272,7 +528,7 @@ public class CloseList extends AppCompatActivity {
 
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(CloseList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -327,6 +583,12 @@ public class CloseList extends AppCompatActivity {
             templateAdapter.againBool +=1;
         }
 
+    }
+
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
 }
