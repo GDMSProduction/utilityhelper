@@ -368,7 +368,7 @@ public class CloseList extends AppCompatActivity {
                     }
 
                     UpdateSave += Holder.get(i).GetPackageName() + (System.getProperty("line.separator"));
-                    UpdateSave += String.valueOf(Holder.get(i).GetAppIcon()) +  (System.getProperty("line.separator"));
+
 
 
 
@@ -448,6 +448,12 @@ public class CloseList extends AppCompatActivity {
                     OpenApp = false;
                     temp = position;
 
+                    if (Holder.get(temp).getSwitch() == true) {
+                        mSwitch.setChecked(true);
+                    } else {
+                        mSwitch.setChecked(false);
+                    }
+
                     mWHite.setVisibility(View.VISIBLE);
                     mAppTime.setVisibility(View.VISIBLE);
                     mTextView.setVisibility(View.VISIBLE);
@@ -466,11 +472,7 @@ public class CloseList extends AppCompatActivity {
                     mAppTime.setText(String.valueOf(Holder.get(temp).getNumberPicker()));
 
 
-                    if (Holder.get(temp).getSwitch() == true) {
-                        mSwitch.setChecked(true);
-                    } else {
-                        mSwitch.setChecked(false);
-                    }
+
 
 
                 }

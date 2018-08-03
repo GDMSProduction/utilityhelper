@@ -237,40 +237,20 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 view.setVisibility(ImageView.VISIBLE);
 
             }
-            else if (batteryPct >= 88.0f)
+            else if (batteryPct >= 85.0f)
             {
                 ImageView view = (ImageView) findViewById(R.id.power2);
 
                 view.setVisibility(ImageView.VISIBLE);
             }
-            else if (batteryPct >= 77.0f)
+            else if (batteryPct >= 65.0f)
             {
                 ImageView view = (ImageView) findViewById(R.id.power3);
-
-                view.setVisibility(ImageView.VISIBLE);
-            }else if (batteryPct >= 66.0f)
-            {
-                ImageView view = (ImageView) findViewById(R.id.power4);
-
-                view.setVisibility(ImageView.VISIBLE);
-            }else if (batteryPct >= 55.0f)
-            {
-                ImageView view = (ImageView) findViewById(R.id.power5);
-
-                view.setVisibility(ImageView.VISIBLE);
-            }else if (batteryPct >= 44.0f)
-            {
-                ImageView view = (ImageView) findViewById(R.id.power6);
 
                 view.setVisibility(ImageView.VISIBLE);
             }else if (batteryPct >= 33.0f)
             {
                 ImageView view = (ImageView) findViewById(R.id.power7);
-
-                view.setVisibility(ImageView.VISIBLE);
-            }else if (batteryPct >= 22.0f)
-            {
-                ImageView view = (ImageView) findViewById(R.id.power8);
 
                 view.setVisibility(ImageView.VISIBLE);
             }else if (batteryPct >= 11.0f)

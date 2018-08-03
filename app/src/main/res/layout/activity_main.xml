@@ -165,7 +165,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power3" />
+        app:srcCompat="@drawable/power4" />
 
     <ImageView
         android:id="@+id/power3"
@@ -181,55 +181,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power5" />
-
-    <ImageView
-        android:id="@+id/power4"
-        android:layout_width="wrap_content"
-        android:layout_height="373dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power7" />
-
-    <ImageView
-        android:id="@+id/power5"
-        android:layout_width="wrap_content"
-        android:layout_height="373dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power9" />
-
-    <ImageView
-        android:id="@+id/power6"
-        android:layout_width="wrap_content"
-        android:layout_height="373dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power11" />
+        app:srcCompat="@drawable/power8" />
 
     <ImageView
         android:id="@+id/power7"
@@ -245,23 +197,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power13" />
-
-    <ImageView
-        android:id="@+id/power8"
-        android:layout_width="wrap_content"
-        android:layout_height="373dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power15" />
+        app:srcCompat="@drawable/power12" />
 
     <ImageView
         android:id="@+id/power9"
@@ -277,7 +213,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.292"
-        app:srcCompat="@drawable/power17" />
+        app:srcCompat="@drawable/power16" />
 
     <ImageView
         android:id="@+id/power10"
