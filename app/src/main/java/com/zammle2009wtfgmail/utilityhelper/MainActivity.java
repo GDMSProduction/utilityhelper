@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.opengl.Matrix;
 import android.os.BatteryManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     protected void onCreate(Bundle savedInstanceState)
 
     {   super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
+
 
 
 
@@ -80,17 +85,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         });
 
-        final ImageButton pressedclean = (ImageButton) findViewById(R.id.clean);
-        pressedclean.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent history = new Intent (MainActivity.this, Something1.class );
-                startActivity(history);
-            }
 
-        });
         final ImageButton pressedwhitelist = (ImageButton) findViewById(R.id.whitelist);
         pressedwhitelist.setOnClickListener(new View.OnClickListener()
         {
@@ -197,6 +192,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         }
 
 
+
+
+
+
         if (batteryPct >= 100)
         {
            Text.setText("100%");
@@ -227,28 +226,66 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             }
 
 
-            if (batteryPct >= 81.00f) {
-                ImageView view = (ImageView) findViewById(R.id.appWindow);
+
+
+
+
+
+            if (batteryPct >= 100.00f) {
+                ImageView view = (ImageView) findViewById(R.id.power1);
 
                 view.setVisibility(ImageView.VISIBLE);
 
-            } else if (batteryPct >= 61.0f) {
-                ImageView view = (ImageView) findViewById(R.id.battery4);
-
-                view.setVisibility(ImageView.VISIBLE);
-            } else if (batteryPct >= 41.0f) {
-                ImageView view = (ImageView) findViewById(R.id.battery3);
-
-                view.setVisibility(ImageView.VISIBLE);
-            } else if (batteryPct >= 21.00f) {
-                ImageView view = (ImageView) findViewById(R.id.battery2);
-
-                view.setVisibility(ImageView.VISIBLE);
-            } else {
-                ImageView view = (ImageView) findViewById(R.id.battery1);
+            }
+            else if (batteryPct >= 88.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power2);
 
                 view.setVisibility(ImageView.VISIBLE);
             }
+            else if (batteryPct >= 77.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power3);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 66.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power4);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 55.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power5);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 44.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power6);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 33.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power7);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 22.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power8);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 11.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power9);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else
+            {
+                ImageView view = (ImageView) findViewById(R.id.power10);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }
+
+
 
 
 
@@ -366,68 +403,70 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         ArrayList<String> list = new ArrayList<>();
 
 
-        if (CloseList.CreateOnce == 0)
+        try {
+            if (CloseList.CreateOnce == 0) {
+                String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+                String hold = readFile(WhiteList.filename2);
+                Boolean copy = false;
+
+                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < TextWithTime.length; ++i) {
+                    list.add(TextWithTime[i]);
+                }
+
+
+                for (int i = 0; i < newText.length; i = i + 2) {
+
+                    for (int z = 0; z < list.size(); z += 4) {
+                        if (newText[i] == list.get(z)) {
+
+                            copy = true;
+
+                            MainActivity.ToReturn += list.indexOf(z);
+                            MainActivity.ToReturn += list.indexOf(z + 1);
+                            MainActivity.ToReturn += list.indexOf(z + 2);
+                            MainActivity.ToReturn += list.indexOf(z + 3);
+
+                        }
+
+                    }
+
+
+                    if (copy == false) {
+
+                        list.add(newText[i] + (System.getProperty("line.separator")));
+                        list.add("15" + (System.getProperty("line.separator")));
+                        list.add("0" + (System.getProperty("line.separator")));
+                        try {
+                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                        } catch (Exception e) {
+                        }
+
+
+                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                        // new
+                        try {
+                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                        } catch (Exception e) {
+                        }
+
+                    }
+
+                    copy = false;
+
+
+                }
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                CloseList.CreateOnce += 1;
+            }
+        }
+        catch (Exception e)
         {
-            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-            String hold = readFile(WhiteList.filename2);
-            Boolean copy = false;
-
-            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-            for (int i = 0; i < TextWithTime.length; ++i) {
-                list.add(TextWithTime[i]);
-            }
-
-
-            for (int i = 0; i < newText.length; i = i + 2) {
-
-                for (int z = 0; z < list.size(); z += 4) {
-                    if (newText[i] == list.get(z)) {
-
-                        copy = true;
-
-                        MainActivity.ToReturn += list.indexOf(z);
-                        MainActivity.ToReturn += list.indexOf(z + 1);
-                        MainActivity.ToReturn += list.indexOf(z + 2);
-                        MainActivity.ToReturn += list.indexOf(z+3);
-                        
-                    }
-
-                }
-
-
-                if (copy == false)
-                {
-
-                    list.add(newText[i] + (System.getProperty("line.separator")));
-                    list.add("15" + (System.getProperty("line.separator")));
-                    list.add("0" + (System.getProperty("line.separator")));
-                    try {
-                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                    }
-                    catch (Exception e)
-                    {}
-
-
-                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    // new
-                    try {
-                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                    }
-                    catch (Exception e)
-                    {}
-
-                }
-
-                copy = false;
-
-
-            }
-
-            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-            CloseList.CreateOnce += 1;
+            CloseList.CreateOnce = 0;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -463,7 +502,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(MainActivity.this,"Saved", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();

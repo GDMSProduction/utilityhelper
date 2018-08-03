@@ -14,7 +14,7 @@ import android.widget.TextView;
 public  class templateHolder
 {
 
-    private final int appIcon;
+    private final Drawable appIcon;
     private final String appName;
 
 
@@ -27,7 +27,7 @@ public  class templateHolder
 
 
 
-    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
+    public templateHolder(Drawable appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
     {
 
         this.appIcon = appIcon;
@@ -65,10 +65,11 @@ public  class templateHolder
     }
 
 
+    public Drawable GetAppIcon() {return appIcon;}
 
 
 
-    public int getAppIcon()
+    public Drawable getAppIcon()
     {
 
         return appIcon;

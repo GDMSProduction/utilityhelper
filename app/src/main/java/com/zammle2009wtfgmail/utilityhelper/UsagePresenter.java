@@ -100,6 +100,8 @@ public class UsagePresenter implements UsageContract.Presenter {
     private UsageStatsWrapper fromUsageStat(String packageName){
         try {
             ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
+
+
             return new UsageStatsWrapper(null, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length(), packageName);
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -111,6 +113,7 @@ public class UsagePresenter implements UsageContract.Presenter {
         try {
 
             ApplicationInfo ai = packageManager.getApplicationInfo(usageStats.getPackageName(), 0);
+
             return new UsageStatsWrapper(usageStats, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length(), usageStats.getPackageName());
 
         } catch (PackageManager.NameNotFoundException e) {

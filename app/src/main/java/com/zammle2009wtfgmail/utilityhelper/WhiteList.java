@@ -2,6 +2,8 @@ package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,7 +103,6 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,71 +110,77 @@ public class WhiteList extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
 
 
-        if (CloseList.CreateOnce == 0)
+        try {
+            if (CloseList.CreateOnce == 0) {
+                String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+                String hold = readFile(WhiteList.filename2);
+                Boolean copy = false;
+
+                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < TextWithTime.length; ++i) {
+                    list.add(TextWithTime[i]);
+                }
+
+
+                for (int i = 0; i < newText.length; i = i + 2) {
+
+                    for (int z = 0; z < list.size(); z += 4) {
+                        if (newText[i] == list.get(z)) {
+
+                            copy = true;
+
+                            MainActivity.ToReturn += list.indexOf(z);
+                            MainActivity.ToReturn += list.indexOf(z + 1);
+                            MainActivity.ToReturn += list.indexOf(z + 2);
+                            MainActivity.ToReturn += list.indexOf(z + 3);
+
+                        }
+
+                    }
+
+
+                    if (copy == false) {
+
+                        list.add(newText[i] + (System.getProperty("line.separator")));
+                        list.add("15" + (System.getProperty("line.separator")));
+                        list.add("0" + (System.getProperty("line.separator")));
+                        try {
+                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                        } catch (Exception e) {
+                        }
+
+
+                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                        // new
+                        try {
+                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                        } catch (Exception e) {
+                        }
+
+                    }
+
+                    copy = false;
+
+
+                }
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                CloseList.CreateOnce += 1;
+            }
+        }
+        catch (Exception e)
         {
-            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-            String hold = readFile(WhiteList.filename2);
-            Boolean copy = false;
-
-            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-            for (int i = 0; i < TextWithTime.length; ++i) {
-                list.add(TextWithTime[i]);
-            }
-
-
-            for (int i = 0; i < newText.length; i = i + 2) {
-
-                for (int z = 0; z < list.size(); z += 4) {
-                    if (newText[i] == list.get(z)) {
-
-                        copy = true;
-
-                        MainActivity.ToReturn += list.indexOf(z);
-                        MainActivity.ToReturn += list.indexOf(z + 1);
-                        MainActivity.ToReturn += list.indexOf(z + 2);
-                        MainActivity.ToReturn += list.indexOf(z+3);
-                    }
-
-                }
-
-
-                if (copy == false)
-                {
-
-                    list.add(newText[i] + (System.getProperty("line.separator")));
-                    list.add("15" + (System.getProperty("line.separator")));
-                    list.add("0" + (System.getProperty("line.separator")));
-                    try {
-                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                    }
-                    catch (Exception e)
-                    {}
-
-
-                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    // new
-                    try {
-                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                    }
-                    catch (Exception e)
-                    {}
-
-                }
-
-                copy = false;
-
-
-            }
-
-            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-            CloseList.CreateOnce += 1;
+            CloseList.CreateOnce = 0;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,7 +199,28 @@ public class WhiteList extends AppCompatActivity {
                 boolean bool = true;
                 String PackageName = TextWithInfo[i+3];
 
-                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, true, PackageName));
+
+                try {
+
+                    Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
+
+
+                    if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                    {
+                        CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
+                    }
+                    else
+                    {
+                        CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
+                    }
+
+                }
+                catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+
+
+
+                }
             }
         }
 
@@ -437,7 +465,7 @@ public class WhiteList extends AppCompatActivity {
 
                 for (int i = 0; i < CloseList.Holder.size(); ++i)
                 {
-                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+                    for (int x = 0; x < TextWithInfo.length; x = x + 5)
 
                     {
 

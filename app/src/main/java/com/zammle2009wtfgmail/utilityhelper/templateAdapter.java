@@ -154,7 +154,14 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             holder.realnum.setVisibility(View.VISIBLE);
         }
 
-        holder.mImageView.setImageResource(currentItem.getAppIcon());
+        try {
+
+            holder.mImageView.setImageDrawable(currentItem.getAppIcon());
+        }
+        catch (Exception e)
+        {
+
+        }
         holder.mTextView1.setText(currentItem.getAppName());
         holder.mSwitch.setChecked(currentItem.getSwitch());
 
