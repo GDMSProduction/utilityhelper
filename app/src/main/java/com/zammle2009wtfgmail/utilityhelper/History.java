@@ -99,28 +99,33 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         search.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+
+            return false;
+
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
+                query = query.toLowerCase();
+                List<UsageStatsWrapper> filtered = new ArrayList<>();
+                for (UsageStatsWrapper usageStatsWrapper : UsageStatAdapter.list)
+                {
+                    String name = usageStatsWrapper.getAppName().toLowerCase();
+                    if(name.contains(query)){
+                        filtered.add(usageStatsWrapper);
+                    }else {
 
-                adapter.filterList(query);
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(History.this));
-                adapter = new UsageStatAdapter();
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();  // data set changed
+                        adapter.setList(UsageStatAdapter.list);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+                adapter.setList(filtered);
+                adapter.notifyDataSetChanged();
                 return true;
             }
         });
     }
 
-    @Override
-    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> list) {
-        adapter.setFilteredList(list);
-        adapter.notifyItemRangeChanged(0, list.size());
-    }
 
     @Override
     protected void onResume() {

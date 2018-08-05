@@ -2,7 +2,9 @@ package com.zammle2009wtfgmail.utilityhelper;
 
 import android.Manifest;
 import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -52,15 +54,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-        String CHANNEL_ID = "";
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
+
 
 
 
@@ -93,20 +87,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             {
                 Intent history = new Intent (MainActivity.this, History.class );
                 startActivity(history);
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    // Should we show an explanation?
-                    if (shouldShowRequestPermissionRationale(
-                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        // Explain to the user why we need to read the contacts
-                    }
-
-                    // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-                    // app-defined int constant that should be quite unique
-
-                    return;
-                }
             }
 
         });
@@ -248,40 +228,46 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             if (isCharging == true) {
 
                     ImageView view = (ImageView) findViewById(R.id.charge);
-
                     view.setVisibility(ImageView.VISIBLE);
 
             } else {
                 ImageView view = (ImageView) findViewById(R.id.charge);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-// notificationId is a unique int for each notification that you must define
-                //notificationManager.notify(Integer.parseInt(getPackageName()), mBuilder.build());
                 view.setVisibility(ImageView.INVISIBLE);
             }
 
 
             if (batteryPct >= 81.00f) {
                 ImageView view = (ImageView) findViewById(R.id.appWindow);
-
                 view.setVisibility(ImageView.VISIBLE);
 
             } else if (batteryPct >= 61.0f) {
                 ImageView view = (ImageView) findViewById(R.id.battery4);
-
                 view.setVisibility(ImageView.VISIBLE);
             } else if (batteryPct >= 41.0f) {
                 ImageView view = (ImageView) findViewById(R.id.battery3);
-
                 view.setVisibility(ImageView.VISIBLE);
+
             } else if (batteryPct >= 21.00f) {
                 ImageView view = (ImageView) findViewById(R.id.battery2);
-
                 view.setVisibility(ImageView.VISIBLE);
+
+
             } else {
                 ImageView view = (ImageView) findViewById(R.id.battery1);
-
                 view.setVisibility(ImageView.VISIBLE);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setContentTitle("Utility Helper");
+                builder.setContentTitle("Battery Low!");
+                Intent intent1 = new Intent(this,MainActivity.class);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                stackBuilder.addParentStack(MainActivity.class);
+                stackBuilder.addNextIntent(intent1);
+                PendingIntent pendingIntent1 = stackBuilder.getPendingIntent(0, pendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent1);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(0,builder.build());
+
             }
 
 
@@ -364,12 +350,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     }
 
-    /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
-
-    @Override
-    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
-
-    }
 
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)

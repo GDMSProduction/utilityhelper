@@ -15,14 +15,7 @@ import java.util.List;
 
 public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
 
-    private List<UsageStatsWrapper> list;
-    private List<UsageStatsWrapper> filteredList;
-
-    UsageStatAdapter(){
-
-        list = new ArrayList<>();
-        filteredList = new ArrayList<>();
-    }
+    static List<UsageStatsWrapper> list = new ArrayList<>();
 
     @Override
     public UsageStatVH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,14 +45,6 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
         }
     }
 
-    public void filterList(String query) {
-        for (UsageStatsWrapper usageStatsWrapper : list){
-            if (usageStatsWrapper.getAppName().contains(query)){
-                System.out.println(query);
-            }
-        }
-    }
-
     @Override
     public int getItemCount() {
 
@@ -72,6 +57,8 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
     }
 
     public void setFilteredList(List<UsageStatsWrapper> filteredList){
-        this.filteredList = filteredList;
+        list = new ArrayList<>();
+        list.addAll(filteredList);
+        notifyDataSetChanged();
     }
 }
