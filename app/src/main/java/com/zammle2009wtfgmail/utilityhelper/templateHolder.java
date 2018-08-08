@@ -1,6 +1,12 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.renderscript.Int2;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public  class templateHolder
 {
@@ -24,6 +35,21 @@ public  class templateHolder
     private boolean aSwitch;
     private boolean Visible;
     private final String PackageName;
+
+
+
+
+/*
+
+    final Handler handler = new Handler();
+    final Runnable r = new Runnable() {
+        public void run() {
+            handler.postDelayed(runnable, (numberPicker*60*1000));
+        }
+    };
+
+
+*/
 
 
 

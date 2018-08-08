@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.opengl.Matrix;
 import android.os.BatteryManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements UsageContract.View
 {
+
+
+   static ArrayList<Handler> ListHandlers = new ArrayList <>();
+   static ArrayList<MyRunnables> ListRunnables = new ArrayList <>();
+   static int HandlerPosition = 0;
+
 
 
 
@@ -408,6 +415,9 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                             MainActivity.ToReturn += list.indexOf(z + 2);
                             MainActivity.ToReturn += list.indexOf(z + 3);
 
+
+
+
                         }
 
                     }
@@ -427,6 +437,12 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
                         MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
                         MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+
+
+
+
                         // new
                         try {
                             MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
@@ -440,6 +456,43 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
                 }
 
+
+
+                String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < Runnables.length; i = i + 4)
+                {
+                    if (Integer.valueOf(Runnables[i+2]) == 1)
+                    {
+                        MainActivity.ListHandlers.add(new Handler());
+                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 1, i));
+                        MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
+                    }
+                    else
+                    {
+                        MainActivity.ListHandlers.add(new Handler());
+                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 0, i));
+                    }
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
                 saveFile(WhiteList.filename2, MainActivity.ToReturn);
                 CloseList.CreateOnce += 1;
             }
@@ -448,6 +501,13 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         {
             CloseList.CreateOnce = 0;
         }
+
+
+
+
+
+
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
@@ -516,5 +576,83 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         return textread;
     }
 
+
+
+
+    public class MyRunnables implements Runnable
+    {
+
+
+        private String PackageName;
+        private int Time;
+        private int Position;
+        private  int On;
+
+
+
+
+
+        public int GetTimer()
+        {return Time;}
+
+
+        public int GetBoolean()
+        {return On;}
+
+        public String GetPackageName()
+        {return PackageName;}
+        public int GretPosition()
+        {return Position;}
+
+        public void SetTime(int time)
+        {Time = time;}
+
+        public void SetBool(int bool)
+        {On = bool;}
+
+
+
+        public MyRunnables(String _PackageName, int _Time, int _On, int _position)
+        {
+            this.PackageName = _PackageName;
+            this.Time = _Time;
+            this.On = _On;
+            this.Position = _position;
+
+
+        }
+
+
+
+
+
+
+
+        @Override
+        public void run()
+        {
+
+            if (On == 1)
+            {
+
+                try {
+                    final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                    am.killBackgroundProcesses(PackageName);
+                    ListHandlers.get(Position).postDelayed(this, Time * 60 * 100);
+                    Toast.makeText(MainActivity.this, "PASSED: " + PackageName, Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
 }

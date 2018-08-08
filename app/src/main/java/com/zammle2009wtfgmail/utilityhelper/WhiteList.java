@@ -269,6 +269,25 @@ public class WhiteList extends AppCompatActivity {
 
 
                     mAdapter.notifyItemChanged(Position);
+
+
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName() == CloseList.Holder.get(i).GetPackageName())
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(0);
+                            MainActivity.ListHandlers.get(i).removeCallbacks(MainActivity.ListRunnables.get(i));
+
+
+
+                            break;
+                        }
+                    }
+
+
+
                 }
                 else
                 {
@@ -283,6 +302,23 @@ public class WhiteList extends AppCompatActivity {
                     CloseList.Holder.get(Position).SetVis(true);
 
                     mAdapter.notifyItemChanged(Position);
+
+
+
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(Position).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(1);
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
+
+
+
+                            break;
+                        }
+                    }
                 }
 
 
@@ -366,6 +402,15 @@ public class WhiteList extends AppCompatActivity {
                     CloseList.Holder.get(Position).SetVis(true);
 
                     mAdapter.notifyItemChanged(Position);
+
+
+
+
+
+
+
+
+
                 }
                 else{
                     OpenAPP = true;

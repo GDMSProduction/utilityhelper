@@ -303,9 +303,9 @@ public class CloseList extends AppCompatActivity {
                 {
                     mAppTime.setText("120");
                 }
-                if (Integer.valueOf(mAppTime.getText().toString()) < 5)
+                if (Integer.valueOf(mAppTime.getText().toString()) < 1)
                 {
-                    mAppTime.setText("5");
+                    mAppTime.setText("1");
                 }
 
                 Holder.get(temp).SetValue(Integer.valueOf(mAppTime.getText().toString()));
@@ -320,11 +320,58 @@ public class CloseList extends AppCompatActivity {
                     Holder.get(temp).SetVis(true);
                     Holder.get(temp).SetBool(true);
 
+                    boolean copy = false;
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(temp).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(1);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
+
+
+                            copy = true;
+                            Toast.makeText(CloseList.this,"ADDED: " + MainActivity.ListRunnables.get(i).GetPackageName(), Toast.LENGTH_SHORT).show();
+
+                            break;
+                        }
+                    }
+
+                    if (copy == false)
+                    {
+                        Toast.makeText(CloseList.this,"FAIL", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
                 }
                 else
                 {
                     Holder.get(temp).SetVis(false);
                     Holder.get(temp).SetBool(false);
+
+
+
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(i).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(0);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).removeCallbacks(MainActivity.ListRunnables.get(i));
+
+
+
+
+                            break;
+                        }
+                    }
                 }
 
 
