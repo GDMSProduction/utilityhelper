@@ -360,7 +360,7 @@ public class CloseList extends AppCompatActivity {
 
                     for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
                     {
-                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(i).GetPackageName()))
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(temp).GetPackageName()))
                         {
                             MainActivity.ListRunnables.get(i).SetBool(0);
                             MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));

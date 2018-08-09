@@ -143,7 +143,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/appWindow2"
         app:layout_constraintTop_toTopOf="@+id/appWindow2"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.505" />
 
     <TextView
         android:id="@+id/addBlack3"
@@ -160,7 +160,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/appWindow2"
         app:layout_constraintTop_toTopOf="@+id/appWindow2"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.517" />
 
     <TextView
         android:id="@+id/textView2"
@@ -179,6 +179,76 @@
         app:layout_constraintStart_toEndOf="@+id/Load2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.015" />
+
+    <TextView
+        android:id="@+id/apptextview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="How long of innactivity before closing."
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
+        app:layout_constraintEnd_toEndOf="@+id/appswitch2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/appWindow2"
+        app:layout_constraintTop_toTopOf="@+id/appWindow2"
+        app:layout_constraintVertical_bias="0.349" />
+
+    <ImageView
+        android:id="@+id/appwhite2"
+        android:layout_width="52dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
+        app:layout_constraintEnd_toEndOf="@+id/appWindow2"
+        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintStart_toStartOf="@+id/appWindow2"
+        app:layout_constraintTop_toTopOf="@+id/appWindow2"
+        app:layout_constraintVertical_bias="0.324"
+        app:srcCompat="@drawable/white" />
+
+    <Switch
+        android:id="@+id/appswitch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
+        app:layout_constraintEnd_toEndOf="@+id/appWindow2"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="@+id/appWindow2"
+        app:layout_constraintTop_toTopOf="@+id/appWindow2"
+        app:layout_constraintVertical_bias="0.507" />
+
+    <EditText
+        android:id="@+id/apptimer2"
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:inputType="number"
+        android:windowSoftInputMode="stateAlwaysHidden"
+        app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
+        app:layout_constraintEnd_toEndOf="@+id/appWindow2"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toStartOf="@+id/appWindow2"
+        app:layout_constraintTop_toTopOf="@+id/appWindow2"
+        app:layout_constraintVertical_bias="0.316" />
 
 
 </android.support.constraint.ConstraintLayout>

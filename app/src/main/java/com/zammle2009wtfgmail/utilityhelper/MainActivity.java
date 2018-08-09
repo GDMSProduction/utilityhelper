@@ -638,18 +638,18 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 try {
                     final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                     am.killBackgroundProcesses(PackageName);
-                    ListHandlers.get(Position).postDelayed(this, Time * 60 * 100);
-                    Toast.makeText(MainActivity.this, "PASSED: " + PackageName, Toast.LENGTH_SHORT).show();
+                    ListHandlers.get(Position).postDelayed(this, Time * 60 * 1000);
+                   // Toast.makeText(MainActivity.this, "PASSED: " + PackageName, Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e)
                 {
-                    Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
                 }
 
             }
             else
             {
-                Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
             }
 
         }
