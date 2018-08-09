@@ -8,6 +8,7 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.media.Image;import android.os.BatteryManager;
 import android.support.v4.app.NotificationCompat;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     {   super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
             if (batteryPct >= 81.00f) {
-                ImageView view = (ImageView) findViewById(R.id.appWindow);
+                ImageView view = (ImageView) findViewById(R.id.battery5);
                 view.setVisibility(ImageView.VISIBLE);
 
             } else if (batteryPct >= 61.0f) {
@@ -247,6 +249,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 ImageView view = (ImageView) findViewById(R.id.battery3);
                 view.setVisibility(ImageView.VISIBLE);
 
+
+
             } else if (batteryPct >= 21.00f) {
                 ImageView view = (ImageView) findViewById(R.id.battery2);
                 view.setVisibility(ImageView.VISIBLE);
@@ -255,8 +259,13 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             } else {
                 ImageView view = (ImageView) findViewById(R.id.battery1);
                 view.setVisibility(ImageView.VISIBLE);
+
+            }
+
+
+/*
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setSmallIcon(R.drawable.utilities);
                 builder.setContentTitle("Utility Helper");
                 builder.setContentTitle("Battery Low!");
                 Intent intent1 = new Intent(this,MainActivity.class);
@@ -267,11 +276,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 builder.setContentIntent(pendingIntent1);
                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager.notify(0,builder.build());
-
-            }
-
-
-
+                */
 
 
 

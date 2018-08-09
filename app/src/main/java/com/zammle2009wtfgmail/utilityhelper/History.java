@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -66,7 +67,6 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +76,12 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new UsageStatAdapter();
         recyclerView.setAdapter(adapter);
         setSupportActionBar(toolbar);
@@ -99,9 +100,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         search.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-            return false;
-
+                return false;
             }
 
             @Override
@@ -110,16 +109,18 @@ public class History extends AppCompatActivity implements UsageContract.View, an
                 List<UsageStatsWrapper> filtered = new ArrayList<>();
                 for (UsageStatsWrapper usageStatsWrapper : UsageStatAdapter.list)
                 {
-                    String name = usageStatsWrapper.getAppName().toLowerCase();
-                    if(name.contains(query)){
-                        filtered.add(usageStatsWrapper);
-                    }else {
 
-                        adapter.setList(UsageStatAdapter.list);
+                    String name = usageStatsWrapper.getAppName().toLowerCase();
+                    if(name.contains(query)) {
+                        filtered.add(usageStatsWrapper);
+                        adapter.setList(filtered);
                         adapter.notifyDataSetChanged();
                     }
+                    if (query.isEmpty()){
+                        adapter.setList(UsageStatAdapter.list);
+                         adapter.notifyDataSetChanged();
+                    }
                 }
-                adapter.setList(filtered);
                 adapter.notifyDataSetChanged();
                 return true;
             }
