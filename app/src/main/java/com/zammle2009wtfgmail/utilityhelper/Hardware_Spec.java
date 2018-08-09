@@ -107,8 +107,12 @@ public class Hardware_Spec extends AppCompatActivity {
         int toTalNumberofCores = getNumCores();
         activeCores.setText(String.valueOf(getNumCores()));
 
+        //show total device installed RAM
+        installedRAM = (TextView)findViewById(R.id.RamInstalled);
         //show current RAM usage in percentage
         currentRAMUsage = (TextView)findViewById(R.id.currentRAMusagePercentage);
+
+        //moved below to runnable object
 //        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
 //        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 //        activityManager.getMemoryInfo(mi);
@@ -239,16 +243,20 @@ public class Hardware_Spec extends AppCompatActivity {
         @Override
         public void run()
         {
-            try {
-                if (JakeNum < 45) {
-                    // update your numbers here;
 
-                    currentRAMUsage = (TextView)findViewById(R.id.currentRAMusagePercentage);
+                if (JakeNum < 120) {
+                    // Textview set text here
+
+
                     ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
                     ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                     activityManager.getMemoryInfo(mi);
+                    long totalMemory = mi.totalMem/(long) (1024.0 * 1024.0 * 1024.0);
+                
                     double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
                     short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
+                    //Text view set texts
+                    installedRAM.setText(String.valueOf(totalMemory) + " GB");
                     currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
 
                     freeRAM.setText(String.valueOf(availableGigs)+" GB");
@@ -261,9 +269,8 @@ public class Hardware_Spec extends AppCompatActivity {
                     JakeNum += 1;
                     handler.postDelayed(this, 1000);
                 }
-            }
-            catch (Exception e)
-            {}
+
+
         }
     };
 
