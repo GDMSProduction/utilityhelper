@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.CpuUsageInfo;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -46,8 +47,12 @@ public class Hardware_Spec extends AppCompatActivity {
     private int temperature;
     private int voltage;
 
-    private BatteryManager bm;
+    //Jake's approach
+    private int JakeNum = 0;
+    private Handler handler = new Handler();
 
+    private BatteryManager bm;
+//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,10 @@ public class Hardware_Spec extends AppCompatActivity {
         temperature = getBatterTemp(this);
         batteryTemp = (TextView) findViewById(R.id.batteryTemp);
         batteryTemp.setText(String.valueOf(temperature) + " ℃");
+       //Jake's approach
+
+        JakeNum = 0;
+        handler.postDelayed(running, 1000);
 
         //show remaining battery capacity
         bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
@@ -100,16 +109,16 @@ public class Hardware_Spec extends AppCompatActivity {
 
         //show current RAM usage in percentage
         currentRAMUsage = (TextView)findViewById(R.id.currentRAMusagePercentage);
-        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        activityManager.getMemoryInfo(mi);
-        double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
-        short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
-        currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
+//        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+//        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+//        activityManager.getMemoryInfo(mi);
+//        double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
+//        short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
+//        currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
 
         //show current available RAM in Gygabytes
         freeRAM = (TextView)findViewById(R.id.freeRAMinGig);
-        freeRAM.setText(String.valueOf(availableGigs)+" GB");
+//        freeRAM.setText(String.valueOf(availableGigs)+" GB");
 
     }
 
@@ -223,4 +232,41 @@ public class Hardware_Spec extends AppCompatActivity {
             return 1;
         }
     }
+
+
+
+    private Runnable running = new Runnable() {
+        @Override
+        public void run()
+        {
+            try {
+                if (JakeNum < 45) {
+                    // update your numbers here;
+
+                    currentRAMUsage = (TextView)findViewById(R.id.currentRAMusagePercentage);
+                    ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+                    ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+                    activityManager.getMemoryInfo(mi);
+                    double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
+                    short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
+                    currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
+
+                    freeRAM.setText(String.valueOf(availableGigs)+" GB");
+
+
+
+                    //
+
+
+                    JakeNum += 1;
+                    handler.postDelayed(this, 1000);
+                }
+            }
+            catch (Exception e)
+            {}
+        }
+    };
+
+
+
 }

@@ -3,225 +3,235 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/grey"
+    android:orientation="vertical"
     tools:context=".Hardware_Spec">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
-            android:paddingTop="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Chipset\n" />
+            android:paddingTop="8dp"
+            android:text="   Chipset\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/Chip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/background_light" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Current Frequency\n" />
+            android:text="   Current Frequency\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Core 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\n"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:textColor="@android:color/background_light" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="   CPU Usage\n" />
+            android:text="   CPU Usage\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/CPUusage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="   CPU Cores\n" />
+            android:text="   CPU Cores\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/activeCores"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="   Installed RAM\n" />
+            android:text="   Installed RAM\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/RamInstalled"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   RAM Usage\n" />
+            android:text="   RAM Usage\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/currentRAMusagePercentage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Free RAM\n" />
+            android:text="   Free RAM\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/freeRAMinGig"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Battery Remaining\n" />
+            android:text="   Battery Remaining\n"
+            android:textColor="@android:color/background_light" />
 
 
         <TextView
             android:id="@+id/batteryRemain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Battery Voltage\n" />
+            android:text="   Battery Voltage\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/batteryVoltage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Battery Temperature\n" />
+            android:text="   Battery Temperature\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/batteryTemp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Charging\n" />
+            android:text="   Charging\n"
+            android:textColor="@android:color/background_light" />
 
         <TextView
             android:id="@+id/batteryCharging"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
-
 
 
 </LinearLayout>
