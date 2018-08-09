@@ -23,11 +23,10 @@
             android:text="   Chipset\n" />
 
         <TextView
-            android:text="Chipset"
+            android:id="@+id/Chip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,15 +58,15 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="   CPU Usage\n" />
 
         <TextView
+            android:id="@+id/CPUusage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,15 +77,15 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="   Active Cores\n" />
-
-        <TextView
-            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Chipset" />
+            android:text="   CPU Cores\n" />
+
+        <TextView
+            android:id="@+id/activeCores"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,15 +96,15 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="   Installed RAM\n" />
 
         <TextView
+            android:id="@+id/RamInstalled"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -118,13 +117,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="   Usable RAM\n" />
+            android:text="   RAM Usage\n" />
 
         <TextView
+            android:id="@+id/currentRAMusagePercentage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,10 +139,10 @@
             android:text="   Free RAM\n" />
 
         <TextView
+            android:id="@+id/freeRAMinGig"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Chipset" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
