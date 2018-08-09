@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class Hardware_Spec extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware__spec);
         temperature = getBatterTemp(this);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         batteryTemp = (TextView) findViewById(R.id.batteryTemp);
 

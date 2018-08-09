@@ -2,6 +2,7 @@ package com.zammle2009wtfgmail.utilityhelper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,6 +68,7 @@ public class WhiteList extends AppCompatActivity {
         setContentView(R.layout.activity_white_list);
 
 
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 

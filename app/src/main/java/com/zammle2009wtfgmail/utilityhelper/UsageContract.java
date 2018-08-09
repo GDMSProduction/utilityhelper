@@ -6,7 +6,6 @@ public interface UsageContract {
 
     interface View{
 
-        void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList);
         void onUsageStatsRetrieved(List<UsageStatsWrapper> list);
         void onUserHasNoPermission();
     }

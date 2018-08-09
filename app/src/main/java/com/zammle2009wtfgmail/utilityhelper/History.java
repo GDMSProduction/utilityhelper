@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -66,7 +67,6 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +76,12 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         adapter = new UsageStatAdapter();
         recyclerView.setAdapter(adapter);
         setSupportActionBar(toolbar);
@@ -104,23 +105,28 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
             @Override
             public boolean onQueryTextChange(String query) {
+                query = query.toLowerCase();
+                List<UsageStatsWrapper> filtered = new ArrayList<>();
+                for (UsageStatsWrapper usageStatsWrapper : UsageStatAdapter.list)
+                {
 
-                adapter.filterList(query);
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(History.this));
-                adapter = new UsageStatAdapter();
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();  // data set changed
+                    String name = usageStatsWrapper.getAppName().toLowerCase();
+                    if(name.contains(query)) {
+                        filtered.add(usageStatsWrapper);
+                        adapter.setList(filtered);
+                        adapter.notifyDataSetChanged();
+                    }
+                    if (query.isEmpty()){
+                        adapter.setList(UsageStatAdapter.list);
+                         adapter.notifyDataSetChanged();
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 return true;
             }
         });
     }
 
-    @Override
-    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> list) {
-        adapter.setFilteredList(list);
-        adapter.notifyItemRangeChanged(0, list.size());
-    }
 
     @Override
     protected void onResume() {
