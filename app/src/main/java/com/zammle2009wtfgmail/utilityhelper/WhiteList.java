@@ -1,8 +1,10 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,9 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,10 +52,14 @@ public class WhiteList extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayout;
     private Button mOkay;
     private Button mCancel;
-    private ImageView mWindow;
+    private ImageView mAppWindow;
     private TextView mAppName;
     private TextView mBlack;
     private TextView mBlack2;
+    private TextView mTextView;
+    private EditText mAppTime;
+    private ImageView mWHite;
+    private Switch mSwitch;
 
     private boolean OpenAPP = true;
     static int Position;
@@ -68,7 +76,6 @@ public class WhiteList extends AppCompatActivity {
         setContentView(R.layout.activity_white_list);
 
 
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
@@ -81,16 +88,28 @@ public class WhiteList extends AppCompatActivity {
         mCancel = (Button) findViewById(R.id.appcancelbutton2);
         mAppName = (TextView) findViewById(R.id.appAppname2);
         mBlack = (TextView) findViewById(R.id.addBlack2);
-        mWindow = (ImageView) findViewById(R.id.appWindow2);
+        mAppWindow = (ImageView) findViewById(R.id.appWindow2);
         mBlack2 = (TextView) findViewById(R.id.addBlack3);
+        mAppTime = (EditText) findViewById(R.id.apptimer2);
+        mTextView = (TextView) findViewById(R.id.apptextview2);
+        mWHite = (ImageView) findViewById(R.id.appwhite2);
+        mSwitch = (Switch) findViewById(R.id.appswitch2);
 
-        mWindow.setVisibility(View.INVISIBLE);
+        mAppWindow.setVisibility(View.INVISIBLE);
         mBlack.setVisibility(View.INVISIBLE);
         mAppName.setVisibility(View.INVISIBLE);
         mCancel.setVisibility(View.INVISIBLE);
         mOkay.setVisibility(View.INVISIBLE);
         mBlack.setVisibility(View.INVISIBLE);
         mBlack2.setVisibility(View.INVISIBLE);
+        mAppTime.setVisibility(View.INVISIBLE);
+        mTextView.setVisibility(View.INVISIBLE);
+        mWHite.setVisibility(View.INVISIBLE);
+        mSwitch.setVisibility(View.INVISIBLE);
+
+
+        mSwitch.setEnabled(false);
+        mAppTime.setEnabled(false);
 
 
 
@@ -111,71 +130,77 @@ public class WhiteList extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
 
 
-        if (CloseList.CreateOnce == 0)
+        try {
+            if (CloseList.CreateOnce == 0) {
+                String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+                String hold = readFile(WhiteList.filename2);
+                Boolean copy = false;
+
+                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < TextWithTime.length; ++i) {
+                    list.add(TextWithTime[i]);
+                }
+
+
+                for (int i = 0; i < newText.length; i = i + 2) {
+
+                    for (int z = 0; z < list.size(); z += 4) {
+                        if (newText[i] == list.get(z)) {
+
+                            copy = true;
+
+                            MainActivity.ToReturn += list.indexOf(z);
+                            MainActivity.ToReturn += list.indexOf(z + 1);
+                            MainActivity.ToReturn += list.indexOf(z + 2);
+                            MainActivity.ToReturn += list.indexOf(z + 3);
+
+                        }
+
+                    }
+
+
+                    if (copy == false) {
+
+                        list.add(newText[i] + (System.getProperty("line.separator")));
+                        list.add("15" + (System.getProperty("line.separator")));
+                        list.add("0" + (System.getProperty("line.separator")));
+                        try {
+                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                        } catch (Exception e) {
+                        }
+
+
+                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                        // new
+                        try {
+                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                        } catch (Exception e) {
+                        }
+
+                    }
+
+                    copy = false;
+
+
+                }
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                CloseList.CreateOnce += 1;
+            }
+        }
+        catch (Exception e)
         {
-            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-            String hold = readFile(WhiteList.filename2);
-            Boolean copy = false;
-
-            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-            for (int i = 0; i < TextWithTime.length; ++i) {
-                list.add(TextWithTime[i]);
-            }
-
-
-            for (int i = 0; i < newText.length; i = i + 2) {
-
-                for (int z = 0; z < list.size(); z += 4) {
-                    if (newText[i] == list.get(z)) {
-
-                        copy = true;
-
-                        MainActivity.ToReturn += list.indexOf(z);
-                        MainActivity.ToReturn += list.indexOf(z + 1);
-                        MainActivity.ToReturn += list.indexOf(z + 2);
-                        MainActivity.ToReturn += list.indexOf(z+3);
-                    }
-
-                }
-
-
-                if (copy == false)
-                {
-
-                    list.add(newText[i] + (System.getProperty("line.separator")));
-                    list.add("15" + (System.getProperty("line.separator")));
-                    list.add("0" + (System.getProperty("line.separator")));
-                    try {
-                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                    }
-                    catch (Exception e)
-                    {}
-
-
-                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    // new
-                    try {
-                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                    }
-                    catch (Exception e)
-                    {}
-
-                }
-
-                copy = false;
-
-
-            }
-
-            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-            CloseList.CreateOnce += 1;
+            CloseList.CreateOnce = 0;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +219,28 @@ public class WhiteList extends AppCompatActivity {
                 boolean bool = true;
                 String PackageName = TextWithInfo[i+3];
 
-                CloseList.Holder.add(new templateHolder(R.drawable.defaulticon, appName, bool, Time, true, PackageName));
+
+                try {
+
+                    Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
+
+
+                    if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                    {
+                        CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
+                    }
+                    else
+                    {
+                        CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
+                    }
+
+                }
+                catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+
+
+
+                }
             }
         }
 
@@ -229,36 +275,113 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (CloseList.Holder.get(Position).getSwitch() == true)
+                OpenAPP = true;
+
+
+                if (Integer.valueOf(mAppTime.getText().toString()) > 120)
                 {
-                    OpenAPP = true;
-                    mWindow.setVisibility(View.INVISIBLE);
-                    mBlack.setVisibility(View.INVISIBLE);
-                    mAppName.setVisibility(View.INVISIBLE);
-                    mCancel.setVisibility(View.INVISIBLE);
-                    mOkay.setVisibility(View.INVISIBLE);
-                    mBlack2.setVisibility(View.INVISIBLE);
-                    CloseList.Holder.get(Position).SetBool(false);
-                    CloseList.Holder.get(Position).SetVis(false);
+                    mAppTime.setText("120");
+                }
+                if (Integer.valueOf(mAppTime.getText().toString()) < 1)
+                {
+                    mAppTime.setText("1");
+                }
+
+                CloseList.Holder.get(Position).SetValue(Integer.valueOf(mAppTime.getText().toString()));
+
+                CloseList.Holder.get(Position).SetBool(mSwitch.isChecked());
 
 
-                    mAdapter.notifyItemChanged(Position);
+
+
+                if (mSwitch.isChecked() == true)
+                {
+                    CloseList.Holder.get(Position).SetVis(true);
+                    CloseList.Holder.get(Position).SetBool(true);
+
+                    boolean copy = false;
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(Position).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(1);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
+
+
+                            copy = true;
+                            Toast.makeText(WhiteList.this,"ADDED: " + MainActivity.ListRunnables.get(i).GetPackageName(), Toast.LENGTH_SHORT).show();
+
+                            break;
+                        }
+                    }
+
+                    if (copy == false)
+                    {
+                        Toast.makeText(WhiteList.this,"FAIL", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
                 }
                 else
                 {
-                    OpenAPP = true;
-                    mWindow.setVisibility(View.INVISIBLE);
-                    mBlack.setVisibility(View.INVISIBLE);
-                    mAppName.setVisibility(View.INVISIBLE);
-                    mCancel.setVisibility(View.INVISIBLE);
-                    mOkay.setVisibility(View.INVISIBLE);
-                    mBlack2.setVisibility(View.INVISIBLE);
-                    CloseList.Holder.get(Position).SetBool(true);
-                    CloseList.Holder.get(Position).SetVis(true);
+                    CloseList.Holder.get(Position).SetVis(false);
+                    CloseList.Holder.get(Position).SetBool(false);
 
-                    mAdapter.notifyItemChanged(Position);
+
+
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(Position).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(0);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).removeCallbacks(MainActivity.ListRunnables.get(i));
+
+
+
+
+                            break;
+                        }
+                    }
                 }
 
+
+
+                mWHite.setVisibility(View.INVISIBLE);
+                mAppTime.setVisibility(View.INVISIBLE);
+                mTextView.setVisibility(View.INVISIBLE);
+                mOkay.setVisibility(View.INVISIBLE);
+                mCancel.setVisibility(View.INVISIBLE);
+                mSwitch.setVisibility(View.INVISIBLE);
+                mAppName.setVisibility(View.INVISIBLE);
+                mAppWindow.setVisibility(View.INVISIBLE);
+                try {
+                    mBlack.setVisibility(View.INVISIBLE);
+                }
+                catch (Exception e)
+                {}
+                try {
+                    mBlack2.setVisibility(View.INVISIBLE);
+                }
+                catch (Exception e)
+                {}
+
+                mSwitch.setEnabled(false);
+                mAppTime.setEnabled(false);
+
+                mAdapter.notifyItemChanged(Position);
+
+
+
+                // save //
 
                 String UpdateSave ="";
                 String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
@@ -278,15 +401,15 @@ public class WhiteList extends AppCompatActivity {
                         {
                             TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
 
-                            if (CloseList.Holder.get(i).getSwitch() == true)
+                            if (mSwitch.isChecked())
                             {
                                 TextWithInfo[x+2] = String.valueOf(1);
-                               // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
                                 TextWithInfo[x+2] = String.valueOf(0);
-                              //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -318,6 +441,9 @@ public class WhiteList extends AppCompatActivity {
 
                 saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
+                // end of saving //
+
+                hideKeyboard(v);
             }
 
         });
@@ -327,39 +453,54 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (CloseList.Holder.get(Position).getSwitch() == true)
+                OpenAPP = true;
+
+                mWHite.setVisibility(View.INVISIBLE);
+                mAppTime.setVisibility(View.INVISIBLE);
+                mTextView.setVisibility(View.INVISIBLE);
+                mOkay.setVisibility(View.INVISIBLE);
+                mCancel.setVisibility(View.INVISIBLE);
+                mSwitch.setVisibility(View.INVISIBLE);
+                mAppName.setVisibility(View.INVISIBLE);
+                mAppWindow.setVisibility(View.INVISIBLE);
+                try {
+                    mBlack.setVisibility(View.INVISIBLE);
+                }
+                catch (Exception e)
+                {}
+                try {
+                    mBlack2.setVisibility(View.INVISIBLE);
+                }
+                catch (Exception e)
+                {}
+
+                if (CloseList.Holder.get(Position).getSwitch())
                 {
-                    OpenAPP = true;
-                    mWindow.setVisibility(View.INVISIBLE);
-                    mBlack.setVisibility(View.INVISIBLE);
-                    mAppName.setVisibility(View.INVISIBLE);
-                    mCancel.setVisibility(View.INVISIBLE);
-                    mOkay.setVisibility(View.INVISIBLE);
-                    mBlack2.setVisibility(View.INVISIBLE);
-                    CloseList.Holder.get(Position).SetBool(true);
                     CloseList.Holder.get(Position).SetVis(true);
-
-                    mAdapter.notifyItemChanged(Position);
+                    CloseList.Holder.get(Position).SetBool(true);
                 }
-                else{
-                    OpenAPP = true;
-                    mWindow.setVisibility(View.INVISIBLE);
-                    mBlack.setVisibility(View.INVISIBLE);
-                    mAppName.setVisibility(View.INVISIBLE);
-                    mCancel.setVisibility(View.INVISIBLE);
-                    mOkay.setVisibility(View.INVISIBLE);
-                    mBlack2.setVisibility(View.INVISIBLE);
-                    CloseList.Holder.get(Position).SetBool(false);
+                else
+                {
                     CloseList.Holder.get(Position).SetVis(false);
-
-                    mAdapter.notifyItemChanged(Position);
-
+                    CloseList.Holder.get(Position).SetBool(false);
                 }
+
+
+                mSwitch.setEnabled(false);
+                mAppTime.setEnabled(false);
+
+
+
+
+                //  mAdapter.notifyItemChanged(temp);
+                hideKeyboard(v);
+
 
 
             }
 
         });
+
 
 
 
@@ -376,9 +517,20 @@ public class WhiteList extends AppCompatActivity {
                         Position = position;
                         mAppName.setVisibility(View.VISIBLE);
                         mBlack.setVisibility(View.VISIBLE);
-                        mWindow.setVisibility(View.VISIBLE);
+                        mAppWindow.setVisibility(View.VISIBLE);
                         mOkay.setVisibility(View.VISIBLE);
                         mCancel.setVisibility(View.VISIBLE);
+                        mTextView.setVisibility(View.VISIBLE);
+                        mSwitch.setVisibility(View.VISIBLE);
+                        mWHite.setVisibility(View.VISIBLE);
+                        mAppTime.setVisibility(View.VISIBLE);
+                        mSwitch.setChecked(true);
+                        mSwitch.setEnabled(true);
+                        mAppTime.setEnabled(true);
+
+
+                        mAppName.setText(CloseList.Holder.get(Position).getAppName());
+                        mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
                     }
                     else
                     {
@@ -386,9 +538,20 @@ public class WhiteList extends AppCompatActivity {
                         Position = position;
                         mAppName.setVisibility(View.VISIBLE);
                         mBlack2.setVisibility(View.VISIBLE);
-                        mWindow.setVisibility(View.VISIBLE);
+                        mAppWindow.setVisibility(View.VISIBLE);
                         mOkay.setVisibility(View.VISIBLE);
                         mCancel.setVisibility(View.VISIBLE);
+                        mTextView.setVisibility(View.VISIBLE);
+                        mSwitch.setVisibility(View.VISIBLE);
+                        mWHite.setVisibility(View.VISIBLE);
+                        mAppTime.setVisibility(View.VISIBLE);
+                        mSwitch.setEnabled(true);
+                        mSwitch.setChecked(false);
+                        mAppTime.setEnabled(true);
+
+
+                        mAppName.setText(CloseList.Holder.get(Position).getAppName());
+                        mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
                     }
 
 
@@ -439,7 +602,7 @@ public class WhiteList extends AppCompatActivity {
 
                 for (int i = 0; i < CloseList.Holder.size(); ++i)
                 {
-                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+                    for (int x = 0; x < TextWithInfo.length; x = x + 5)
 
                     {
 
@@ -561,6 +724,11 @@ public class WhiteList extends AppCompatActivity {
             templateAdapter.againBool +=1;
         }
 
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
 }

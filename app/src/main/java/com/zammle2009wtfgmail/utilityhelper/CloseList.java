@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ public class CloseList extends AppCompatActivity {
     private ImageView mAppWindow;
     private TextView mAdd;
 
+    private PackageManager packageManager;
 
     private boolean OpenApp = true;
 
@@ -64,7 +67,7 @@ public class CloseList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_close_list);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
 
 
@@ -106,7 +109,6 @@ public class CloseList extends AppCompatActivity {
 
 
 
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,74 +116,77 @@ public class CloseList extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
 
 
-        if (CloseList.CreateOnce == 0)
+        try {
+            if (CloseList.CreateOnce == 0) {
+                String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+                String hold = readFile(WhiteList.filename2);
+                Boolean copy = false;
+
+                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < TextWithTime.length; ++i) {
+                    list.add(TextWithTime[i]);
+                }
+
+
+                for (int i = 0; i < newText.length; i = i + 2) {
+
+                    for (int z = 0; z < list.size(); z += 4) {
+                        if (newText[i] == list.get(z)) {
+
+                            copy = true;
+
+                            MainActivity.ToReturn += list.indexOf(z);
+                            MainActivity.ToReturn += list.indexOf(z + 1);
+                            MainActivity.ToReturn += list.indexOf(z + 2);
+                            MainActivity.ToReturn += list.indexOf(z + 3);
+
+                        }
+
+                    }
+
+
+                    if (copy == false) {
+
+                        list.add(newText[i] + (System.getProperty("line.separator")));
+                        list.add("15" + (System.getProperty("line.separator")));
+                        list.add("0" + (System.getProperty("line.separator")));
+                        try {
+                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                        } catch (Exception e) {
+                        }
+
+
+                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                        // new
+                        try {
+                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                        } catch (Exception e) {
+                        }
+
+                    }
+
+                    copy = false;
+
+
+                }
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                CloseList.CreateOnce += 1;
+            }
+        }
+        catch (Exception e)
         {
-            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-            String hold = readFile(WhiteList.filename2);
-            Boolean copy = false;
-
-            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
-
-            for (int i = 0; i < TextWithTime.length; ++i) {
-                list.add(TextWithTime[i]);
-            }
-
-
-            for (int i = 0; i < newText.length; i = i + 2) {
-
-                for (int z = 0; z < list.size(); z += 4) {
-                    if (newText[i] == list.get(z)) {
-
-                        copy = true;
-
-                        MainActivity.ToReturn += list.indexOf(z);
-                        MainActivity.ToReturn += list.indexOf(z + 1);
-                        MainActivity.ToReturn += list.indexOf(z + 2);
-                        MainActivity.ToReturn += list.indexOf(z+3);
-                    }
-
-                }
-
-
-                if (copy == false)
-                {
-
-                    list.add(newText[i] + (System.getProperty("line.separator")));
-                    list.add("15" + (System.getProperty("line.separator")));
-                    list.add("0" + (System.getProperty("line.separator")));
-                    list.add(newText[i+1] +  (System.getProperty("line.separator")));
-                    try {
-                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                    }
-                    catch (Exception e)
-                    {}
-
-
-                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    // new
-                    try {
-                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                    }
-                    catch (Exception e)
-                    {}
-
-                }
-
-                copy = false;
-
-
-            }
-
-            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-            CloseList.CreateOnce += 1;
+            CloseList.CreateOnce = 0;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -213,14 +218,33 @@ public class CloseList extends AppCompatActivity {
                 {}
 
 
+
+
+            try {
+
+                Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
+
+
                 if (Integer.valueOf(TextWithInfo[i+2]) == 1)
                 {
-                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, true,PackageName));
+                    Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
                 }
                 else
                 {
-                    Holder.add(new templateHolder(R.drawable.defaulticon,appName, bool, Time, false,PackageName));
+                    Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
                 }
+
+            }
+            catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+
+
+
+            }
+
+
+
+
 
 
 
@@ -279,9 +303,9 @@ public class CloseList extends AppCompatActivity {
                 {
                     mAppTime.setText("120");
                 }
-                if (Integer.valueOf(mAppTime.getText().toString()) < 5)
+                if (Integer.valueOf(mAppTime.getText().toString()) < 1)
                 {
-                    mAppTime.setText("5");
+                    mAppTime.setText("1");
                 }
 
                 Holder.get(temp).SetValue(Integer.valueOf(mAppTime.getText().toString()));
@@ -296,11 +320,58 @@ public class CloseList extends AppCompatActivity {
                     Holder.get(temp).SetVis(true);
                     Holder.get(temp).SetBool(true);
 
+                    boolean copy = false;
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(temp).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(1);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
+
+
+                            copy = true;
+                            Toast.makeText(CloseList.this,"ADDED: " + MainActivity.ListRunnables.get(i).GetPackageName(), Toast.LENGTH_SHORT).show();
+
+                            break;
+                        }
+                    }
+
+                    if (copy == false)
+                    {
+                        Toast.makeText(CloseList.this,"FAIL", Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
                 }
                 else
                 {
                     Holder.get(temp).SetVis(false);
                     Holder.get(temp).SetBool(false);
+
+
+
+
+
+                    for (int i = 0; i < MainActivity.ListRunnables.size(); ++i)
+                    {
+                        if (MainActivity.ListRunnables.get(i).GetPackageName().equals(CloseList.Holder.get(temp).GetPackageName()))
+                        {
+                            MainActivity.ListRunnables.get(i).SetBool(0);
+                            MainActivity.ListRunnables.get(i).SetTime(Integer.valueOf(mAppTime.getText().toString()));
+                            MainActivity.ListHandlers.get(i).removeCallbacks(MainActivity.ListRunnables.get(i));
+
+
+
+
+                            break;
+                        }
+                    }
                 }
 
 
@@ -344,6 +415,7 @@ public class CloseList extends AppCompatActivity {
                     }
 
                     UpdateSave += Holder.get(i).GetPackageName() + (System.getProperty("line.separator"));
+
 
 
 
@@ -423,6 +495,12 @@ public class CloseList extends AppCompatActivity {
                     OpenApp = false;
                     temp = position;
 
+                    if (Holder.get(temp).getSwitch() == true) {
+                        mSwitch.setChecked(true);
+                    } else {
+                        mSwitch.setChecked(false);
+                    }
+
                     mWHite.setVisibility(View.VISIBLE);
                     mAppTime.setVisibility(View.VISIBLE);
                     mTextView.setVisibility(View.VISIBLE);
@@ -441,11 +519,7 @@ public class CloseList extends AppCompatActivity {
                     mAppTime.setText(String.valueOf(Holder.get(temp).getNumberPicker()));
 
 
-                    if (Holder.get(temp).getSwitch() == true) {
-                        mSwitch.setChecked(true);
-                    } else {
-                        mSwitch.setChecked(false);
-                    }
+
 
 
                 }
@@ -501,6 +575,8 @@ public class CloseList extends AppCompatActivity {
                     }
 
                     UpdateSave += Holder.get(i).GetPackageName() + (System.getProperty("line.separator"));
+                    UpdateSave += String.valueOf(Holder.get(i).GetAppIcon()) +  (System.getProperty("line.separator"));
+
 
 
 

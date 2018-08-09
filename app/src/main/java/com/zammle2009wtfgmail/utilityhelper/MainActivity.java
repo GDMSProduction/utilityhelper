@@ -1,24 +1,19 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
-import android.Manifest;
 import android.app.ActivityManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.media.Image;import android.os.BatteryManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import android.opengl.Matrix;
+import android.os.BatteryManager;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +25,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements UsageContract.View
 {
+
+
+   static ArrayList<Handler> ListHandlers = new ArrayList <>();
+   static ArrayList<MyRunnables> ListRunnables = new ArrayList <>();
+   static int HandlerPosition = 0;
+
 
 
 
@@ -46,15 +47,13 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     protected void onCreate(Bundle savedInstanceState)
 
     {   super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
 
 
@@ -93,17 +92,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         });
 
-        final ImageButton pressedclean = (ImageButton) findViewById(R.id.clean);
-        pressedclean.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //Intent history = new Intent (MainActivity.this, Something1.class );
-                //startActivity(history);
-            }
 
-        });
         final ImageButton pressedwhitelist = (ImageButton) findViewById(R.id.whitelist);
         pressedwhitelist.setOnClickListener(new View.OnClickListener()
         {
@@ -121,8 +110,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             @Override
             public void onClick(View v)
             {
-                //Intent history = new Intent (MainActivity.this, Something3.class );
-                //startActivity(history);
+                Intent history = new Intent (MainActivity.this, Something3.class );
+                startActivity(history);
             }
 
         });
@@ -210,6 +199,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         }
 
 
+
+
+
+
         if (batteryPct >= 100)
         {
            Text.setText("100%");
@@ -230,53 +223,59 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             if (isCharging == true) {
 
                     ImageView view = (ImageView) findViewById(R.id.charge);
+
                     view.setVisibility(ImageView.VISIBLE);
 
             } else {
                 ImageView view = (ImageView) findViewById(R.id.charge);
+
                 view.setVisibility(ImageView.INVISIBLE);
             }
 
 
-            if (batteryPct >= 81.00f) {
-                ImageView view = (ImageView) findViewById(R.id.battery5);
-                view.setVisibility(ImageView.VISIBLE);
-
-            } else if (batteryPct >= 61.0f) {
-                ImageView view = (ImageView) findViewById(R.id.battery4);
-                view.setVisibility(ImageView.VISIBLE);
-            } else if (batteryPct >= 41.0f) {
-                ImageView view = (ImageView) findViewById(R.id.battery3);
-                view.setVisibility(ImageView.VISIBLE);
 
 
 
-            } else if (batteryPct >= 21.00f) {
-                ImageView view = (ImageView) findViewById(R.id.battery2);
-                view.setVisibility(ImageView.VISIBLE);
 
 
-            } else {
-                ImageView view = (ImageView) findViewById(R.id.battery1);
+            if (batteryPct >= 100.00f) {
+                ImageView view = (ImageView) findViewById(R.id.power1);
+
                 view.setVisibility(ImageView.VISIBLE);
 
             }
+            else if (batteryPct >= 85.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power2);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }
+            else if (batteryPct >= 65.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power3);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 33.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power7);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else if (batteryPct >= 11.0f)
+            {
+                ImageView view = (ImageView) findViewById(R.id.power9);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }else
+            {
+                ImageView view = (ImageView) findViewById(R.id.power10);
+
+                view.setVisibility(ImageView.VISIBLE);
+            }
 
 
-/*
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-                builder.setSmallIcon(R.drawable.utilities);
-                builder.setContentTitle("Utility Helper");
-                builder.setContentTitle("Battery Low!");
-                Intent intent1 = new Intent(this,MainActivity.class);
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-                stackBuilder.addParentStack(MainActivity.class);
-                stackBuilder.addNextIntent(intent1);
-                PendingIntent pendingIntent1 = stackBuilder.getPendingIntent(0, pendingIntent.FLAG_UPDATE_CURRENT);
-                builder.setContentIntent(pendingIntent1);
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(0,builder.build());
-                */
+
+
+
 
 
 
@@ -355,6 +354,32 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     }
 
+    /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public void onEditStarted() {
+
+    }
+
+    @Override
+    public void onEditFinished() {
+
+    }
+
+    @Override
+    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
+
+    }
 
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)
@@ -365,69 +390,124 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         ArrayList<String> list = new ArrayList<>();
 
 
-        if (CloseList.CreateOnce == 0)
-        {
-            String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-            String hold = readFile(WhiteList.filename2);
-            Boolean copy = false;
+        try {
+            if (CloseList.CreateOnce == 0) {
+                String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
+                String hold = readFile(WhiteList.filename2);
+                Boolean copy = false;
 
-            String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-            for (int i = 0; i < TextWithTime.length; ++i) {
-                list.add(TextWithTime[i]);
-            }
+                for (int i = 0; i < TextWithTime.length; ++i) {
+                    list.add(TextWithTime[i]);
+                }
 
 
-            for (int i = 0; i < newText.length; i = i + 2) {
+                for (int i = 0; i < newText.length; i = i + 2) {
 
-                for (int z = 0; z < list.size(); z += 4) {
-                    if (newText[i] == list.get(z)) {
+                    for (int z = 0; z < list.size(); z += 4) {
+                        if (newText[i] == list.get(z)) {
 
-                        copy = true;
+                            copy = true;
 
-                        MainActivity.ToReturn += list.indexOf(z);
-                        MainActivity.ToReturn += list.indexOf(z + 1);
-                        MainActivity.ToReturn += list.indexOf(z + 2);
-                        MainActivity.ToReturn += list.indexOf(z+3);
-                        
+                            MainActivity.ToReturn += list.indexOf(z);
+                            MainActivity.ToReturn += list.indexOf(z + 1);
+                            MainActivity.ToReturn += list.indexOf(z + 2);
+                            MainActivity.ToReturn += list.indexOf(z + 3);
+
+
+
+
+                        }
+
                     }
+
+
+                    if (copy == false) {
+
+                        list.add(newText[i] + (System.getProperty("line.separator")));
+                        list.add("15" + (System.getProperty("line.separator")));
+                        list.add("0" + (System.getProperty("line.separator")));
+                        try {
+                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                        } catch (Exception e) {
+                        }
+
+
+                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+
+
+
+
+                        // new
+                        try {
+                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                        } catch (Exception e) {
+                        }
+
+                    }
+
+                    copy = false;
+
 
                 }
 
 
-                if (copy == false)
+
+                String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+                for (int i = 0; i < Runnables.length; i = i + 4)
                 {
-
-                    list.add(newText[i] + (System.getProperty("line.separator")));
-                    list.add("15" + (System.getProperty("line.separator")));
-                    list.add("0" + (System.getProperty("line.separator")));
-                    try {
-                        list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                    if (Integer.valueOf(Runnables[i+2]) == 1)
+                    {
+                        MainActivity.ListHandlers.add(new Handler());
+                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 1, i));
+                        MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
                     }
-                    catch (Exception e)
-                    {}
-
-
-                    MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                    MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                    // new
-                    try {
-                        MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                    else
+                    {
+                        MainActivity.ListHandlers.add(new Handler());
+                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 0, i));
                     }
-                    catch (Exception e)
-                    {}
+
+
+
+
+
+
+
+
 
                 }
 
-                copy = false;
 
 
+
+
+
+
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                CloseList.CreateOnce += 1;
             }
-
-            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-            CloseList.CreateOnce += 1;
         }
+        catch (Exception e)
+        {
+            CloseList.CreateOnce = 0;
+        }
+
+
+
+
+
+
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
@@ -462,7 +542,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
             fos.write(text.getBytes());
             fos.close();
-            Toast.makeText(MainActivity.this,"Saved", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -496,5 +576,83 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         return textread;
     }
 
+
+
+
+    public class MyRunnables implements Runnable
+    {
+
+
+        private String PackageName;
+        private int Time;
+        private int Position;
+        private  int On;
+
+
+
+
+
+        public int GetTimer()
+        {return Time;}
+
+
+        public int GetBoolean()
+        {return On;}
+
+        public String GetPackageName()
+        {return PackageName;}
+        public int GretPosition()
+        {return Position;}
+
+        public void SetTime(int time)
+        {Time = time;}
+
+        public void SetBool(int bool)
+        {On = bool;}
+
+
+
+        public MyRunnables(String _PackageName, int _Time, int _On, int _position)
+        {
+            this.PackageName = _PackageName;
+            this.Time = _Time;
+            this.On = _On;
+            this.Position = _position;
+
+
+        }
+
+
+
+
+
+
+
+        @Override
+        public void run()
+        {
+
+            if (On == 1)
+            {
+
+                try {
+                    final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                    am.killBackgroundProcesses(PackageName);
+                    ListHandlers.get(Position).postDelayed(this, Time * 60 * 1000);
+                   // Toast.makeText(MainActivity.this, "PASSED: " + PackageName, Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e)
+                {
+                    //Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else
+            {
+               // Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
 }
