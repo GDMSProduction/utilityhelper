@@ -354,33 +354,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     }
 
-    /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
-
-    @Override
-    public boolean onQueryTextChange(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public void onEditStarted() {
-
-    }
-
-    @Override
-    public void onEditFinished() {
-
-    }
-
-    @Override
-    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
-
-    }
-
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)
     {
