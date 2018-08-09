@@ -377,11 +377,69 @@ public class WhiteList extends AppCompatActivity {
                 mSwitch.setEnabled(false);
                 mAppTime.setEnabled(false);
 
+                mAdapter.notifyItemChanged(Position);
+
 
 
                 // save //
 
-               
+                String UpdateSave ="";
+                String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+
+                for (int i = 0; i < CloseList.Holder.size(); ++i)
+                {
+                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                    {
+
+                        String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                        String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                        if (tempstring2.equals(tempstring))
+
+                        {
+                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                            if (mSwitch.isChecked())
+                            {
+                                TextWithInfo[x+2] = String.valueOf(1);
+                                // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                TextWithInfo[x+2] = String.valueOf(0);
+                                //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                            }
+
+
+
+                        }
+                        else{
+                            //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+
+
+                for (int i = 0; i < TextWithInfo.length; ++i)
+                {
+                    UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
+
+                }
+
+                MainActivity.ToReturn = UpdateSave;
+
+
+
+                saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
                 // end of saving //
 
