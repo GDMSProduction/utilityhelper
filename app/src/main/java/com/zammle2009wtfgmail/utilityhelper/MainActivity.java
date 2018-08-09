@@ -354,23 +354,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
     }
 
-    /////////////// need these 3 functions to load apps, even though functions are empty. /////////////////////////////////
-
-
-
-
-
-    @Override
-    public void onFilteredStatsRetrieved(List<UsageStatsWrapper> filteredList) {
-
-    }
-
-
-
-
-
-
-
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> mlist)
     {

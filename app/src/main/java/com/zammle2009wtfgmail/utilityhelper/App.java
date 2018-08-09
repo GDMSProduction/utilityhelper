@@ -13,6 +13,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
+
     }
 
     public static App getApp(){
