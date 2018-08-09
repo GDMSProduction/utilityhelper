@@ -9,120 +9,23 @@
     android:visibility="visible"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/battery5"
-        android:layout_width="381dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery5" />
-
-
-    <ImageView
-        android:id="@+id/battery3"
-        android:layout_width="381dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/charge"
-        app:layout_constraintStart_toStartOf="@+id/battery1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery3" />
-
-
-    <ImageView
-        android:id="@+id/battery2"
-        android:layout_width="381dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery2"
-        tools:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/battery1"
-        android:layout_width="381dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/abattery1"
-        tools:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/battery4"
-        android:layout_width="381dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.581"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        app:srcCompat="@drawable/abattery4"
-        tools:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/charge"
-        android:layout_width="wrap_content"
-        android:layout_height="63dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/charge" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
 
         android:layout_width="wrap_content"
-        android:layout_height="84dp"
+        android:layout_height="86dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="8dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appWindow">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -139,14 +42,6 @@
                 app:srcCompat="@drawable/ahistory" />
 
             <ImageButton
-                android:id="@+id/clean"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/aclean" />
-
-            <ImageButton
                 android:id="@+id/whitelist"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
@@ -155,20 +50,20 @@
                 app:srcCompat="@drawable/awhitelist" />
 
             <ImageButton
-                android:id="@+id/notifications"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/anotifications" />
-
-            <ImageButton
                 android:id="@+id/timer"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/square"
                 app:srcCompat="@drawable/timer" />
+
+            <ImageButton
+                android:id="@+id/notifications"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/square"
+                app:srcCompat="@drawable/anotifications" />
 
             <ImageButton
                 android:id="@+id/SpecDetail"
@@ -192,23 +87,6 @@
     </HorizontalScrollView>
 
     <TextView
-        android:id="@+id/DisplayBatteryPower"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/horizontalScrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
-
-    <TextView
         android:id="@+id/build"
         android:layout_width="62dp"
         android:layout_height="16dp"
@@ -216,7 +94,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Build: 4.4"
+        android:text="Build: 4.5"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -227,22 +105,23 @@
 
     <Button
         android:id="@+id/closebutton"
-        android:layout_width="247dp"
-        android:layout_height="129dp"
+        android:layout_width="291dp"
+        android:layout_height="245dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/zzzz"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/power1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/power1" />
 
     <TextView
         android:id="@+id/testview"
-        android:layout_width="259dp"
-        android:layout_height="188dp"
+        android:layout_width="378dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -255,6 +134,152 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/power1"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power1" />
+
+    <ImageView
+        android:id="@+id/power2"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power4" />
+
+    <ImageView
+        android:id="@+id/power3"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power8" />
+
+    <ImageView
+        android:id="@+id/power7"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power12" />
+
+    <ImageView
+        android:id="@+id/power9"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power16" />
+
+    <ImageView
+        android:id="@+id/power10"
+        android:layout_width="wrap_content"
+        android:layout_height="373dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.292"
+        app:srcCompat="@drawable/power19" />
+
+
+    <TextView
+        android:id="@+id/DisplayBatteryPower"
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/power1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/power1"
+        app:layout_constraintVertical_bias="0.751" />
+
+    <ImageView
+        android:id="@+id/charge"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/power1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/power1"
+        app:srcCompat="@drawable/charge" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Tap to close Apps"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/power1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/power1"
+        app:layout_constraintVertical_bias="0.215" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,12 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.renderscript.Int2;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +16,16 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public  class templateHolder
 {
 
-    private final int appIcon;
+    private final Drawable appIcon;
     private final String appName;
 
 
@@ -27,7 +38,22 @@ public  class templateHolder
 
 
 
-    public templateHolder(int appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
+
+/*
+
+    final Handler handler = new Handler();
+    final Runnable r = new Runnable() {
+        public void run() {
+            handler.postDelayed(runnable, (numberPicker*60*1000));
+        }
+    };
+
+
+*/
+
+
+
+    public templateHolder(Drawable appIcon, String appName, boolean aswitch, int numb, boolean mVis, String PackageName)
     {
 
         this.appIcon = appIcon;
@@ -65,10 +91,11 @@ public  class templateHolder
     }
 
 
+    public Drawable GetAppIcon() {return appIcon;}
 
 
 
-    public int getAppIcon()
+    public Drawable getAppIcon()
     {
 
         return appIcon;
