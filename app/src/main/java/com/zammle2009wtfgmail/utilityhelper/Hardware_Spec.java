@@ -24,6 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.security.PrivateKey;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -52,6 +53,10 @@ public class Hardware_Spec extends AppCompatActivity {
     private Handler handler = new Handler();
 
     private BatteryManager bm;
+
+
+    private ActivityManager.MemoryInfo mI;
+    private ActivityManager activityManager;
 //
 
     @Override
@@ -236,8 +241,57 @@ public class Hardware_Spec extends AppCompatActivity {
             return 1;
         }
     }
+    //function returns the device Installed RAM
+    private String getTotalRAM (){
+        String RAMinString = "";
+        DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
+        mI = new ActivityManager.MemoryInfo();
+        activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        activityManager.getMemoryInfo(mI);
+        double totRam = mI.totalMem;
+        double mb = totRam / 1048576.0;
+        double gb = totRam / 1073741824.0;
 
+        if (gb > 1) {
+            RAMinString = twoDecimalFormat.format(gb).concat(" GB");
+        } else if (mb > 1) {
+            RAMinString = twoDecimalFormat.format(mb).concat(" MB");
+        } else {
+            RAMinString = twoDecimalFormat.format(totRam).concat(" KB");
+        }
 
+       return RAMinString;
+    }
+    //function to get available RAM
+    private String getAvailableRAM(){
+        DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
+        String availableRAM = "";
+        double avaiRAM = mI.availMem;
+
+        double mb = avaiRAM / 1048576.0;
+        double gb = avaiRAM / 1073741824.0;
+
+        if (gb > 1) {
+            availableRAM = twoDecimalFormat.format(gb).concat(" GB");
+        } else if (mb > 1) {
+            availableRAM = twoDecimalFormat.format(mb).concat(" MB");
+        } else {
+            availableRAM = twoDecimalFormat.format(avaiRAM).concat(" KB");
+        }
+
+        return availableRAM;
+
+    }
+
+    private String getRAMUsage (){
+        DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
+        String RAMUsage =" ";
+        double usage = (mI.availMem/mI.totalMem * 100.0);
+        RAMUsage=twoDecimalFormat.format(usage).concat(" %");
+        return  RAMUsage;
+
+    }
+//    double  percentAvail = (short) ((1-mI.availMem / (double)mI.totalMem) * 100.0);
 
     private Runnable running = new Runnable() {
         @Override
@@ -248,18 +302,11 @@ public class Hardware_Spec extends AppCompatActivity {
                     // Textview set text here
 
 
-                    ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-                    ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-                    activityManager.getMemoryInfo(mi);
-                    long totalMemory = (long) mi.totalMem/(long) (1024.0 * 1024.0 * 1024.0);
 
-                    double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
-                    short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
                     //Text view set texts
-                    installedRAM.setText(String.valueOf(totalMemory) + " GB");
-                    currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
-
-                    freeRAM.setText(String.valueOf(availableGigs)+" GB");
+                    installedRAM.setText(getTotalRAM());
+                    currentRAMUsage.setText(getRAMUsage());
+                    freeRAM.setText(getAvailableRAM());
 
 
 
