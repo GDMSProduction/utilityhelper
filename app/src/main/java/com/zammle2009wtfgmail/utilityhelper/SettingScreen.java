@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SettingScreen extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,13 +19,13 @@ public class SettingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_setting_screen);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent logout = new Intent(SettingScreen.this, LoginScreen.class);
-
-                startActivity(logout);
+                FirebaseAuth.getInstance().signOut();
             }
         });
 
