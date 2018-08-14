@@ -25,10 +25,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CloseList" />
         <activity android:name=".SettingScreen" />
-        <activity android:name=".Memory" />
         <activity android:name=".History" />
         <activity android:name=".WhiteList" />
-        <activity android:name=".Something3" />
+        <activity android:name=".Notifications" />
         <activity android:name=".Hardware_Spec"/>
         <activity android:name=".LoginScreen">
             <intent-filter>
@@ -36,13 +35,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".information"
-            android:label="@string/title_activity_information"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-
         </activity>
     </application>
 

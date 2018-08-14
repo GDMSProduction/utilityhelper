@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.signin.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -39,7 +40,7 @@ public class LoginScreen extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-    private SignInButton signInButton;
+    private Button googleSignIn;
     GoogleSignInClient googleSignInClient;
     int RC_SIGN_IN = 2;
 
@@ -62,7 +63,7 @@ public class LoginScreen extends AppCompatActivity {
        password = findViewById(R.id.PasswordeditText);
        progressDialog = new ProgressDialog(this);
        firebaseAuth = FirebaseAuth.getInstance();
-       signInButton = findViewById(R.id.GoogleSignIn);
+       googleSignIn = findViewById(R.id.GoogleSignIn);
        googleSignInClient = GoogleSignIn.getClient(this, gso);
 
        login.setOnClickListener(new View.OnClickListener() {
@@ -81,11 +82,10 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    signIn();
-
+                signIn();
             }
         });
     }

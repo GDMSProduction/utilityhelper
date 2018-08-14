@@ -14,6 +14,7 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -61,9 +62,9 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
     private UsageContract.Presenter presenter;
 
+    static List <UsageStatsWrapper> newList = new ArrayList <>();
 
     private UsageStatAdapter adapter;
-
 
 
 
@@ -96,6 +97,8 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+
+        // handler.postDelayed(running, 3000);
         final SearchView search = (SearchView) findViewById(R.id.search);
         search.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
@@ -103,7 +106,11 @@ public class History extends AppCompatActivity implements UsageContract.View, an
                 return false;
             }
 
-            //searches through the list for the app name you entered
+
+
+
+
+
             @Override
             public boolean onQueryTextChange(String query) {
                 query = query.toLowerCase();
@@ -117,9 +124,15 @@ public class History extends AppCompatActivity implements UsageContract.View, an
                         adapter.setList(filtered);
                         adapter.notifyDataSetChanged();
                     }
+                    else{
+                        UsageStatAdapter.list = newList;
+                        adapter.setList(newList);
+                        adapter.notifyDataSetChanged();
+                    }
                     if (query.isEmpty()){
-                        adapter.setList(UsageStatAdapter.list);
-                         adapter.notifyDataSetChanged();
+                        UsageStatAdapter.list = newList;
+                        adapter.setList(newList);
+                        adapter.notifyDataSetChanged();
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -133,16 +146,18 @@ public class History extends AppCompatActivity implements UsageContract.View, an
     protected void onResume() {
         super.onResume();
         showProgressBar(true);
-            presenter.retrieveUsageStats();
+        presenter.retrieveUsageStats();
 
     }
 
-//gwts the list
+
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+
+        newList = list;
         adapter.notifyItemRangeRemoved(0,list.size());
     }
 
@@ -170,5 +185,4 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         return false;
     }
 }
-
 

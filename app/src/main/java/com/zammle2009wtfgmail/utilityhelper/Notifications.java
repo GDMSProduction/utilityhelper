@@ -44,7 +44,7 @@ public class Notifications extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(layout.activity_something3);
+        setContentView(layout.activity_notifications);
 
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

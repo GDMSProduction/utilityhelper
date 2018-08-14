@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,6 +30,7 @@ public class UsagePresenter implements UsageContract.Presenter {
     private UsageContract.View view;
     private final Context context;
 
+
     public UsagePresenter(Context context, UsageContract.View view) {
         usageStatsManager = (UsageStatsManager) context.getSystemService("usagestats");
         packageManager = context.getPackageManager();
@@ -46,6 +48,7 @@ public class UsagePresenter implements UsageContract.Presenter {
     public void retrieveUsageStats() {
         if (!checkForPermission(context)) {
             view.onUserHasNoPermission();
+
             return;
         }
 
@@ -85,7 +88,7 @@ public class UsagePresenter implements UsageContract.Presenter {
    try{
                         list.add(fromUsageStat(stat));
 
-                    }catch (Exception e){
+                    }catch (Exception ignored){
 
                     }                }
             }
