@@ -33,8 +33,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
    static int HandlerPosition = 0;
 
 
+   private Handler handler = new Handler();
 
 
+   int cap = 0;
 
 
     private UsageContract.Presenter presenter;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
+        cap = 0;
 
 
 
@@ -167,8 +170,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         // Are we charging / charged?
        final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-      final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                status == BatteryManager.BATTERY_STATUS_FULL;
+
         int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
         int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
         float batteryPct = level / (float) scale;
@@ -218,23 +220,104 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         }
 
 
+        final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+        if (isCharging == true) {
 
-        
+            ImageView view = (ImageView) findViewById(R.id.charge);
+
+            view.setVisibility(ImageView.VISIBLE);
+
+        } else {
+            ImageView view = (ImageView) findViewById(R.id.charge);
+
+            view.setVisibility(ImageView.INVISIBLE);
+        }
 
 
-            if (isCharging == true) {
 
-                    ImageView view = (ImageView) findViewById(R.id.charge);
+        Runnable running = new Runnable() {
+            @Override
+            public void run()
+            {
 
-                    view.setVisibility(ImageView.VISIBLE);
+                if (cap < 45)
+                {
+                    cap += 1;
 
-            } else {
-                ImageView view = (ImageView) findViewById(R.id.charge);
 
-                view.setVisibility(ImageView.INVISIBLE);
+                    IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                    Intent batteryStatus = getBaseContext().registerReceiver(null, ifilter);
+
+                    // Are we charging / charged?
+                    final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+                    int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
+                    int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
+                    float batteryPct = level / (float) scale;
+                    batteryPct = batteryPct * 100;
+                    final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+
+                    if (isCharging == true) {
+
+                        ImageView view = (ImageView) findViewById(R.id.charge);
+
+                        view.setVisibility(ImageView.VISIBLE);
+
+                    } else {
+                        ImageView view = (ImageView) findViewById(R.id.charge);
+
+                        view.setVisibility(ImageView.INVISIBLE);
+                    }
+
+                    if (batteryPct >= 100.00f) {
+                        ImageView view = (ImageView) findViewById(R.id.power1);
+
+                        view.setVisibility(ImageView.VISIBLE);
+
+                    }
+                    else if (batteryPct >= 85.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power2);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }
+                    else if (batteryPct >= 65.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power3);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else if (batteryPct >= 33.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power7);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else if (batteryPct >= 11.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power9);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power10);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }
+
+
+
+                    handler.postDelayed(this, 3000);
+                }
             }
+        };
 
 
+
+
+
+
+        handler.postDelayed(running, 3000);
 
 
 
