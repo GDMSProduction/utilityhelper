@@ -24,7 +24,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/Chip"
+            android:id="@+id/iDCPUBrand"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,7 +65,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/CPUusage"
+            android:id="@+id/iDCPUusage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,7 +85,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/activeCores"
+            android:id="@+id/iDCPUCores"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -105,7 +105,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/RamInstalled"
+            android:id="@+id/iDtotalRAM"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -125,7 +125,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/currentRAMusagePercentage"
+            android:id="@+id/iDRAMUsage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -145,7 +145,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/freeRAMinGig"
+            android:id="@+id/iDFreeRAM"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -166,7 +166,7 @@
 
 
         <TextView
-            android:id="@+id/batteryRemain"
+            android:id="@+id/iDbatteryRemain"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -186,7 +186,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/batteryVoltage"
+            android:id="@+id/iDbatteryVoltage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -206,7 +206,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/batteryTemp"
+            android:id="@+id/iDbatteryTemp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -226,7 +226,7 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:id="@+id/batteryCharging"
+            android:id="@+id/iDbatteryCharging"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

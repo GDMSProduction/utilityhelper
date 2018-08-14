@@ -31,7 +31,8 @@ import java.util.regex.Pattern;
 
 public class Hardware_Spec extends AppCompatActivity {
 
-    private TextView CPUName;
+    //Text Views
+    private TextView CPUBrand;
     private TextView currentCpuFrequency;
     private TextView CPUusage;
     private TextView activeCores;
@@ -48,13 +49,12 @@ public class Hardware_Spec extends AppCompatActivity {
     private int temperature;
     private int voltage;
 
-    //Jake's approach
-    private int JakeNum = 0;
+    //runnable
+    private int timer;
     private Handler handler = new Handler();
 
+    //managers
     private BatteryManager bm;
-
-
     private ActivityManager.MemoryInfo mI;
     private ActivityManager activityManager;
 //
@@ -63,22 +63,31 @@ public class Hardware_Spec extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware__spec);
-        //show battery temperature, getBatterTemp function defined at the bottom
-        temperature = getBatterTemp(this);
-        batteryTemp = (TextView) findViewById(R.id.batteryTemp);
-        batteryTemp.setText(String.valueOf(temperature) + " ℃");
-       //Jake's approach
 
-        JakeNum = 0;
+        //show battery temperature, getBatterTemp function defined at the bottom
+        // TODO: 8/14/2018 get views by ID here
+        CPUBrand = (TextView)findViewById(R.id.iDCPUBrand);
+        CPUusage = (TextView) findViewById(R.id.iDCPUusage);
+        activeCores = (TextView)findViewById(R.id.iDCPUCores);
+        installedRAM = (TextView)findViewById(R.id.iDtotalRAM);
+        currentRAMUsage = (TextView)findViewById(R.id.iDRAMUsage);
+        freeRAM = (TextView)findViewById(R.id.iDFreeRAM);
+        batteryRemained = (TextView) findViewById(R.id.iDbatteryRemain);
+        batteryVoltage = (TextView)findViewById(R.id.iDbatteryVoltage);
+        batteryTemp = (TextView) findViewById(R.id.iDbatteryTemp);
+        batteryCharging = (TextView) findViewById(R.id.iDbatteryCharging);
+
+
+
+
+        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
+        temperature = getBatterTemp(this);
+        voltage = getBatVoltage(this);
+        batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
+        timer = 0;
         handler.postDelayed(running, 1000);
 
-        //show remaining battery capacity
-        bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
-        batteryRemained = (TextView) findViewById(R.id.batteryRemain);
-        batteryCharging = (TextView) findViewById(R.id.batteryCharging);
-        batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        batteryRemained.setText(String.valueOf(batLevel) + "%");
-
+        // TODO: 8/14/2018 make the ifcharging to a function later  
         //checking if the device is currently charging
         //intent filter, filt the wanted action
         IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -93,45 +102,12 @@ public class Hardware_Spec extends AppCompatActivity {
             batteryCharging.setText("No");
         }
 
-        //show battery voltage
-        batteryVoltage = (TextView) findViewById(R.id.batteryVoltage);
-        voltage = getBatVoltage(this);
-        batteryVoltage.setText(String.valueOf(voltage) + " mV");
-
-        //show chipset brand model
-        CPUName = (TextView)findViewById(R.id.Chip);
-//        CPUName.setText(getCPUInfo());
-        //show current CPU currency of each thread
-
-        //show current CPU usage in %
         CPUusage = (TextView) findViewById(R.id.CPUusage);
         CPUusage.setText(String.valueOf(readUsage()) + " %");
-
-        //show number of active CPU cores
-        activeCores = (TextView)findViewById(R.id.activeCores);
-        int toTalNumberofCores = getNumCores();
-        activeCores.setText(String.valueOf(getNumCores()));
-
-        //show total device installed RAM
-        installedRAM = (TextView)findViewById(R.id.RamInstalled);
-        //show current RAM usage in percentage
-        currentRAMUsage = (TextView)findViewById(R.id.currentRAMusagePercentage);
-
-        //moved below to runnable object
-//        ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
-//        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-//        activityManager.getMemoryInfo(mi);
-//        double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
-//        short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
-//        currentRAMUsage.setText(String.valueOf(percentAvail)+" %");
-
-        //show current available RAM in Gygabytes
-        freeRAM = (TextView)findViewById(R.id.freeRAMinGig);
-//        freeRAM.setText(String.valueOf(availableGigs)+" GB");
-
     }
 
-
+    //accessors
+    //get device battery temperature
     public static int getBatterTemp(Context context) {
 
         Intent getTheBatteryChange = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -139,15 +115,13 @@ public class Hardware_Spec extends AppCompatActivity {
         return temp;
     }
     //TODO: Add conversion to Fahrenheit here later
-
     public static int getBatVoltage(Context context) {
         Intent batInfoReceiver = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int voltage = batInfoReceiver.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
         return voltage;
     }
-
-    //function to get CPU usage
-    private float readUsage() {
+    //get CPU usage
+    private float getCPUUsage() {
         try {
             RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");
             String load = reader.readLine();
@@ -181,7 +155,7 @@ public class Hardware_Spec extends AppCompatActivity {
 
         return 0;
     }
-    //function returns  the name of the device CPU
+    //get device CPU brand name
     public Map<String, String> getCPUInfo() throws IOException {
 
         Map<String, String> output = new HashMap<>();
@@ -215,8 +189,8 @@ public class Hardware_Spec extends AppCompatActivity {
         return output;
 
     }
-    //function returns the number of CPU cores of the user device
-    private int getNumCores() {
+    //get number of device CPU cores
+    private int getNumCores () {
         //Private Class to display only CPU devices in the directory listing
         class CpuFilter implements FileFilter {
             @Override
@@ -241,7 +215,7 @@ public class Hardware_Spec extends AppCompatActivity {
             return 1;
         }
     }
-    //function returns the device Installed RAM
+    //get device Installed RAM
     private String getTotalRAM (){
         String RAMinString = "";
         DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
@@ -262,7 +236,7 @@ public class Hardware_Spec extends AppCompatActivity {
 
        return RAMinString;
     }
-    //function to get available RAM
+    //get available RAM
     private String getAvailableRAM(){
         DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
         String availableRAM = "";
@@ -282,38 +256,39 @@ public class Hardware_Spec extends AppCompatActivity {
         return availableRAM;
 
     }
-
+    //get device current RAM
     private String getRAMUsage (){
+    double totalRAM = mI.totalMem;
+    double avaiRAM = mI.availMem;
         DecimalFormat twoDecimalFormat = new DecimalFormat("#.##");
         String RAMUsage =" ";
-        double usage = (mI.availMem/mI.totalMem * 100.0);
+        double usage = ((totalRAM - avaiRAM)/ totalRAM * 100.0);
         RAMUsage=twoDecimalFormat.format(usage).concat(" %");
         return  RAMUsage;
 
     }
-//    double  percentAvail = (short) ((1-mI.availMem / (double)mI.totalMem) * 100.0);
 
+    //display text in the runnable
     private Runnable running = new Runnable() {
         @Override
         public void run()
         {
 
-                if (JakeNum < 120) {
-                    // Textview set text here
+                if (timer < 300) {
 
-
-
-                    //Text view set texts
+                    //Textview set text here
+                    // TODO: 8/14/2018 set CPU brand name here 
+                    // TODO: 8/14/2018 set each cores here 
+                    CPUusage.setText(String.valueOf(getCPUUsage()) + " %");
+                    activeCores.setText(String.valueOf(getNumCores()));
                     installedRAM.setText(getTotalRAM());
                     currentRAMUsage.setText(getRAMUsage());
                     freeRAM.setText(getAvailableRAM());
-
-
-
-                    //
-
-
-                    JakeNum += 1;
+                    batteryRemained.setText(String.valueOf(batLevel) + "%");
+                    batteryVoltage.setText(String.valueOf(voltage) + " mV");
+                    batteryTemp.setText(String.valueOf(temperature) + " ℃");
+                    
+                    timer += 1;
                     handler.postDelayed(this, 1000);
                 }
 
