@@ -133,62 +133,64 @@ public class WhiteList extends AppCompatActivity {
         try {
             if (CloseList.CreateOnce == 0) {
                 String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-                String hold = readFile(WhiteList.filename2);
-                Boolean copy = false;
+                if (newText.length > 2) {
+                    String hold = readFile(WhiteList.filename2);
+                    Boolean copy = false;
 
-                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+                    String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-                for (int i = 0; i < TextWithTime.length; ++i) {
-                    list.add(TextWithTime[i]);
-                }
-
-
-                for (int i = 0; i < newText.length; i = i + 2) {
-
-                    for (int z = 0; z < list.size(); z += 4) {
-                        if (newText[i] == list.get(z)) {
-
-                            copy = true;
-
-                            MainActivity.ToReturn += list.indexOf(z);
-                            MainActivity.ToReturn += list.indexOf(z + 1);
-                            MainActivity.ToReturn += list.indexOf(z + 2);
-                            MainActivity.ToReturn += list.indexOf(z + 3);
-
-                        }
-
+                    for (int i = 0; i < TextWithTime.length; ++i) {
+                        list.add(TextWithTime[i]);
                     }
 
 
-                    if (copy == false) {
+                    for (int i = 0; i < newText.length; i = i + 2) {
 
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
-                        try {
-                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                        } catch (Exception e) {
+                        for (int z = 0; z < list.size(); z += 4) {
+                            if (newText[i] == list.get(z)) {
+
+                                copy = true;
+
+                                MainActivity.ToReturn += list.indexOf(z);
+                                MainActivity.ToReturn += list.indexOf(z + 1);
+                                MainActivity.ToReturn += list.indexOf(z + 2);
+                                MainActivity.ToReturn += list.indexOf(z + 3);
+
+                            }
+
                         }
 
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                        // new
-                        try {
-                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                        } catch (Exception e) {
+                        if (copy == false) {
+
+                            list.add(newText[i] + (System.getProperty("line.separator")));
+                            list.add("15" + (System.getProperty("line.separator")));
+                            list.add("0" + (System.getProperty("line.separator")));
+                            try {
+                                list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                            } catch (Exception e) {
+                            }
+
+
+                            MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                            // new
+                            try {
+                                MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                            } catch (Exception e) {
+                            }
+
                         }
+
+                        copy = false;
+
 
                     }
 
-                    copy = false;
-
-
+                    saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                    CloseList.CreateOnce += 1;
                 }
-
-                saveFile(WhiteList.filename2, MainActivity.ToReturn);
-                CloseList.CreateOnce += 1;
             }
         }
         catch (Exception e)

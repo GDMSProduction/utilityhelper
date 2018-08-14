@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.opengl.Matrix;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
    static ArrayList<Handler> ListHandlers = new ArrayList <>();
    static ArrayList<MyRunnables> ListRunnables = new ArrayList <>();
    static int HandlerPosition = 0;
+
 
 
 
@@ -364,110 +366,92 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
         try {
-            if (CloseList.CreateOnce == 0) {
+            if (CloseList.CreateOnce == 0 ) {
+
+
                 String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-                String hold = readFile(WhiteList.filename2);
-                Boolean copy = false;
+                if (newText.length > 2) {
+                    String hold = readFile(WhiteList.filename2);
+                    Boolean copy = false;
 
-                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+                    String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-                for (int i = 0; i < TextWithTime.length; ++i) {
-                    list.add(TextWithTime[i]);
-                }
-
-
-                for (int i = 0; i < newText.length; i = i + 2) {
-
-                    for (int z = 0; z < list.size(); z += 4) {
-                        if (newText[i] == list.get(z)) {
-
-                            copy = true;
-
-                            MainActivity.ToReturn += list.indexOf(z);
-                            MainActivity.ToReturn += list.indexOf(z + 1);
-                            MainActivity.ToReturn += list.indexOf(z + 2);
-                            MainActivity.ToReturn += list.indexOf(z + 3);
+                    for (int i = 0; i < TextWithTime.length; ++i) {
+                        list.add(TextWithTime[i]);
+                    }
 
 
+                    for (int i = 0; i < newText.length; i = i + 2) {
+
+                        for (int z = 0; z < list.size(); z += 4) {
+                            if (newText[i] == list.get(z)) {
+
+                                copy = true;
+
+                                MainActivity.ToReturn += list.indexOf(z);
+                                MainActivity.ToReturn += list.indexOf(z + 1);
+                                MainActivity.ToReturn += list.indexOf(z + 2);
+                                MainActivity.ToReturn += list.indexOf(z + 3);
+
+
+                            }
+
+                        }
+
+
+                        if (copy == false) {
+
+
+                            list.add(newText[i] + (System.getProperty("line.separator")));
+                            list.add("15" + (System.getProperty("line.separator")));
+                            list.add("0" + (System.getProperty("line.separator")));
+                            try {
+                                list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                            } catch (Exception e) {
+                            }
+
+
+                            MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+                            // new
+                            try {
+                                MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                            } catch (Exception e) {
+                            }
 
 
                         }
 
+                        copy = false;
+
+
                     }
 
 
-                    if (copy == false) {
+                    String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
-                        try {
-                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                        } catch (Exception e) {
+                    for (int i = 0; i < Runnables.length; i = i + 4) {
+                        if (Integer.valueOf(Runnables[i + 2]) == 1) {
+                            MainActivity.ListHandlers.add(new Handler());
+                            MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i + 1]), 1, i));
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                        } else {
+                            MainActivity.ListHandlers.add(new Handler());
+                            MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i + 1]), 0, i));
                         }
 
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-
-
-
-
-
-
-                        // new
-                        try {
-                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                        } catch (Exception e) {
-                        }
-
                     }
 
-                    copy = false;
 
+                    saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
+                    CloseList.CreateOnce += 1;
                 }
 
-
-
-                String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-
-                for (int i = 0; i < Runnables.length; i = i + 4)
-                {
-                    if (Integer.valueOf(Runnables[i+2]) == 1)
-                    {
-                        MainActivity.ListHandlers.add(new Handler());
-                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 1, i));
-                        MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
-                    }
-                    else
-                    {
-                        MainActivity.ListHandlers.add(new Handler());
-                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 0, i));
-                    }
-
-
-
-
-
-
-
-
-
-                }
-
-
-
-
-
-
-
-
-
-
-                saveFile(WhiteList.filename2, MainActivity.ToReturn);
-                CloseList.CreateOnce += 1;
             }
         }
         catch (Exception e)

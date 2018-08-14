@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,7 +43,21 @@ public class LoginScreen extends AppCompatActivity {
        progressDialog = new ProgressDialog(this);
        firebaseAuth = FirebaseAuth.getInstance();
 
-       login.setOnClickListener(new View.OnClickListener() {
+        final Button pressedtimer = (Button) findViewById(R.id.out);
+        pressedtimer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent history = new Intent (LoginScreen.this, MainActivity.class );
+                startActivity(history);
+            }
+
+        });
+
+
+
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userLogin();
