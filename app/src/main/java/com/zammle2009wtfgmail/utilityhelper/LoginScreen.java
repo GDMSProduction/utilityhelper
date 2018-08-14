@@ -85,10 +85,11 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     signIn();
+
             }
         });
     }
-
+//part of google sign in
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -105,7 +106,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         }
     }
-
+//part of google signin
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -124,16 +125,17 @@ public class LoginScreen extends AppCompatActivity {
                             Toast.makeText(LoginScreen.this, "Login Not Successful", Toast.LENGTH_SHORT).show();
                         }
 
-                        // ...
                     }
                 });
     }
 
+    //google signin
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    //signin with the email and password you made
     private void userLogin(){
         String Email = email.getText().toString().trim();
         String Password = password.getText().toString().trim();

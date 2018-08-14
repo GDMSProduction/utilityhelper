@@ -103,6 +103,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
                 return false;
             }
 
+            //searches through the list for the app name you entered
             @Override
             public boolean onQueryTextChange(String query) {
                 query = query.toLowerCase();
@@ -136,7 +137,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
     }
 
-
+//gwts the list
     @Override
     public void onUsageStatsRetrieved(List<UsageStatsWrapper> list) {
         showProgressBar(false);

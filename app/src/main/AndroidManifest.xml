@@ -16,7 +16,7 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@drawable/defaulticon"
+        android:icon="@drawable/utilities"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -28,8 +28,6 @@
         <activity android:name=".Memory" />
         <activity android:name=".History" />
         <activity android:name=".WhiteList" />
-        <activity android:name=".Something1" />
-        <activity android:name=".Something2" />
         <activity android:name=".Something3" />
         <activity android:name=".Hardware_Spec"/>
         <activity android:name=".LoginScreen">

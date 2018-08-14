@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.CpuUsageInfo;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.os.HardwarePropertiesManager;
 import android.os.BatteryManager;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -62,7 +65,9 @@ public class Hardware_Spec extends AppCompatActivity {
         temperature = getBatterTemp(this);
         batteryTemp = (TextView) findViewById(R.id.batteryTemp);
         batteryTemp.setText(String.valueOf(temperature) + " ℃");
-       //Jake's approach
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //Jake's approach
 
         JakeNum = 0;
         handler.postDelayed(running, 1000);

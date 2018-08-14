@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.opengl.Matrix;
 import android.os.BatteryManager;
 import android.os.Handler;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
         setContentView(R.layout.activity_main);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
 
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (MainActivity.this, Something3.class );
+                Intent history = new Intent (MainActivity.this, Notifications.class );
                 startActivity(history);
             }
 

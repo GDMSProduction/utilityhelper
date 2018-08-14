@@ -61,7 +61,7 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
         lastTimeUsed = (TextView) itemView.findViewById(R.id.last_used);
         expand = (ToggleButton) itemView.findViewById(R.id.expandToggleButton);
-        appIcon.getLayoutParams().height = 130;
+        appIcon.getLayoutParams().height = 135;
 
 
 

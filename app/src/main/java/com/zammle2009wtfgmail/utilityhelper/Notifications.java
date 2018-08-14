@@ -31,7 +31,7 @@ import static android.app.AppOpsManager.OPSTR_GET_USAGE_STATS;
 import static com.zammle2009wtfgmail.utilityhelper.R.*;
 import static java.lang.System.currentTimeMillis;
 
-public class Something3 extends AppCompatActivity
+public class Notifications extends AppCompatActivity
 {
 
 
