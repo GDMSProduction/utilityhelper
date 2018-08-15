@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.security.PrivateKey;
 import java.text.DecimalFormat;
@@ -102,8 +103,6 @@ public class Hardware_Spec extends AppCompatActivity {
             batteryCharging.setText("No");
         }
 
-        CPUusage = (TextView) findViewById(R.id.CPUusage);
-        CPUusage.setText(String.valueOf(readUsage()) + " %");
     }
 
     //accessors
@@ -156,39 +155,29 @@ public class Hardware_Spec extends AppCompatActivity {
         return 0;
     }
     //get device CPU brand name
-    public Map<String, String> getCPUInfo() throws IOException {
+    private String ReadCPUinfo()
+    {
+        ProcessBuilder cmd;
+        String result="";
 
-        Map<String, String> output = new HashMap<>();
+        try{
+            String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
+            cmd = new ProcessBuilder(args);
 
-        BufferedReader br = new BufferedReader(new FileReader("/proc/cpuinfo"));
-
-        String str;
-
-        while ((str = br.readLine()) != null) {
-
-            String[] data = str.split(":");
-
-            if (data.length > 1) {
-
-                String key = data[0].trim().replace(" ", "_");
-                if (key.equals("model_name")) key = "cpu_model";
-
-                String value = data[1].trim();
-
-                if (key.equals("cpu_model"))
-                    value = value.replaceAll("\\s+", " ");
-
-                output.put(key, value);
-
+            Process process = cmd.start();
+            InputStream in = process.getInputStream();
+            byte[] re = new byte[1024];
+            while(in.read(re) != -1){
+                System.out.println(new String(re));
+                result = result + new String(re);
             }
-
+            in.close();
+        } catch(IOException ex){
+            ex.printStackTrace();
         }
-
-        br.close();
-
-        return output;
-
+        return result;
     }
+
     //get number of device CPU cores
     private int getNumCores () {
         //Private Class to display only CPU devices in the directory listing
@@ -268,6 +257,10 @@ public class Hardware_Spec extends AppCompatActivity {
 
     }
 
+
+
+
+
     //display text in the runnable
     private Runnable running = new Runnable() {
         @Override
@@ -277,8 +270,10 @@ public class Hardware_Spec extends AppCompatActivity {
                 if (timer < 300) {
 
                     //Textview set text here
-                    // TODO: 8/14/2018 set CPU brand name here 
-                    // TODO: 8/14/2018 set each cores here 
+                    // TODO: 8/14/2018 set CPU brand name here
+//                    CPUBrand.setText(ReadCPUinfo());
+                    // TODO: 8/14/2018 set each cores here
+                    //
                     CPUusage.setText(String.valueOf(getCPUUsage()) + " %");
                     activeCores.setText(String.valueOf(getNumCores()));
                     installedRAM.setText(getTotalRAM());
