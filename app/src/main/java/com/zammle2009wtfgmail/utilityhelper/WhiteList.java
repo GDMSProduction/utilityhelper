@@ -75,6 +75,7 @@ public class WhiteList extends AppCompatActivity {
     private boolean OpenAPP = true;
     static int Position;
 
+    private TextView debug;
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
@@ -122,6 +123,8 @@ public class WhiteList extends AppCompatActivity {
         mSwitch.setEnabled(false);
         mAppTime.setEnabled(false);
 
+
+        debug = (TextView) findViewById(R.id.debugger);
 
 
 
@@ -613,8 +616,8 @@ public class WhiteList extends AppCompatActivity {
 
                 if (!LoginScreen.emailID.equals(""))
                 {
-                    try
-                    {
+                   /* try
+                    {*/
                         if (firebaseauth.getCurrentUser() == null)
                         {
                             finish();
@@ -626,8 +629,14 @@ public class WhiteList extends AppCompatActivity {
                         }
                         else
                         {
+
+
+                            String Database = "";
                             FirebaseUser User = firebaseauth.getCurrentUser();
-                            String Database = ref.child(User.getUid()).getDatabase().toString();
+
+                                Database = ref.child(User.getUid()).toString();
+
+                               // Toast.makeText(WhiteList.this,"Failed Conversion", Toast.LENGTH_SHORT).show();
 
 
 
@@ -644,31 +653,34 @@ public class WhiteList extends AppCompatActivity {
 
                             for (int i = 0; i < DatabaseSize; i = i + 4)
                             {
-                                if (Integer.valueOf(DatabaseWithInfo[i+2]) == 1)
+                                try
                                 {
-                                    boolean found = false;
+                                    if (Integer.valueOf(DatabaseWithInfo[i + 2]) == 1) {
+                                        boolean found = false;
 
-                                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
-                                    {
-                                        if (DatabaseWithInfo[i].equals(TextWithInfo[x]))
-                                        {
-                                            found = true;
-                                            TextWithInfo[x+2] = "1";
-                                            break;
+                                        for (int x = 0; x < TextWithInfo.length; x = x + 4) {
+                                            if (DatabaseWithInfo[i].equals(TextWithInfo[x])) {
+                                                found = true;
+                                                TextWithInfo[x + 2] = "1";
+                                                break;
+                                            }
                                         }
+
+
+                                        if (found == false) {
+
+                                            MainActivity.ToReturn += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
+                                            MainActivity.ToReturn += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
+                                            MainActivity.ToReturn += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
+                                            MainActivity.ToReturn += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
+
+                                            TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                                        }
+
                                     }
-
-
-                                    if (found == false)
-                                    {
-
-                                        MainActivity.ToReturn += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
-
-                                        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-                                    }
+                                }
+                                catch (Exception e)
+                                {
 
                                 }
 
@@ -724,6 +736,7 @@ public class WhiteList extends AppCompatActivity {
                             // save //
 
                             String UpdateSave ="";
+
                             String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
@@ -778,6 +791,7 @@ public class WhiteList extends AppCompatActivity {
                             MainActivity.ToReturn = UpdateSave;
 
 
+                            Toast.makeText(WhiteList.this,"SAVED!", Toast.LENGTH_SHORT).show();
 
                             saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
@@ -788,7 +802,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-
+                            debug.setText(Database = ref.child(User.getUid()).toString());
 
 
 
@@ -797,17 +811,17 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-                    } catch
+                   /* } catch
                             (Exception e)
                     {
 
-                        //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
-                    }
+                          Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                    }*/
 
                 }
                 else
                 {
-                    //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
+                      Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -815,6 +829,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+                Toast.makeText(WhiteList.this,"END", Toast.LENGTH_SHORT).show();
 
 
 
