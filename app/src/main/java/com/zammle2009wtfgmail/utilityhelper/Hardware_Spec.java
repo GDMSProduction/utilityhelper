@@ -58,6 +58,7 @@ public class Hardware_Spec extends AppCompatActivity {
     private BatteryManager bm;
     private ActivityManager.MemoryInfo mI;
     private ActivityManager activityManager;
+
 //
 
     @Override
@@ -256,6 +257,7 @@ public class Hardware_Spec extends AppCompatActivity {
         return  RAMUsage;
 
     }
+
 
 
 
