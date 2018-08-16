@@ -31,13 +31,15 @@
         <activity android:name=".Something1" />
         <activity android:name=".Something2" />
         <activity android:name=".Something3" />
-        <activity android:name=".Hardware_Spec"/>
-        <activity android:name=".LoginScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Hardware_Spec">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".LoginScreen">
+
         </activity>
         <activity
             android:name=".information"
