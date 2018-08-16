@@ -41,6 +41,7 @@ public class LoginScreen extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    static String emailID = "";
     private Button googleSignIn;
     GoogleSignInClient googleSignInClient;
     int RC_SIGN_IN = 2;
@@ -67,6 +68,7 @@ public class LoginScreen extends AppCompatActivity {
        googleSignIn = findViewById(R.id.GoogleSignIn);
        googleSignInClient = GoogleSignIn.getClient(this, gso);
        forgotPassword = findViewById(R.id.forgotpasswordButton);
+
 
        forgotPassword.setOnClickListener(new View.OnClickListener() {
            @Override

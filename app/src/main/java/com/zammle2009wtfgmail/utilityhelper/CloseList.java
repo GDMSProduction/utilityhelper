@@ -1,5 +1,6 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -27,8 +29,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.security.Permission;
 import java.util.ArrayList;
 
 
@@ -43,6 +49,12 @@ public class CloseList extends AppCompatActivity {
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
+
+
+
+
+
+
 
 
     private ImageView mWHite;
@@ -111,6 +123,7 @@ public class CloseList extends AppCompatActivity {
 
 
 
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////// Loading on create. Compares Whitelist with List of apps  ///////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,64 +132,66 @@ public class CloseList extends AppCompatActivity {
 
 
         try {
-            if (CloseList.CreateOnce == 0) {
+            if (CloseList.CreateOnce == 0  ) {
                 String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-                String hold = readFile(WhiteList.filename2);
-                Boolean copy = false;
+                if (newText.length > 2) {
+                    String hold = readFile(WhiteList.filename2);
+                    Boolean copy = false;
 
-                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+                    String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-                for (int i = 0; i < TextWithTime.length; ++i) {
-                    list.add(TextWithTime[i]);
-                }
-
-
-                for (int i = 0; i < newText.length; i = i + 2) {
-
-                    for (int z = 0; z < list.size(); z += 4) {
-                        if (newText[i] == list.get(z)) {
-
-                            copy = true;
-
-                            MainActivity.ToReturn += list.indexOf(z);
-                            MainActivity.ToReturn += list.indexOf(z + 1);
-                            MainActivity.ToReturn += list.indexOf(z + 2);
-                            MainActivity.ToReturn += list.indexOf(z + 3);
-
-                        }
-
+                    for (int i = 0; i < TextWithTime.length; ++i) {
+                        list.add(TextWithTime[i]);
                     }
 
 
-                    if (copy == false) {
+                    for (int i = 0; i < newText.length; i = i + 2) {
 
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
-                        try {
-                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                        } catch (Exception e) {
+                        for (int z = 0; z < list.size(); z += 4) {
+                            if (newText[i] == list.get(z)) {
+
+                                copy = true;
+
+                                MainActivity.ToReturn += list.indexOf(z);
+                                MainActivity.ToReturn += list.indexOf(z + 1);
+                                MainActivity.ToReturn += list.indexOf(z + 2);
+                                MainActivity.ToReturn += list.indexOf(z + 3);
+
+                            }
+
                         }
 
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-                        // new
-                        try {
-                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                        } catch (Exception e) {
+                        if (copy == false) {
+
+                            list.add(newText[i] + (System.getProperty("line.separator")));
+                            list.add("15" + (System.getProperty("line.separator")));
+                            list.add("0" + (System.getProperty("line.separator")));
+                            try {
+                                list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                            } catch (Exception e) {
+                            }
+
+
+                            MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+                            // new
+                            try {
+                                MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                            } catch (Exception e) {
+                            }
+
                         }
+
+                        copy = false;
+
 
                     }
 
-                    copy = false;
-
-
+                    saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                    CloseList.CreateOnce += 1;
                 }
-
-                saveFile(WhiteList.filename2, MainActivity.ToReturn);
-                CloseList.CreateOnce += 1;
             }
         }
         catch (Exception e)
@@ -196,65 +211,63 @@ public class CloseList extends AppCompatActivity {
 
         String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
-        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+        if ( TextWithInfo.length >4)
         {
-            String appName = TextWithInfo[i];
-            int Time = Integer.valueOf(TextWithInfo[i+1]);
-            boolean bool = false;
-
-            if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+            for (int i = 0; i < TextWithInfo.length; i = i + 4)
             {
-                bool = true;
-            }
-            else
-            {
-                bool = false;
 
-            }
+                if (TextWithInfo[i].equals(System.getProperty("line.separator")))
+                {
+                    i = i + 4;
+                }
 
 
-            String PackageName = "SHOULD NOT BE DISPLAYING";
+
+
+                String appName = TextWithInfo[i];
+                int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                boolean bool = false;
+
+                if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                    bool = true;
+                } else {
+                    bool = false;
+
+                }
+
+
+                String PackageName = "SHOULD NOT BE DISPLAYING";
                 try {
                     PackageName = TextWithInfo[i + 3];
-                } catch (Exception e)
-                {}
-
-
-
-
-            try {
-
-                Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
-
-
-                if (Integer.valueOf(TextWithInfo[i+2]) == 1)
-                {
-                    Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
-                }
-                else
-                {
-                    Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
+                } catch (Exception e) {
                 }
 
-            }
-            catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
 
+                try {
+
+                    Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i + 3]);
+
+
+                    if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                        Holder.add(new templateHolder(icon, appName, bool, Time, true, PackageName));
+                    } else {
+                        Holder.add(new templateHolder(icon, appName, bool, Time, false, PackageName));
+                    }
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+
+
+                }
 
 
             }
-
-
-
-
-
-
-
-
 
         }
-
-
+        else
+        {
+            CloseList.CreateOnce = 0;
+        }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -300,6 +313,10 @@ public class CloseList extends AppCompatActivity {
             {
                 OpenApp = true;
 
+                if (mAppTime.getText().toString().equals(""))
+                {
+                    mAppTime.setText("15");
+                }
 
                 if (Integer.valueOf(mAppTime.getText().toString()) > 120)
                 {

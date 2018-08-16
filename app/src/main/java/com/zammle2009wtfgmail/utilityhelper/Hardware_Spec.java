@@ -256,8 +256,8 @@ public class Hardware_Spec extends AppCompatActivity {
                     ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
                     ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
                     activityManager.getMemoryInfo(mi);
-                    long totalMemory = mi.totalMem/(long) (1024.0 * 1024.0 * 1024.0);
-                
+                    long totalMemory = (long) mi.totalMem/(long) (1024.0 * 1024.0 * 1024.0);
+
                     double  availableGigs = (mi.availMem / 0x100000L)/1024;// mi.availMem might be an integer, trying to figure out how to get a double
                     short percentAvail = (short) ((1-mi.availMem / (double)mi.totalMem) * 100.0);
                     //Text view set texts

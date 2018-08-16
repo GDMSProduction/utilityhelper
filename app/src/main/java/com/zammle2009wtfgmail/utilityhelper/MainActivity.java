@@ -4,8 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
-import android.opengl.Matrix;
+import android.content.pm.PackageManager;import android.content.pm.ActivityInfo;import android.opengl.Matrix;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +34,10 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
    static int HandlerPosition = 0;
 
 
+   private Handler handler = new Handler();
 
+
+   int cap = 0;
 
 
     private UsageContract.Presenter presenter;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
+        cap = 0;
 
       //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
@@ -214,8 +217,7 @@ hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
         // Are we charging / charged?
        final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-      final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                status == BatteryManager.BATTERY_STATUS_FULL;
+
         int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
         int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
         float batteryPct = level / (float) scale;
@@ -265,23 +267,104 @@ hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         }
 
 
+        final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+        if (isCharging == true) {
 
-        
+            ImageView view = (ImageView) findViewById(R.id.charge);
+
+            view.setVisibility(ImageView.VISIBLE);
+
+        } else {
+            ImageView view = (ImageView) findViewById(R.id.charge);
+
+            view.setVisibility(ImageView.INVISIBLE);
+        }
 
 
-            if (isCharging == true) {
 
-                    ImageView view = (ImageView) findViewById(R.id.charge);
+        Runnable running = new Runnable() {
+            @Override
+            public void run()
+            {
 
-                    view.setVisibility(ImageView.VISIBLE);
+                if (cap < 45)
+                {
+                    cap += 1;
 
-            } else {
-                ImageView view = (ImageView) findViewById(R.id.charge);
 
-                view.setVisibility(ImageView.INVISIBLE);
+                    IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                    Intent batteryStatus = getBaseContext().registerReceiver(null, ifilter);
+
+                    // Are we charging / charged?
+                    final float status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+
+                    int level = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) : -1;
+                    int scale = batteryStatus != null ? batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1) : -1;
+                    float batteryPct = level / (float) scale;
+                    batteryPct = batteryPct * 100;
+                    final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
+
+                    if (isCharging == true) {
+
+                        ImageView view = (ImageView) findViewById(R.id.charge);
+
+                        view.setVisibility(ImageView.VISIBLE);
+
+                    } else {
+                        ImageView view = (ImageView) findViewById(R.id.charge);
+
+                        view.setVisibility(ImageView.INVISIBLE);
+                    }
+
+                    if (batteryPct >= 100.00f) {
+                        ImageView view = (ImageView) findViewById(R.id.power1);
+
+                        view.setVisibility(ImageView.VISIBLE);
+
+                    }
+                    else if (batteryPct >= 85.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power2);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }
+                    else if (batteryPct >= 65.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power3);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else if (batteryPct >= 33.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power7);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else if (batteryPct >= 11.0f)
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power9);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }else
+                    {
+                        ImageView view = (ImageView) findViewById(R.id.power10);
+
+                        view.setVisibility(ImageView.VISIBLE);
+                    }
+
+
+
+                    handler.postDelayed(this, 3000);
+                }
             }
+        };
 
 
+
+
+
+
+        handler.postDelayed(running, 3000);
 
 
 
@@ -413,110 +496,92 @@ hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 
         try {
-            if (CloseList.CreateOnce == 0) {
+            if (CloseList.CreateOnce == 0 ) {
+
+
                 String[] newText = WhiteList.text.split(System.getProperty("line.separator"));
-                String hold = readFile(WhiteList.filename2);
-                Boolean copy = false;
+                if (newText.length > 2) {
+                    String hold = readFile(WhiteList.filename2);
+                    Boolean copy = false;
 
-                String[] TextWithTime = hold.split(System.getProperty("line.separator"));
+                    String[] TextWithTime = hold.split(System.getProperty("line.separator"));
 
-                for (int i = 0; i < TextWithTime.length; ++i) {
-                    list.add(TextWithTime[i]);
-                }
-
-
-                for (int i = 0; i < newText.length; i = i + 2) {
-
-                    for (int z = 0; z < list.size(); z += 4) {
-                        if (newText[i] == list.get(z)) {
-
-                            copy = true;
-
-                            MainActivity.ToReturn += list.indexOf(z);
-                            MainActivity.ToReturn += list.indexOf(z + 1);
-                            MainActivity.ToReturn += list.indexOf(z + 2);
-                            MainActivity.ToReturn += list.indexOf(z + 3);
+                    for (int i = 0; i < TextWithTime.length; ++i) {
+                        list.add(TextWithTime[i]);
+                    }
 
 
+                    for (int i = 0; i < newText.length; i = i + 2) {
+
+                        for (int z = 0; z < list.size(); z += 4) {
+                            if (newText[i] == list.get(z)) {
+
+                                copy = true;
+
+                                MainActivity.ToReturn += list.indexOf(z);
+                                MainActivity.ToReturn += list.indexOf(z + 1);
+                                MainActivity.ToReturn += list.indexOf(z + 2);
+                                MainActivity.ToReturn += list.indexOf(z + 3);
+
+
+                            }
+
+                        }
+
+
+                        if (copy == false) {
+
+
+                            list.add(newText[i] + (System.getProperty("line.separator")));
+                            list.add("15" + (System.getProperty("line.separator")));
+                            list.add("0" + (System.getProperty("line.separator")));
+                            try {
+                                list.add(newText[i + 1] + (System.getProperty("line.separator")));
+                            } catch (Exception e) {
+                            }
+
+
+                            MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
+                            MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
+
+
+                            // new
+                            try {
+                                MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
+                            } catch (Exception e) {
+                            }
 
 
                         }
 
+                        copy = false;
+
+
                     }
 
 
-                    if (copy == false) {
+                    String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
-                        list.add(newText[i] + (System.getProperty("line.separator")));
-                        list.add("15" + (System.getProperty("line.separator")));
-                        list.add("0" + (System.getProperty("line.separator")));
-                        try {
-                            list.add(newText[i + 1] + (System.getProperty("line.separator")));
-                        } catch (Exception e) {
+                    for (int i = 0; i < Runnables.length; i = i + 4) {
+                        if (Integer.valueOf(Runnables[i + 2]) == 1) {
+                            MainActivity.ListHandlers.add(new Handler());
+                            MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i + 1]), 1, i));
+                            MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                        } else {
+                            MainActivity.ListHandlers.add(new Handler());
+                            MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i + 1]), 0, i));
                         }
 
 
-                        MainActivity.ToReturn += newText[i] + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "15" + (System.getProperty("line.separator"));
-                        MainActivity.ToReturn += "0" + (System.getProperty("line.separator"));
-
-
-
-
-
-
-                        // new
-                        try {
-                            MainActivity.ToReturn += newText[i + 1] + (System.getProperty("line.separator"));
-                        } catch (Exception e) {
-                        }
-
                     }
 
-                    copy = false;
 
+                    saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
+                    CloseList.CreateOnce += 1;
                 }
 
-
-
-                String[] Runnables = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-
-                for (int i = 0; i < Runnables.length; i = i + 4)
-                {
-                    if (Integer.valueOf(Runnables[i+2]) == 1)
-                    {
-                        MainActivity.ListHandlers.add(new Handler());
-                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 1, i));
-                        MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() *60*1000);
-                    }
-                    else
-                    {
-                        MainActivity.ListHandlers.add(new Handler());
-                        MainActivity.ListRunnables.add(new MyRunnables(Runnables[i + 3], Integer.valueOf(Runnables[i+1]), 0, i));
-                    }
-
-
-
-
-
-
-
-
-
-                }
-
-
-
-
-
-
-
-
-
-
-                saveFile(WhiteList.filename2, MainActivity.ToReturn);
-                CloseList.CreateOnce += 1;
             }
         }
         catch (Exception e)
