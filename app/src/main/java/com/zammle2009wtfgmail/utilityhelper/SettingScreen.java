@@ -16,8 +16,6 @@ public class SettingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_setting_screen);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        CloseList.CreateOnce = 0;
-
 
 
         Button logoutButton = (Button) findViewById(R.id.logoutButton);

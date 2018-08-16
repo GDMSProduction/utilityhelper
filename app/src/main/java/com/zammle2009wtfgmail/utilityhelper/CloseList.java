@@ -28,6 +28,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.security.Permission;
@@ -45,6 +48,8 @@ public class CloseList extends AppCompatActivity {
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
     private RecyclerView.LayoutManager mLayout;
+
+
 
 
 
@@ -306,6 +311,10 @@ public class CloseList extends AppCompatActivity {
             {
                 OpenApp = true;
 
+                if (mAppTime.getText().toString().equals(""))
+                {
+                    mAppTime.setText("15");
+                }
 
                 if (Integer.valueOf(mAppTime.getText().toString()) > 120)
                 {

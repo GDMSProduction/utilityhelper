@@ -21,6 +21,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,8 +49,14 @@ public class WhiteList extends AppCompatActivity {
 
     static String text = "";
 
+    static String[] TextWithInfo;
+   // DatabaseReference ref;
 
 
+    //final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+    private FirebaseAuth firebaseauth;
 
     private RecyclerView mRecycle;
     private templateAdapter mAdapter;
@@ -76,11 +87,11 @@ public class WhiteList extends AppCompatActivity {
         setContentView(R.layout.activity_white_list);
 
 
-
+        firebaseauth = FirebaseAuth.getInstance();
 
 
         save = (Button) findViewById(R.id.Save2);
-        load = (Button) findViewById(R.id.Load2);
+        load = (Button) findViewById(R.id.cloud);
         //  Listload = (Button) findViewById(R.id.Load);
 
 
@@ -115,6 +126,9 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+
+
+       final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -210,7 +224,8 @@ public class WhiteList extends AppCompatActivity {
 
         CloseList.Holder.clear();
 
-        String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
         for (int i = 0; i < TextWithInfo.length; i = i + 4)
         {
@@ -279,6 +294,11 @@ public class WhiteList extends AppCompatActivity {
             {
                 OpenAPP = true;
 
+
+                if (mAppTime.getText().toString().equals(""))
+                {
+                    mAppTime.setText("15");
+                }
 
                 if (Integer.valueOf(mAppTime.getText().toString()) > 120)
                 {
@@ -588,8 +608,217 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (WhiteList.this, CloseList.class );
-                startActivity(history);
+
+
+
+                if (!LoginScreen.emailID.equals(""))
+                {
+                    try
+                    {
+                        if (firebaseauth.getCurrentUser() == null)
+                        {
+                            finish();
+                            Intent history = new Intent (WhiteList.this, LoginScreen.class );
+                            startActivity(history);
+
+
+
+                        }
+                        else
+                        {
+                            FirebaseUser User = firebaseauth.getCurrentUser();
+                            String Database = ref.child(User.getUid()).getDatabase().toString();
+
+
+
+
+
+
+                            CloseList.Holder.clear();
+
+
+                            TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                            String[] DatabaseWithInfo = Database.split(System.getProperty("line.separator"));
+
+                            int DatabaseSize = DatabaseWithInfo.length;
+
+                            for (int i = 0; i < DatabaseSize; i = i + 4)
+                            {
+                                if (Integer.valueOf(DatabaseWithInfo[i+2]) == 1)
+                                {
+                                    boolean found = false;
+
+                                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+                                    {
+                                        if (DatabaseWithInfo[i].equals(TextWithInfo[x]))
+                                        {
+                                            found = true;
+                                            TextWithInfo[x+2] = "1";
+                                            break;
+                                        }
+                                    }
+
+
+                                    if (found == false)
+                                    {
+
+                                        MainActivity.ToReturn += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
+                                        MainActivity.ToReturn += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
+                                        MainActivity.ToReturn += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
+                                        MainActivity.ToReturn += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
+
+                                        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                                    }
+
+                                }
+
+
+                            }
+
+
+
+                            for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                            {
+                                if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                                {
+                                    String appName = TextWithInfo[i];
+                                    int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                                    boolean bool = true;
+                                    String PackageName = TextWithInfo[i+3];
+
+
+                                    try {
+
+                                        Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
+
+
+                                        if (Integer.valueOf(TextWithInfo[i+2]) == 1)
+                                        {
+                                            CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
+                                        }
+                                        else
+                                        {
+                                            CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
+                                        }
+
+                                    }
+                                    catch (PackageManager.NameNotFoundException e) {
+                                        e.printStackTrace();
+
+
+
+                                    }
+                                }
+                            }
+
+
+
+                            ///////////// update adapters here //////////////////
+                            mAdapter.notifyDataSetChanged();
+                            ////////////////////////////////////////////////////
+
+
+                            //// save info ////
+
+
+                            // save //
+
+                            String UpdateSave ="";
+                            String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+
+                            for (int i = 0; i < CloseList.Holder.size(); ++i)
+                            {
+                                for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                                {
+
+                                    String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                                    String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                                    if (tempstring2.equals(tempstring))
+
+                                    {
+                                        TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                                        if (mSwitch.isChecked())
+                                        {
+                                            TextWithInfo[x+2] = String.valueOf(1);
+                                            // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            TextWithInfo[x+2] = String.valueOf(0);
+                                            //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                                        }
+
+
+
+                                    }
+                                    else{
+                                        //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+
+                                }
+
+
+
+                            }
+
+
+
+                            for (int i = 0; i < TextWithInfo.length; ++i)
+                            {
+                                UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
+
+                            }
+
+                            MainActivity.ToReturn = UpdateSave;
+
+
+
+                            saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
+                            // end of saving //
+
+                            hideKeyboard(v);
+
+
+
+
+
+
+
+
+
+                        }
+
+
+
+                    } catch
+                            (Exception e)
+                    {
+
+                        //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                    //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+
+
+
+
+
             }
 
         });
@@ -598,63 +827,46 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                String UpdateSave ="";
-                String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-
-
-                for (int i = 0; i < CloseList.Holder.size(); ++i)
+                if (!LoginScreen.emailID.equals(""))
                 {
-                    for (int x = 0; x < TextWithInfo.length; x = x + 5)
+                    try
+                    {
+                        if (firebaseauth.getCurrentUser() == null)
+                        {
+                            finish();
+                            Intent history = new Intent (WhiteList.this, LoginScreen.class );
+                            startActivity(history);
 
+
+
+                        }
+                        else
+                        {
+                            FirebaseUser User = firebaseauth.getCurrentUser();
+                            ref.child(User.getUid()).setValue(MainActivity.ToReturn);
+
+                            Toast.makeText(WhiteList.this,"Saved to the cloud", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    } catch
+                            (Exception e)
                     {
 
-                        String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
-                        String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
-
-                        if (tempstring2.equals(tempstring))
-
-                        {
-                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
-
-                            if (CloseList.Holder.get(i).getSwitch() == true)
-                            {
-                                TextWithInfo[x+2] = String.valueOf(1);
-                                //Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                TextWithInfo[x+2] = String.valueOf(0);
-                             //   Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
-                            }
-
-
-
-                        }
-                        else{
-                            //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
-                        }
-
-
-
+                      //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
                     }
 
-
-
                 }
-
-
-
-                for (int i = 0; i < TextWithInfo.length; ++i)
+                else
                 {
-                    UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
-
+                  //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
                 }
 
-                MainActivity.ToReturn = UpdateSave;
 
 
 
-                saveFile(WhiteList.filename2, MainActivity.ToReturn);
+                
             }
         });
 

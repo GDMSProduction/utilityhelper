@@ -14,6 +14,7 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -61,9 +62,10 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
     private UsageContract.Presenter presenter;
 
+    static List <UsageStatsWrapper> JakeList = new ArrayList <>();
+    private SearchView searches;
 
     private UsageStatAdapter adapter;
-
 
 
 
@@ -77,6 +79,10 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        toolbar.setTitle("History List");
+
+        searches = findViewById(R.id.search);
+
 
 
 
@@ -91,39 +97,56 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
         presenter = new UsagePresenter(this, this);
 
-
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        final SearchView search = (SearchView) findViewById(R.id.search);
-        search.setOnQueryTextListener(new OnQueryTextListener() {
+
+        searches.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
+
+
+
+
+
             @Override
             public boolean onQueryTextChange(String query) {
                 query = query.toLowerCase();
                 List<UsageStatsWrapper> filtered = new ArrayList<>();
-                for (UsageStatsWrapper usageStatsWrapper : UsageStatAdapter.list)
+                for (int i = 0; i < JakeList.size(); ++i)
                 {
 
-                    String name = usageStatsWrapper.getAppName().toLowerCase();
+                    String name = JakeList.get(i).getAppName().toLowerCase();
                     if(name.contains(query)) {
-                        filtered.add(usageStatsWrapper);
+
+                        filtered.add(JakeList.get(i));
+
+
                         adapter.setList(filtered);
                         adapter.notifyDataSetChanged();
                     }
                     if (query.isEmpty()){
-                        adapter.setList(UsageStatAdapter.list);
-                         adapter.notifyDataSetChanged();
+                        UsageStatAdapter.list = JakeList;
+                        adapter.setList(JakeList);
+                        adapter.notifyDataSetChanged();
                     }
+
+
+
+
                 }
                 adapter.notifyDataSetChanged();
                 return true;
             }
+
+
+
+
+
+
         });
     }
 
@@ -132,7 +155,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
     protected void onResume() {
         super.onResume();
         showProgressBar(true);
-            presenter.retrieveUsageStats();
+        presenter.retrieveUsageStats();
 
     }
 
@@ -142,6 +165,8 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         showProgressBar(false);
         permissionMessage.setVisibility(GONE);
         adapter.setList(list);
+
+        JakeList = list;
         adapter.notifyItemRangeRemoved(0,list.size());
     }
 
@@ -169,5 +194,3 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         return false;
     }
 }
-
-

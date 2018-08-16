@@ -28,6 +28,7 @@ public class LoginScreen extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    static String emailID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class LoginScreen extends AppCompatActivity {
 
     private void userLogin(){
         String Email = email.getText().toString().trim();
+        emailID = Email;
         String Password = password.getText().toString().trim();
 
         if(TextUtils.isEmpty(Email)){
