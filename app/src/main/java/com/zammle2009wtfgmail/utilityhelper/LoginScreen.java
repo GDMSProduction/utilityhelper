@@ -36,6 +36,7 @@ public class LoginScreen extends AppCompatActivity {
     private EditText password;
     private Button login;
     private Button createAccount;
+    private Button forgotPassword;
     private  static final String TAG = "simplifiedcoding";
 
     private ProgressDialog progressDialog;
@@ -65,6 +66,17 @@ public class LoginScreen extends AppCompatActivity {
        firebaseAuth = FirebaseAuth.getInstance();
        googleSignIn = findViewById(R.id.GoogleSignIn);
        googleSignInClient = GoogleSignIn.getClient(this, gso);
+       forgotPassword = findViewById(R.id.forgotpasswordButton);
+
+       forgotPassword.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent changeActivity = new Intent(LoginScreen.this, ForgotUserPassword.class);
+
+               startActivity(changeActivity);
+           }
+       });
+
 
        login.setOnClickListener(new View.OnClickListener() {
             @Override

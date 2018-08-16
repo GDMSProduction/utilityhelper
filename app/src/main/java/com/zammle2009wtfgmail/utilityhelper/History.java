@@ -63,6 +63,7 @@ public class History extends AppCompatActivity implements UsageContract.View, an
     private UsageContract.Presenter presenter;
 
     static List <UsageStatsWrapper> JakeList = new ArrayList <>();
+    private SearchView searches;
 
     private UsageStatAdapter adapter;
 
@@ -78,6 +79,10 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        toolbar.setTitle("History List");
+
+        searches = findViewById(R.id.search);
+
 
 
 
@@ -92,15 +97,11 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
         presenter = new UsagePresenter(this, this);
 
-
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
 
-        // handler.postDelayed(running, 3000);
-        final SearchView searchs = (SearchView) findViewById(R.id.search);
-        searchs.setOnQueryTextListener(new OnQueryTextListener() {
+        searches.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;

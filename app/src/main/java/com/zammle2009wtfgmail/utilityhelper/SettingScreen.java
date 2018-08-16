@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SettingScreen extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class SettingScreen extends AppCompatActivity {
         googleSignInClient = GoogleSignIn.getClient(this, gso);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        Button logoutButton = (Button) findViewById(R.id.logoutButton);
+        Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,12 +48,22 @@ public class SettingScreen extends AppCompatActivity {
             }
         });
 
-        Button permissions = (Button) findViewById(R.id.allowPermissionsButton);
+        Button permissions = findViewById(R.id.allowPermissionsButton);
         permissions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
+            }
+        });
+
+        Button changePassword = findViewById(R.id.ChangePassword);
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeActivity = new Intent(SettingScreen.this, ChangeUserPassword.class);
+
+                startActivity(changeActivity);
             }
         });
 
@@ -79,5 +90,8 @@ public class SettingScreen extends AppCompatActivity {
                         }
                     }
                 });
+
     }
+
+
 }
