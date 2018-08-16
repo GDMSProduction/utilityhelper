@@ -2,6 +2,7 @@ package com.zammle2009wtfgmail.utilityhelper;
 
 import android.app.Activity;
 import android.app.usage.UsageStats;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,9 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
 
     static List<UsageStatsWrapper> list = new ArrayList<>();
 
+    @NonNull
     @Override
-    public UsageStatVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UsageStatVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listofapps, parent, false);
 
 
@@ -27,21 +29,27 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
 
 
     @Override
-    public void onBindViewHolder(UsageStatVH holder, int position) {
+    public void onBindViewHolder(@NonNull UsageStatVH holder, int position) {
         holder.bindTo(list.get(position));
-        Iterator<UsageStatsWrapper> iter = list.iterator();
-        while (iter.hasNext()) {
-            UsageStatsWrapper str = iter.next();
 
+        for (int i = 0; i < list.size(); ++i){
 
-            if (str.getUsageStats() == null){
-                iter.remove();
-            }else if (str.getUsageStats().getLastTimeUsed() == 0L){
-                iter.remove();
-            }else if (DateUtils.LastTimeUsed(str).contains("Wednesday, December 31, 1969")){
-                iter.remove();
+            if (list.get(i).getUsageStats() == null){
+                list.remove(i);
+                if (i > 0) {
+                    --i;
+                }
+            }else if (list.get(i).getUsageStats().getLastTimeUsed() == 0L){
+                list.remove(i);
+                if (i > 0) {
+                    --i;
+                }
+            }else if (DateUtils.LastTimeUsed(list.get(i)).contains("Wednesday, December 31, 1969")){
+                list.remove(i);
+                if (i > 0) {
+                    --i;
+                }
             }
-
         }
     }
 
@@ -52,13 +60,8 @@ public class UsageStatAdapter extends RecyclerView.Adapter<UsageStatVH> {
     }
 
     public void setList(List<UsageStatsWrapper> list) {
-        this.list = list;
+        UsageStatAdapter.list = list;
 
     }
 
-    public void setFilteredList(List<UsageStatsWrapper> filteredList){
-        list = new ArrayList<>();
-        list.addAll(filteredList);
-        notifyDataSetChanged();
-    }
 }

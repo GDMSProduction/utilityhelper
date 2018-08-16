@@ -56,6 +56,7 @@ public class CreateAccount extends AppCompatActivity {
         });
     }
 
+    //creating account with firebase auth
     public void SaveData() {
         String Email = email.getText().toString().trim();
         String Password = password.getText().toString().trim();

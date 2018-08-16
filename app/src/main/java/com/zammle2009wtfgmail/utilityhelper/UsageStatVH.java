@@ -51,17 +51,17 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
 
 
-        appIcon = (ImageView) itemView.findViewById(R.id.icon);
-        appName = (TextView) itemView.findViewById(R.id.title);
+        appIcon = itemView.findViewById(R.id.icon);
+        appName = itemView.findViewById(R.id.title);
 
 
 
        // WhiteList.text += itemView.findViewById(R.id.title) + System.getProperty("line.separator");
 
 
-        lastTimeUsed = (TextView) itemView.findViewById(R.id.last_used);
-        expand = (ToggleButton) itemView.findViewById(R.id.expandToggleButton);
-        appIcon.getLayoutParams().height = 130;
+        lastTimeUsed = itemView.findViewById(R.id.last_used);
+        expand = itemView.findViewById(R.id.expandToggleButton);
+        appIcon.getLayoutParams().height = 135;
 
 
 

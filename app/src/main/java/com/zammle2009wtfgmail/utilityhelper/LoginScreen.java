@@ -4,20 +4,31 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.signin.SignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginScreen extends AppCompatActivity {
 
@@ -25,10 +36,15 @@ public class LoginScreen extends AppCompatActivity {
     private EditText password;
     private Button login;
     private Button createAccount;
+    private Button forgotPassword;
+    private  static final String TAG = "simplifiedcoding";
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     static String emailID = "";
+    private Button googleSignIn;
+    GoogleSignInClient googleSignInClient;
+    int RC_SIGN_IN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +53,34 @@ public class LoginScreen extends AppCompatActivity {
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
        login = findViewById(R.id.LoginButton);
        createAccount = findViewById(R.id.createaccountButton);
        email = findViewById(R.id.EmaileditText);
        password = findViewById(R.id.PasswordeditText);
        progressDialog = new ProgressDialog(this);
        firebaseAuth = FirebaseAuth.getInstance();
-
-        final Button pressedtimer = (Button) findViewById(R.id.out);
-        pressedtimer.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent history = new Intent (LoginScreen.this, MainActivity.class );
-                startActivity(history);
-            }
-
-        });
+       googleSignIn = findViewById(R.id.GoogleSignIn);
+       googleSignInClient = GoogleSignIn.getClient(this, gso);
+       forgotPassword = findViewById(R.id.forgotpasswordButton);
 
 
+       forgotPassword.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               //Intent changeActivity = new Intent(LoginScreen.this, ForgotUserPassword.class);
 
-        login.setOnClickListener(new View.OnClickListener() {
+               //startActivity(changeActivity);
+           }
+       });
+
+
+       login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userLogin();
@@ -74,11 +96,62 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+    }
+//part of google sign in
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(this,"Failed to Sign in",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+//part of google signin
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                            Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
+
+                            startActivity(changeActivity);
+                        } else {
+                            Toast.makeText(LoginScreen.this, "Login Not Successful", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
     }
 
+    //google signin
+    private void signIn() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    //signin with the email and password you made
     private void userLogin(){
         String Email = email.getText().toString().trim();
-        emailID = Email;
         String Password = password.getText().toString().trim();
 
         if(TextUtils.isEmpty(Email)){

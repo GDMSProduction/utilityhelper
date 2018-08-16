@@ -4,19 +4,20 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.opengl.Matrix;
+import android.content.pm.PackageManager;import android.content.pm.ActivityInfo;import android.opengl.Matrix;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -44,6 +45,17 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     static String ToReturn = "";
 
 
+    //Hint variables
+    private ToggleButton hints;
+    private TextView historylistHint;
+    private TextView blacklistHint;
+    private TextView closelistHint;
+    private TextView notificationsHint;
+    private TextView specsHint;
+    private TextView settingsHint;
+    private TextView closeappsHint;
+
+
 
 
 
@@ -54,18 +66,31 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
         setContentView(R.layout.activity_main);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        hints = findViewById(R.id.hintsToggleButton);
+        historylistHint = findViewById(R.id.historyHint);
+        blacklistHint = findViewById(R.id.blacklistHint);
+        closelistHint = findViewById(R.id.closelistHint);
+        notificationsHint = findViewById(R.id.notifictionHint);
+        specsHint = findViewById(R.id.specHint);
+        settingsHint = findViewById(R.id.settingsHint);
+        closeappsHint = findViewById(R.id.closeappsHint);
 
 
-
+        historylistHint.setVisibility(View.INVISIBLE);
+        blacklistHint.setVisibility(View.INVISIBLE);
+        closelistHint.setVisibility(View.INVISIBLE);
+        notificationsHint.setVisibility(View.INVISIBLE);
+        specsHint.setVisibility(View.INVISIBLE);
+        settingsHint.setVisibility(View.INVISIBLE);
+        closeappsHint.setVisibility(View.INVISIBLE);
 
 
 
 
 
         cap = 0;
-
-
-
 
       //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
 
@@ -81,7 +106,29 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-
+hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked){
+            historylistHint.setVisibility(View.VISIBLE);
+            blacklistHint.setVisibility(View.VISIBLE);
+            closelistHint.setVisibility(View.VISIBLE);
+            notificationsHint.setVisibility(View.VISIBLE);
+            specsHint.setVisibility(View.VISIBLE);
+            settingsHint.setVisibility(View.VISIBLE);
+            closeappsHint.setVisibility(View.VISIBLE);
+        }
+        else{
+            historylistHint.setVisibility(View.INVISIBLE);
+            blacklistHint.setVisibility(View.INVISIBLE);
+            closelistHint.setVisibility(View.INVISIBLE);
+            notificationsHint.setVisibility(View.INVISIBLE);
+            specsHint.setVisibility(View.INVISIBLE);
+            settingsHint.setVisibility(View.INVISIBLE);
+            closeappsHint.setVisibility(View.INVISIBLE);
+        }
+    }
+});
 
 
 
@@ -115,8 +162,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             @Override
             public void onClick(View v)
             {
-                Intent history = new Intent (MainActivity.this, Something3.class );
-                startActivity(history);
+                Intent history = new Intent (MainActivity.this, Notifications.class );
+                //startActivity(history);
             }
 
         });
