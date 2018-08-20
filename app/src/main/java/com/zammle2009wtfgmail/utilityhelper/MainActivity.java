@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
         hints = findViewById(R.id.hintsToggleButton);
         historylistHint = findViewById(R.id.historyHint);
         blacklistHint = findViewById(R.id.blacklistHint);
@@ -77,14 +78,14 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         settingsHint = findViewById(R.id.settingsHint);
         closeappsHint = findViewById(R.id.closeappsHint);
 
-
-        historylistHint.setVisibility(View.INVISIBLE);
-        blacklistHint.setVisibility(View.INVISIBLE);
-        closelistHint.setVisibility(View.INVISIBLE);
-        notificationsHint.setVisibility(View.INVISIBLE);
-        specsHint.setVisibility(View.INVISIBLE);
-        settingsHint.setVisibility(View.INVISIBLE);
-        closeappsHint.setVisibility(View.INVISIBLE);
+        //start hints visable
+        historylistHint.setVisibility(View.VISIBLE);
+        blacklistHint.setVisibility(View.VISIBLE);
+        closelistHint.setVisibility(View.VISIBLE);
+        notificationsHint.setVisibility(View.VISIBLE);
+        specsHint.setVisibility(View.VISIBLE);
+        settingsHint.setVisibility(View.VISIBLE);
+        closeappsHint.setVisibility(View.VISIBLE);
 
 
 
@@ -105,20 +106,11 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-
+//makes hints invisable or visable
 hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked){
-            historylistHint.setVisibility(View.VISIBLE);
-            blacklistHint.setVisibility(View.VISIBLE);
-            closelistHint.setVisibility(View.VISIBLE);
-            notificationsHint.setVisibility(View.VISIBLE);
-            specsHint.setVisibility(View.VISIBLE);
-            settingsHint.setVisibility(View.VISIBLE);
-            closeappsHint.setVisibility(View.VISIBLE);
-        }
-        else{
             historylistHint.setVisibility(View.INVISIBLE);
             blacklistHint.setVisibility(View.INVISIBLE);
             closelistHint.setVisibility(View.INVISIBLE);
@@ -126,6 +118,16 @@ hints.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             specsHint.setVisibility(View.INVISIBLE);
             settingsHint.setVisibility(View.INVISIBLE);
             closeappsHint.setVisibility(View.INVISIBLE);
+        }
+        else{
+
+            historylistHint.setVisibility(View.VISIBLE);
+            blacklistHint.setVisibility(View.VISIBLE);
+            closelistHint.setVisibility(View.VISIBLE);
+            notificationsHint.setVisibility(View.VISIBLE);
+            specsHint.setVisibility(View.VISIBLE);
+            settingsHint.setVisibility(View.VISIBLE);
+            closeappsHint.setVisibility(View.VISIBLE);
         }
     }
 });

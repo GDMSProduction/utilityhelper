@@ -36,7 +36,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChangeUserPassword"></activity>
+        <activity android:name=".ChangeUserPassword" />
+        <activity android:name=".ForgotPassword" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
