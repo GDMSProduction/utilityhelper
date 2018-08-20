@@ -19,8 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ChangeUserEmail extends AppCompatActivity {
 
-    private EditText password, reenterPassword;
-    private Button changePassword;
+    private EditText email;
+    private Button changeEmail;
 
     private FirebaseAuth firebaseAuth;
 
@@ -29,52 +29,45 @@ public class ChangeUserEmail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_user_password);
+        setContentView(R.layout.activity_change_user_email);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        changePassword = findViewById(R.id.Change);
-        password = findViewById(R.id.PasswordeditText);
-        reenterPassword = findViewById(R.id.ReenterPasswordeditText);
+        changeEmail = findViewById(R.id.Change);
+        email = findViewById(R.id.emaileditText);
         progressDialog = new ProgressDialog(this);
 
-        changePassword.setOnClickListener(new View.OnClickListener() {
+        changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveData();
+                ChangeEmail();
             }
         });
 
 
     }
 
-
-    public void SaveData() {
+//Changes the email you signed up with
+    public void ChangeEmail() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String Password = password.getText().toString().trim();
-        String ReenterPassword = reenterPassword.getText().toString().trim();
+        String Email = email.getText().toString().trim();
 
-        if (TextUtils.isEmpty(Password)) {
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(Email)) {
+            Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(ReenterPassword)) {
-            Toast.makeText(this, "Please Re-enter Password", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        progressDialog.setMessage("Changing Password....");
+        progressDialog.setMessage("Changing Email....");
         progressDialog.show();
         if (user != null) {
-            if (Password.equals(ReenterPassword)) {
-                user.updatePassword(password.getText().toString())
+            if (user.getEmail().equals(Email)) {
+                user.updateEmail(email.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()){
-                                    Toast.makeText(ChangeUserEmail.this, "Password Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangeUserEmail.this, "Email Successfully Changed", Toast.LENGTH_SHORT).show();
                                     //sign out with the email and password you created
                                     firebaseAuth.signOut();
                                     finish();
@@ -83,14 +76,14 @@ public class ChangeUserEmail extends AppCompatActivity {
                                     startActivity(changeActivity);
                                 }
                                 else{
-                                    Toast.makeText(ChangeUserEmail.this, "Password not Successfully Changed", Toast.LENGTH_SHORT).show();
-
+                                    Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
                                 }
+
                             }
                         });
 
             } else {
-                Toast.makeText(ChangeUserEmail.this, "Passwords Don't Match!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeUserEmail.this, "Current email is the same!", Toast.LENGTH_SHORT).show();
 
             }
         }

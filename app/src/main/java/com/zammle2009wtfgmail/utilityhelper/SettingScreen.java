@@ -67,6 +67,16 @@ public class SettingScreen extends AppCompatActivity {
             }
         });
 
+        Button changeEmail = findViewById(R.id.ChangeEmail);
+        changeEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeActivity = new Intent(SettingScreen.this, ChangeUserEmail.class);
+
+                startActivity(changeActivity);
+            }
+        });
+
     }
 
     private void SignOut(){

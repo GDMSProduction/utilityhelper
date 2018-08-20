@@ -42,15 +42,15 @@ public class ChangeUserPassword extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveData();
+                ChangePassword();
             }
         });
 
 
     }
 
-
-    public void SaveData() {
+//Changes the password you signed up with
+    public void ChangePassword() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String Password = password.getText().toString().trim();
         String ReenterPassword = reenterPassword.getText().toString().trim();
