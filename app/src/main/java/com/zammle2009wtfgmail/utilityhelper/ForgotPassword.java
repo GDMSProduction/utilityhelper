@@ -29,7 +29,7 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         firebaseAuth = FirebaseAuth.getInstance();
         resetPassword = findViewById(R.id.resetpasswordButton);
@@ -40,17 +40,35 @@ public class ForgotPassword extends AppCompatActivity {
         resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Email = email.getText().toString().trim();
-
-                //checks if the email edit text is empty
-                if (Email.equals("")){
-                    Toast.makeText(ForgotPassword.this, "Please Enter Email", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    //sends reset email to user
-                    firebaseAuth.sendPasswordResetEmail(Email);
-                }
+                Forgotpassword();
             }
         });
+
+    }
+
+    void Forgotpassword() {
+        String Email = email.getText().toString().trim();
+
+        if (Email.isEmpty()){
+            Toast.makeText(ForgotPassword.this, "Please Enter Email!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressDialog.setMessage("Sending Reset Password Link.......");
+        progressDialog.show();
+        firebaseAuth.sendPasswordResetEmail(email.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(ForgotPassword.this, "Reset Password Link Sent To Email!", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(ForgotPassword.this, "Email Not Registered", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
     }
 }
