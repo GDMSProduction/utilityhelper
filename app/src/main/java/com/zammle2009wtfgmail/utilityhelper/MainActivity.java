@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         {
                             final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                             am.killBackgroundProcesses(newText[i + 3]);
-                            Toast.makeText(MainActivity.this,"Closed " + newText[i+3], Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(MainActivity.this,"Closed " + newText[i+3], Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                     }
                     catch (Exception e)
                     {
-                        Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -410,7 +410,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 }
 
 
-                Toast.makeText(MainActivity.this,"Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Completed closing applications.", Toast.LENGTH_SHORT).show();
 
             }
 
