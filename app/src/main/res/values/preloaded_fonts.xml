@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/alef</item>
+        <item>@font/arvo</item>
+        <item>@font/damion</item>
+        <item>@font/kavivanar</item>
+        <item>@font/work_sans_thin</item>
+    </array>
+</resources>
