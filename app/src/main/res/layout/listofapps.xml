@@ -82,15 +82,15 @@
         android:layout_centerVertical="true"
         android:visibility="invisible" />
 
-    <ToggleButton
-        android:id="@+id/expandToggleButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+    <Button
+        android:id="@+id/expandButton"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/infobutton"
-        android:text="ToggleButton"
-        android:textOff=" "
-        android:textOn=" " />
+        android:background="@drawable/button"
+        android:text="Info"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
 </RelativeLayout>

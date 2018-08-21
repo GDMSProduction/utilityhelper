@@ -39,8 +39,8 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
     private ImageView appIcon;
     private TextView appName;
-    public TextView lastTimeUsed;
-    private ToggleButton expand;
+    private TextView lastTimeUsed;
+    private Button expand;
     Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
     private String packageName;
 
@@ -60,7 +60,7 @@ public class UsageStatVH extends  RecyclerView.ViewHolder{
 
 
         lastTimeUsed = itemView.findViewById(R.id.last_used);
-        expand = itemView.findViewById(R.id.expandToggleButton);
+        expand = itemView.findViewById(R.id.expandButton);
         appIcon.getLayoutParams().height = 135;
 
 

@@ -58,12 +58,10 @@ public class History extends AppCompatActivity implements UsageContract.View, an
 
     private ProgressBar progressBar;
     private TextView permissionMessage;
-    private Toolbar toolbar;
 
     private UsageContract.Presenter presenter;
 
     static List <UsageStatsWrapper> JakeList = new ArrayList <>();
-    private SearchView searches;
 
     private UsageStatAdapter adapter;
 
@@ -74,14 +72,14 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toolbar.setTitle("History List");
 
-        searches = findViewById(R.id.search);
+        SearchView searches = findViewById(R.id.search);
 
 
 
