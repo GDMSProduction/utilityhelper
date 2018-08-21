@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.CpuUsageInfo;
@@ -65,6 +66,8 @@ public class Hardware_Spec extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware__spec);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         //show battery temperature, getBatterTemp function defined at the bottom
         // TODO: 8/14/2018 get views by ID here

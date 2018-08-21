@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,6 +64,8 @@ public class ForgotPassword extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(ForgotPassword.this, "Reset Password Link Sent To Email!", Toast.LENGTH_SHORT).show();
+                            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 
                         } else {
                             Toast.makeText(ForgotPassword.this, "Email Not Registered", Toast.LENGTH_SHORT).show();

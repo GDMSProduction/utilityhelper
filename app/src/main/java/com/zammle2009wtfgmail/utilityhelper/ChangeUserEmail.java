@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class ChangeUserEmail extends AppCompatActivity {
 
     private EditText email;
-    private Button changeEmail;
 
     private FirebaseAuth firebaseAuth;
 
@@ -33,7 +32,7 @@ public class ChangeUserEmail extends AppCompatActivity {
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        changeEmail = findViewById(R.id.Change);
+        Button changeEmail = findViewById(R.id.Change);
         email = findViewById(R.id.emaileditText);
         progressDialog = new ProgressDialog(this);
 
@@ -60,7 +59,7 @@ public class ChangeUserEmail extends AppCompatActivity {
         progressDialog.setMessage("Changing Email....");
         progressDialog.show();
         if (user != null) {
-            if (user.getEmail().equals(Email)) {
+            if (!user.getEmail().equals(Email)) {
                 user.updateEmail(email.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -77,12 +76,16 @@ public class ChangeUserEmail extends AppCompatActivity {
                                 }
                                 else{
                                     Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
+
                                 }
 
                             }
                         });
 
-            } else {
+            }
+
+            else {
+                progressDialog.dismiss();
                 Toast.makeText(ChangeUserEmail.this, "Current email is the same!", Toast.LENGTH_SHORT).show();
 
             }

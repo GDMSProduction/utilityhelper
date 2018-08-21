@@ -2,6 +2,12 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aubrey</item>
+        <item>@font/bevan</item>
+        <item>@font/damion</item>
+        <item>@font/finger_paint</item>
+        <item>@font/kavivanar</item>
+        <item>@font/pattaya</item>
+        <item>@font/spicy_rice</item>
         <item>@font/vast_shadow</item>
         <item>@font/work_sans</item>
     </array>

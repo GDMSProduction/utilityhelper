@@ -345,6 +345,7 @@ public class WhiteList extends AppCompatActivity {
                     if (copy == false)
                     {
                         Toast.makeText(WhiteList.this,"FAIL", Toast.LENGTH_SHORT).show();
+
                     }
 
 

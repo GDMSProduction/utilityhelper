@@ -49,11 +49,12 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="250dp"
+        android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="-5dp"
         android:layout_toEndOf="@+id/icon"
-        android:fontFamily="@font/work_sans"
+        android:fontFamily="@font/damion"
         android:lines="1"
         android:maxLines="1"
         android:paddingTop="8dp"
@@ -62,11 +63,13 @@
 
     <TextView
         android:id="@+id/last_used"
-        android:layout_width="match_parent"
+        android:layout_width="511dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="-7dp"
         android:layout_toEndOf="@+id/icon"
-        android:fontFamily="@font/work_sans"
+        android:fontFamily="@font/kavivanar"
         android:paddingBottom="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Last used: yesterday at 18.54" />
