@@ -38,7 +38,7 @@
         android:background="@drawable/awhitelist"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -118,6 +118,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="TextView"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
@@ -136,6 +137,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="Remove from Blacklist?"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
@@ -153,6 +155,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="Add to Blacklist?"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
@@ -163,24 +166,6 @@
         app:layout_constraintVertical_bias="0.517" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="179dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Add"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/Load2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
         android:id="@+id/apptextview2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -188,6 +173,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="How long of innactivity before closing."
         android:textColor="@android:color/background_dark"
         android:textSize="14sp"
@@ -241,6 +227,7 @@
         android:clickable="true"
         android:ems="10"
         android:focusableInTouchMode="true"
+        android:fontFamily="@font/kavivanar"
         android:inputType="number"
         android:windowSoftInputMode="stateAlwaysHidden"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow2"
@@ -271,6 +258,7 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="TextView"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -278,6 +266,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.471" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="179dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
+        android:text="Blacklist"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

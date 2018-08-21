@@ -64,6 +64,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="How long of innactivity before closing."
         android:textColor="@android:color/background_dark"
         android:textSize="14sp"
@@ -115,6 +116,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="TextView"
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow"
@@ -151,14 +153,15 @@
         android:clickable="true"
         android:ems="10"
         android:focusableInTouchMode="true"
+        android:fontFamily="@font/kavivanar"
         android:inputType="number"
         android:windowSoftInputMode="stateAlwaysHidden"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow"
         app:layout_constraintEnd_toEndOf="@+id/appWindow"
         app:layout_constraintHorizontal_bias="0.969"
         app:layout_constraintStart_toStartOf="@+id/appWindow"
-        app:layout_constraintTop_toTopOf="@+id/appWindow"
 
+        app:layout_constraintTop_toTopOf="@+id/appWindow"
         app:layout_constraintVertical_bias="0.389" />
 
 
@@ -186,6 +189,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/kavivanar"
         android:text="Add to Blacklist."
         android:textColor="@android:color/background_dark"
         app:layout_constraintBottom_toBottomOf="@+id/appWindow"
@@ -201,6 +205,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/kavivanar"
         android:text="Touch to add to Blacklist."
         android:textColor="@android:color/background_light"
         android:textSize="24sp"

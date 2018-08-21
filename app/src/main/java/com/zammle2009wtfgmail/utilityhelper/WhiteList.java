@@ -882,14 +882,22 @@ public class WhiteList extends AppCompatActivity {
 
                             }
 
+                            // sets runnables //
 
 
+                            for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                            {
+
+                                if (Integer.valueOf(TextWithInfo[i + 2]) == 1)
+                                {
+                                    MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                                }
+
+                            }
+
+                            //
 
 
-                            //MainActivity.ToReturn = UpdateSave;
-
-
-                            //Toast.makeText(WhiteList.this,"SAVED!", Toast.LENGTH_SHORT).show();
 
                             saveFile(WhiteList.filename2, MainActivity.ToReturn);
 
