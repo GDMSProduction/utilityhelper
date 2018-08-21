@@ -11,10 +11,8 @@
 
 
     <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-
         android:layout_width="wrap_content"
-        android:layout_height="86dp"
+        android:layout_height="130dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="8dp"
@@ -29,60 +27,72 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="130dp"
             android:orientation="horizontal">
 
 
-            <ImageButton
+            <Button
                 android:id="@+id/history"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/ahistory" />
+                android:background="@drawable/newhistory"
+                android:fontFamily="@font/kavivanar"
 
-            <ImageButton
+                android:gravity="bottom|center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                tools:text="History" />
+
+            <Button
                 android:id="@+id/whitelist"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/awhitelist" />
+                android:background="@drawable/newblacklist"
+                android:fontFamily="@font/kavivanar"
+                android:gravity="bottom|center"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                tools:text="Blacklist" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/timer"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/timer" />
+                android:background="@drawable/newapps"
+                android:fontFamily="@font/kavivanar"
+                android:gravity="bottom|center"
+                android:textColor="@android:color/background_light"
+                android:textSize="18dp"
+                tools:text="Apps" />
 
-            <ImageButton
-                android:id="@+id/notifications"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/anotifications" />
-
-            <ImageButton
+            <Button
                 android:id="@+id/SpecDetail"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/details" />
+                android:background="@drawable/newspecs"
+                android:fontFamily="@font/kavivanar"
+                android:gravity="bottom|center"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                tools:text="Spec" />
 
-
-            <ImageButton
+            <Button
                 android:id="@+id/settings"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/square"
-                app:srcCompat="@drawable/asettings" />
-
-
+                android:background="@drawable/newsettings"
+                android:fontFamily="@font/kavivanar"
+                android:gravity="bottom|center"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                tools:text="Setting" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -283,6 +293,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/power1"
         app:layout_constraintVertical_bias="0.215" />
+
+    <Button
+        android:id="@+id/hintss"
+        android:layout_width="97dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/hints"
+        android:fontFamily="@font/kavivanar"
+        android:text="Hints"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

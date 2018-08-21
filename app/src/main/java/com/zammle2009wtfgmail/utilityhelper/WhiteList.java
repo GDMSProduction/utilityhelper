@@ -140,6 +140,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+
        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
@@ -312,9 +313,9 @@ public class WhiteList extends AppCompatActivity {
                     mAppTime.setText("15");
                 }
 
-                if (Integer.valueOf(mAppTime.getText().toString()) > 120)
+                if (Integer.valueOf(mAppTime.getText().toString()) > 240)
                 {
-                    mAppTime.setText("120");
+                    mAppTime.setText("240");
                 }
                 if (Integer.valueOf(mAppTime.getText().toString()) < 1)
                 {
@@ -430,17 +431,19 @@ public class WhiteList extends AppCompatActivity {
                     {
 
                         //Toast.makeText(WhiteList.this,"IM IN", Toast.LENGTH_SHORT).show();
-                        TextWithInfo[i+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+                      //  TextWithInfo[i+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
 
                         if (mSwitch.isChecked())
                         {
                             TextWithInfo[i+2] = String.valueOf(1);
-                            Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                            TextWithInfo[i+1] = mAppTime.getText().toString();
+                           // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             TextWithInfo[i+2] = String.valueOf(0);
-                            Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                            TextWithInfo[i+1] = mAppTime.getText().toString();
+                           // Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -724,6 +727,7 @@ public class WhiteList extends AppCompatActivity {
                                             if (DatabaseWithInfo[i].equals(TextWithInfo[x])) {
                                                 found = true;
                                                 TextWithInfo[x + 2] = "1";
+
                                              //   Toast.makeText(WhiteList.this,"I AM TURNing on bool", Toast.LENGTH_SHORT).show();
                                                 break;
                                             }
