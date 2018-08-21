@@ -3,7 +3,6 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
@@ -57,7 +56,7 @@ public class WhiteList extends AppCompatActivity {
     private String Database;
 
     static String[] TextWithInfo;
-   // DatabaseReference ref;
+    // DatabaseReference ref;
 
 
     //final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -93,7 +92,6 @@ public class WhiteList extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
         Database = "";
@@ -143,7 +141,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-       final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -433,19 +431,19 @@ public class WhiteList extends AppCompatActivity {
                     {
 
                         //Toast.makeText(WhiteList.this,"IM IN", Toast.LENGTH_SHORT).show();
-                      //  TextWithInfo[i+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+                        //  TextWithInfo[i+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
 
                         if (mSwitch.isChecked())
                         {
                             TextWithInfo[i+2] = String.valueOf(1);
                             TextWithInfo[i+1] = mAppTime.getText().toString();
-                           // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             TextWithInfo[i+2] = String.valueOf(0);
                             TextWithInfo[i+1] = mAppTime.getText().toString();
-                           // Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -664,262 +662,262 @@ public class WhiteList extends AppCompatActivity {
                 {
                    /* try
                     {*/
-                        if (firebaseauth.getCurrentUser() == null)
-                        {
-                            finish();
-                            Intent history = new Intent (WhiteList.this, LoginScreen.class );
-                            startActivity(history);
+                    if (firebaseauth.getCurrentUser() == null)
+                    {
+                        finish();
+                        Intent history = new Intent (WhiteList.this, LoginScreen.class );
+                        startActivity(history);
 
+
+
+                    }
+                    else
+                    {
+
+
+
+
+                        FirebaseUser User = firebaseauth.getCurrentUser();
+
+                        ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Database = dataSnapshot.getValue(String.class);
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+
+
+
+                        // Toast.makeText(WhiteList.this,"Failed Conversion", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                        CloseList.Holder.clear();
+
+
+                        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                        String[] DatabaseWithInfo = Database.split(System.getProperty("line.separator"));
+                        String NotFoundString = "";
+
+                        int DatabaseSize = DatabaseWithInfo.length;
+
+                        for (int i = 0; i < DatabaseSize; i = i + 4)
+                        {
+                            try
+                            {
+                                if (Integer.valueOf(DatabaseWithInfo[i + 2]) == 1) {
+                                    boolean found = false;
+
+                                    for (int x = 0; x < TextWithInfo.length; x = x + 4) {
+                                        if (DatabaseWithInfo[i].equals(TextWithInfo[x])) {
+                                            found = true;
+                                            TextWithInfo[x + 2] = "1";
+
+                                            //   Toast.makeText(WhiteList.this,"I AM TURNing on bool", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        }
+                                    }
+
+
+                                    if (found == false) {
+
+                                        NotFoundString += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
+
+                                        //TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                                    }
+
+                                }
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
 
 
                         }
-                        else
+
+
+
+                        // new code /  combing not found strings with Current string //////////////////////////////////////////////////////
+
+                        String UpdateSave ="";
+
+
+                        for (int i = 0; i < TextWithInfo.length; ++i)
                         {
-
-
-
-
-                            FirebaseUser User = firebaseauth.getCurrentUser();
-
-                            ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    Database = dataSnapshot.getValue(String.class);
-                                  // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError)
-                                {
-                                   // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-
-
-
-
-
-
-                               // Toast.makeText(WhiteList.this,"Failed Conversion", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-                            CloseList.Holder.clear();
-
-
-                            TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-                            String[] DatabaseWithInfo = Database.split(System.getProperty("line.separator"));
-                            String NotFoundString = "";
-
-                            int DatabaseSize = DatabaseWithInfo.length;
-
-                            for (int i = 0; i < DatabaseSize; i = i + 4)
-                            {
-                                try
-                                {
-                                    if (Integer.valueOf(DatabaseWithInfo[i + 2]) == 1) {
-                                        boolean found = false;
-
-                                        for (int x = 0; x < TextWithInfo.length; x = x + 4) {
-                                            if (DatabaseWithInfo[i].equals(TextWithInfo[x])) {
-                                                found = true;
-                                                TextWithInfo[x + 2] = "1";
-
-                                             //   Toast.makeText(WhiteList.this,"I AM TURNing on bool", Toast.LENGTH_SHORT).show();
-                                                break;
-                                            }
-                                        }
-
-
-                                        if (found == false) {
-
-                                            NotFoundString += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
-                                            NotFoundString += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
-                                            NotFoundString += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
-                                            NotFoundString += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
-
-                                            //TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-                                        }
-
-                                    }
-                                }
-                                catch (Exception e)
-                                {
-
-                                }
-
-
-                            }
-
-
-
-                            // new code /  combing not found strings with Current string //////////////////////////////////////////////////////
-
-                            String UpdateSave ="";
-
-
-                            for (int i = 0; i < TextWithInfo.length; ++i)
-                            {
-                                UpdateSave += TextWithInfo +  (System.getProperty("line.separator"));
-                            }
+                            UpdateSave += TextWithInfo +  (System.getProperty("line.separator"));
+                        }
 
                         //    UpdateSave += NotFoundString;
 
-                          //  TextWithInfo = UpdateSave.split(System.getProperty("line.separator"));
+                        //  TextWithInfo = UpdateSave.split(System.getProperty("line.separator"));
 
 
 
-                            // end //////////////////////////////////////////////////////
+                        // end //////////////////////////////////////////////////////
 
 
 
 
 
-                            for (int i = 0; i < TextWithInfo.length; i = i + 4)
-                            {
-                                try {
-                                    if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
-                                        String appName = TextWithInfo[i];
-                                        int Time = Integer.valueOf(TextWithInfo[i + 1]);
-                                        boolean bool = true;
-                                        String PackageName = TextWithInfo[i + 3];
+                        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                        {
+                            try {
+                                if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                                    String appName = TextWithInfo[i];
+                                    int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                                    boolean bool = true;
+                                    String PackageName = TextWithInfo[i + 3];
 
 
-                                        try {
+                                    try {
 
-                                            Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i + 3]);
-
-
-                                            if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
-                                                CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, true, PackageName));
-                                            } else {
-                                                CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, false, PackageName));
-                                            }
-
-                                        } catch (PackageManager.NameNotFoundException e) {
-                                            e.printStackTrace();
+                                        Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i + 3]);
 
 
+                                        if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                                            CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, true, PackageName));
+                                        } else {
+                                            CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, false, PackageName));
                                         }
+
+                                    } catch (PackageManager.NameNotFoundException e) {
+                                        e.printStackTrace();
+
+
                                     }
                                 }
-                                catch (Exception e)
-                                {
-
-                                }
                             }
-
-
-
-
-
-
-                            // end of new stuff //
-
-
-
-                            ///////////// update adapters here //////////////////
-                            mAdapter.notifyDataSetChanged();
-                            ////////////////////////////////////////////////////
-
-
-                            //// save info / Setting ToReturn to updated information////
-
-
-                            MainActivity.ToReturn = "";
-
-                            for (int i = 0; i < TextWithInfo.length; ++i)
+                            catch (Exception e)
                             {
-                                MainActivity.ToReturn += TextWithInfo[i] +  (System.getProperty("line.separator"));
-
 
                             }
-
-                            // save //
-
+                        }
 
 
 
-                           // String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
-                            for (int i = 0; i < CloseList.Holder.size(); ++i)
+
+                        // end of new stuff //
+
+
+
+                        ///////////// update adapters here //////////////////
+                        mAdapter.notifyDataSetChanged();
+                        ////////////////////////////////////////////////////
+
+
+                        //// save info / Setting ToReturn to updated information////
+
+
+                        MainActivity.ToReturn = "";
+
+                        for (int i = 0; i < TextWithInfo.length; ++i)
+                        {
+                            MainActivity.ToReturn += TextWithInfo[i] +  (System.getProperty("line.separator"));
+
+
+                        }
+
+                        // save //
+
+
+
+
+                        // String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+
+                        for (int i = 0; i < CloseList.Holder.size(); ++i)
+                        {
+                            for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
                             {
-                                for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                                String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                                String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                                if (tempstring2.equals(tempstring))
 
                                 {
+                                    TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
 
-                                    String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
-                                    String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
-
-                                    if (tempstring2.equals(tempstring))
-
+                                    if (mSwitch.isChecked())
                                     {
-                                        TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
-
-                                        if (mSwitch.isChecked())
-                                        {
-                                            TextWithInfo[x+2] = String.valueOf(1);
-                                            // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
-                                            TextWithInfo[x+2] = String.valueOf(0);
-                                            //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-
+                                        TextWithInfo[x+2] = String.valueOf(1);
+                                        // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                                     }
-                                    else{
-                                        //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                                    else
+                                    {
+                                        TextWithInfo[x+2] = String.valueOf(0);
+                                        //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                                     }
 
 
 
                                 }
-
-
-
-                            }
-
-                            // sets runnables //
-
-
-                            for (int i = 0; i < TextWithInfo.length; i = i + 4)
-                            {
-
-                                if (Integer.valueOf(TextWithInfo[i + 2]) == 1)
-                                {
-                                    MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                                else{
+                                    //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
                                 }
 
+
+
                             }
-
-                            //
-
-
-
-                            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-
-                            // end of saving //
-
-                            hideKeyboard(v);
-
-
-
-
-                            debug.setText(Database = ref.child(User.getUid()).toString());
-
 
 
 
                         }
+
+                        // sets runnables //
+
+
+                        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                        {
+
+                            if (Integer.valueOf(TextWithInfo[i + 2]) == 1)
+                            {
+                                MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                            }
+
+                        }
+
+                        //
+
+
+
+                        saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
+                        // end of saving //
+
+                        hideKeyboard(v);
+
+
+
+
+                        debug.setText(Database = ref.child(User.getUid()).toString());
+
+
+
+
+                    }
 
 
 
@@ -933,7 +931,7 @@ public class WhiteList extends AppCompatActivity {
                 }
                 else
                 {
-                     // Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -941,7 +939,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-              //  Toast.makeText(WhiteList.this,"END", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(WhiteList.this,"END", Toast.LENGTH_SHORT).show();
 
 
 
@@ -981,19 +979,19 @@ public class WhiteList extends AppCompatActivity {
                             (Exception e)
                     {
 
-                      //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
                     }
 
                 }
                 else
                 {
-                  //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
                 }
 
 
 
 
-                
+
             }
         });
 
@@ -1010,7 +1008,7 @@ public class WhiteList extends AppCompatActivity {
 
             fos.write(text.getBytes());
             fos.close();
-           // Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -1071,5 +1069,6 @@ public class WhiteList extends AppCompatActivity {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
+
 
 }
