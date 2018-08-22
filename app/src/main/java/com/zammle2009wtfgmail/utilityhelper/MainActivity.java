@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     static String ToReturn = "";
 
 
-    boolean Hints = false;
+    boolean Hints = true;
 
 
 
@@ -153,6 +153,21 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             pressedwhitelist.setText("");
             pressedtimer.setText("");
             pressedsettings.setText("");
+
+        }
+        else
+        {
+
+            {
+
+                presseddetails.setText("Specs");
+                pressedhistory.setText("HISTORY");
+                pressedwhitelist.setText("Blacklist");
+                pressedtimer.setText("Apps");
+                pressedsettings.setText("Settings");
+
+            }
+
 
         }
 

@@ -229,6 +229,7 @@ public class WhiteList extends AppCompatActivity {
         ////////////////////////////// END OF LOADING //////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Spliting information from text file //////////////////////////////////////////
@@ -501,7 +502,6 @@ public class WhiteList extends AppCompatActivity {
         });
 
 
-
         mCancel.setOnClickListener(new View.OnClickListener()
         {
 
@@ -553,9 +553,11 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+
             }
 
         });
+
 
 
 
@@ -626,10 +628,13 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-
-
             }
-        });
+        }
+
+
+
+
+        );
 
 
 
@@ -911,6 +916,23 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+                        FirebaseUser friend = firebaseauth.getCurrentUser();
+
+                        ref.child(friend.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Database = dataSnapshot.getValue(String.class);
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         debug.setText(Database = ref.child(User.getUid()).toString());
 
 
@@ -967,6 +989,22 @@ public class WhiteList extends AppCompatActivity {
                         }
 
 
+                        FirebaseUser User = firebaseauth.getCurrentUser();
+
+                        ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Database = dataSnapshot.getValue(String.class);
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
+                            {
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                     } catch
                             (Exception e)
@@ -984,6 +1022,8 @@ public class WhiteList extends AppCompatActivity {
         });
 
     }
+
+
 
 
 
