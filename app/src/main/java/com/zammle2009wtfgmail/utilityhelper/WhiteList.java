@@ -3,10 +3,10 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,8 +24,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,8 +53,10 @@ public class WhiteList extends AppCompatActivity {
 
     static String text = "";
 
+    private String Database;
+
     static String[] TextWithInfo;
-   // DatabaseReference ref;
+    // DatabaseReference ref;
 
 
     //final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -76,6 +81,7 @@ public class WhiteList extends AppCompatActivity {
     private boolean OpenAPP = true;
     static int Position;
 
+    private TextView debug;
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////// ON CREATE //////////////////////////////////////////////////
@@ -86,8 +92,9 @@ public class WhiteList extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+        Database = "";
 
         firebaseauth = FirebaseAuth.getInstance();
 
@@ -125,12 +132,16 @@ public class WhiteList extends AppCompatActivity {
         mAppTime.setEnabled(false);
 
 
+        debug = (TextView) findViewById(R.id.debugger);
 
 
 
 
 
-       final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+
+
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -302,9 +313,9 @@ public class WhiteList extends AppCompatActivity {
                     mAppTime.setText("15");
                 }
 
-                if (Integer.valueOf(mAppTime.getText().toString()) > 120)
+                if (Integer.valueOf(mAppTime.getText().toString()) > 240)
                 {
-                    mAppTime.setText("120");
+                    mAppTime.setText("240");
                 }
                 if (Integer.valueOf(mAppTime.getText().toString()) < 1)
                 {
@@ -344,8 +355,7 @@ public class WhiteList extends AppCompatActivity {
 
                     if (copy == false)
                     {
-                        Toast.makeText(WhiteList.this,"FAIL", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(WhiteList.this,"FAILED", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -412,45 +422,42 @@ public class WhiteList extends AppCompatActivity {
                 String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
 
 
-                for (int i = 0; i < CloseList.Holder.size(); ++i)
+                for (int i = 0; i < TextWithInfo.length; ++i)
                 {
-                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
+                    String tempstring = TextWithInfo[i].replace(System.getProperty("line.separator"), "");
+                    String tempstring2 = CloseList.Holder.get(Position).getAppName().replace(System.getProperty("line.separator"), "");
 
+                    if(tempstring2.equals(tempstring))
                     {
 
-                        String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
-                        String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+                        //Toast.makeText(WhiteList.this,"IM IN", Toast.LENGTH_SHORT).show();
+                        //  TextWithInfo[i+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
 
-                        if (tempstring2.equals(tempstring))
-
+                        if (mSwitch.isChecked())
                         {
-                            TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
-
-                            if (mSwitch.isChecked())
-                            {
-                                TextWithInfo[x+2] = String.valueOf(1);
-                                // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                TextWithInfo[x+2] = String.valueOf(0);
-                                //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
-                            }
-
-
-
+                            TextWithInfo[i+2] = String.valueOf(1);
+                            TextWithInfo[i+1] = mAppTime.getText().toString();
+                            // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
                         }
-                        else{
-                            //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            TextWithInfo[i+2] = String.valueOf(0);
+                            TextWithInfo[i+1] = mAppTime.getText().toString();
+                            // Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
                         }
 
 
 
                     }
+                    else{
+                        //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                    }
 
 
 
                 }
+
+
 
 
 
@@ -471,10 +478,34 @@ public class WhiteList extends AppCompatActivity {
                 hideKeyboard(v);
             }
 
+
+
         });
+
+
+        FirebaseUser User = firebaseauth.getCurrentUser();
+
+        ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Database = dataSnapshot.getValue(String.class);
+                // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+                // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         mCancel.setOnClickListener(new View.OnClickListener()
         {
+
+
             @Override
             public void onClick(View v)
             {
@@ -533,54 +564,67 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void OnItemClick(int position)
             {
+
+
+
+
+
                 if (OpenAPP == true)
                 {
+                    OpenAPP = false;
+                    Position = position;
 
-                    if (CloseList.Holder.get(Position).getSwitch() == true)
-                    {
-                        OpenAPP = false;
-                        Position = position;
-                        mAppName.setVisibility(View.VISIBLE);
-                        mBlack.setVisibility(View.VISIBLE);
-                        mAppWindow.setVisibility(View.VISIBLE);
-                        mOkay.setVisibility(View.VISIBLE);
-                        mCancel.setVisibility(View.VISIBLE);
-                        mTextView.setVisibility(View.VISIBLE);
-                        mSwitch.setVisibility(View.VISIBLE);
-                        mWHite.setVisibility(View.VISIBLE);
-                        mAppTime.setVisibility(View.VISIBLE);
-                        mSwitch.setChecked(true);
-                        mSwitch.setEnabled(true);
-                        mAppTime.setEnabled(true);
+                    try {
+
+                        if (CloseList.Holder.get(Position).getSwitch() == true) {
 
 
-                        mAppName.setText(CloseList.Holder.get(Position).getAppName());
-                        mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
+                            mAppName.setVisibility(View.VISIBLE);
+                            mBlack.setVisibility(View.VISIBLE);
+                            mAppWindow.setVisibility(View.VISIBLE);
+                            mOkay.setVisibility(View.VISIBLE);
+                            mCancel.setVisibility(View.VISIBLE);
+                            mTextView.setVisibility(View.VISIBLE);
+                            mSwitch.setVisibility(View.VISIBLE);
+                            mWHite.setVisibility(View.VISIBLE);
+                            mAppTime.setVisibility(View.VISIBLE);
+                            mSwitch.setChecked(true);
+                            mSwitch.setEnabled(true);
+                            mAppTime.setEnabled(true);
+
+
+                            mAppName.setText(CloseList.Holder.get(Position).getAppName());
+                            mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
+                        } else {
+
+                            mAppName.setVisibility(View.VISIBLE);
+                            mBlack2.setVisibility(View.VISIBLE);
+                            mAppWindow.setVisibility(View.VISIBLE);
+                            mOkay.setVisibility(View.VISIBLE);
+                            mCancel.setVisibility(View.VISIBLE);
+                            mTextView.setVisibility(View.VISIBLE);
+                            mSwitch.setVisibility(View.VISIBLE);
+                            mWHite.setVisibility(View.VISIBLE);
+                            mAppTime.setVisibility(View.VISIBLE);
+                            mSwitch.setEnabled(true);
+                            mSwitch.setChecked(false);
+                            mAppTime.setEnabled(true);
+
+
+                            mAppName.setText(CloseList.Holder.get(Position).getAppName());
+                            mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
+                        }
+
                     }
-                    else
+                    catch (Exception e)
                     {
-                        OpenAPP = false;
-                        Position = position;
-                        mAppName.setVisibility(View.VISIBLE);
-                        mBlack2.setVisibility(View.VISIBLE);
-                        mAppWindow.setVisibility(View.VISIBLE);
-                        mOkay.setVisibility(View.VISIBLE);
-                        mCancel.setVisibility(View.VISIBLE);
-                        mTextView.setVisibility(View.VISIBLE);
-                        mSwitch.setVisibility(View.VISIBLE);
-                        mWHite.setVisibility(View.VISIBLE);
-                        mAppTime.setVisibility(View.VISIBLE);
-                        mSwitch.setEnabled(true);
-                        mSwitch.setChecked(false);
-                        mAppTime.setEnabled(true);
 
-
-                        mAppName.setText(CloseList.Holder.get(Position).getAppName());
-                        mAppTime.setText(String.valueOf(CloseList.Holder.get(Position).getNumberPicker()));
                     }
-
 
                 }
+
+
+
 
 
 
@@ -614,210 +658,283 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-                if (!LoginScreen.emailID.equals(""))
-                {
-                    try
+
+                   /* try
+                    {*/
+                    if (firebaseauth.getCurrentUser() == null)
                     {
-                        if (firebaseauth.getCurrentUser() == null)
-                        {
-                            finish();
-                            Intent history = new Intent (WhiteList.this, LoginScreen.class );
-                            startActivity(history);
+                        finish();
+                        Intent history = new Intent (WhiteList.this, LoginScreen.class );
+                        startActivity(history);
 
 
 
-                        }
-                        else
-                        {
-                            FirebaseUser User = firebaseauth.getCurrentUser();
-                            String Database = ref.child(User.getUid()).getDatabase().toString();
+                    }
+                    else
+                    {
 
 
 
 
+                        FirebaseUser User = firebaseauth.getCurrentUser();
 
+                        ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Database = dataSnapshot.getValue(String.class);
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
 
-                            CloseList.Holder.clear();
+                            }
 
-
-                            TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-                            String[] DatabaseWithInfo = Database.split(System.getProperty("line.separator"));
-
-                            int DatabaseSize = DatabaseWithInfo.length;
-
-                            for (int i = 0; i < DatabaseSize; i = i + 4)
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError)
                             {
-                                if (Integer.valueOf(DatabaseWithInfo[i+2]) == 1)
-                                {
+                                // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+
+
+
+
+                        // Toast.makeText(WhiteList.this,"Failed Conversion", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+                        CloseList.Holder.clear();
+
+
+                        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                        String[] DatabaseWithInfo = Database.split(System.getProperty("line.separator"));
+                        String NotFoundString = "";
+
+                        int DatabaseSize = DatabaseWithInfo.length;
+
+                        for (int i = 0; i < DatabaseSize; i = i + 4)
+                        {
+                            try
+                            {
+                                if (Integer.valueOf(DatabaseWithInfo[i + 2]) == 1) {
                                     boolean found = false;
 
-                                    for (int x = 0; x < TextWithInfo.length; x = x + 4)
-                                    {
-                                        if (DatabaseWithInfo[i].equals(TextWithInfo[x]))
-                                        {
+                                    for (int x = 0; x < TextWithInfo.length; x = x + 4) {
+                                        if (DatabaseWithInfo[i].equals(TextWithInfo[x])) {
                                             found = true;
-                                            TextWithInfo[x+2] = "1";
+                                            TextWithInfo[x + 2] = "1";
+
+                                            //   Toast.makeText(WhiteList.this,"I AM TURNing on bool", Toast.LENGTH_SHORT).show();
                                             break;
                                         }
                                     }
 
 
-                                    if (found == false)
-                                    {
+                                    if (found == false) {
 
-                                        MainActivity.ToReturn += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
-                                        MainActivity.ToReturn += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 1] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 2] + (System.getProperty("line.separator"));
+                                        NotFoundString += DatabaseWithInfo[i + 3] + (System.getProperty("line.separator"));
 
-                                        TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+                                        //TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
                                     }
 
                                 }
-
-
                             }
-
-
-
-                            for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                            catch (Exception e)
                             {
-                                if (Integer.valueOf(TextWithInfo[i+2]) == 1)
-                                {
-                                    String appName = TextWithInfo[i];
-                                    int Time = Integer.valueOf(TextWithInfo[i + 1]);
-                                    boolean bool = true;
-                                    String PackageName = TextWithInfo[i+3];
-
-
-                                    try {
-
-                                        Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i+3]);
-
-
-                                        if (Integer.valueOf(TextWithInfo[i+2]) == 1)
-                                        {
-                                            CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, true,PackageName));
-                                        }
-                                        else
-                                        {
-                                            CloseList.Holder.add(new templateHolder(icon,appName, bool, Time, false,PackageName));
-                                        }
-
-                                    }
-                                    catch (PackageManager.NameNotFoundException e) {
-                                        e.printStackTrace();
-
-
-
-                                    }
-                                }
-                            }
-
-
-
-                            ///////////// update adapters here //////////////////
-                            mAdapter.notifyDataSetChanged();
-                            ////////////////////////////////////////////////////
-
-
-                            //// save info ////
-
-
-                            // save //
-
-                            String UpdateSave ="";
-                            String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
-
-
-                            for (int i = 0; i < CloseList.Holder.size(); ++i)
-                            {
-                                for (int x = 0; x < TextWithInfo.length; x = x + 4)
-
-                                {
-
-                                    String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
-                                    String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
-
-                                    if (tempstring2.equals(tempstring))
-
-                                    {
-                                        TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
-
-                                        if (mSwitch.isChecked())
-                                        {
-                                            TextWithInfo[x+2] = String.valueOf(1);
-                                            // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
-                                            TextWithInfo[x+2] = String.valueOf(0);
-                                            //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-
-                                    }
-                                    else{
-                                        //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
-                                    }
-
-
-
-                                }
-
-
 
                             }
-
-
-
-                            for (int i = 0; i < TextWithInfo.length; ++i)
-                            {
-                                UpdateSave += TextWithInfo[i] + (System.getProperty("line.separator"));
-
-                            }
-
-                            MainActivity.ToReturn = UpdateSave;
-
-
-
-                            saveFile(WhiteList.filename2, MainActivity.ToReturn);
-
-                            // end of saving //
-
-                            hideKeyboard(v);
-
-
-
-
-
-
-
 
 
                         }
 
 
 
-                    } catch
+                        // new code /  combing not found strings with Current string //////////////////////////////////////////////////////
+
+                        String UpdateSave ="";
+
+
+                        for (int i = 0; i < TextWithInfo.length; ++i)
+                        {
+                            UpdateSave += TextWithInfo +  (System.getProperty("line.separator"));
+                        }
+
+                        //    UpdateSave += NotFoundString;
+
+                        //  TextWithInfo = UpdateSave.split(System.getProperty("line.separator"));
+
+
+
+                        // end //////////////////////////////////////////////////////
+
+
+
+
+
+                        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                        {
+                            try {
+                                if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                                    String appName = TextWithInfo[i];
+                                    int Time = Integer.valueOf(TextWithInfo[i + 1]);
+                                    boolean bool = true;
+                                    String PackageName = TextWithInfo[i + 3];
+
+
+                                    try {
+
+                                        Drawable icon = getPackageManager().getApplicationIcon(TextWithInfo[i + 3]);
+
+
+                                        if (Integer.valueOf(TextWithInfo[i + 2]) == 1) {
+                                            CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, true, PackageName));
+                                        } else {
+                                            CloseList.Holder.add(new templateHolder(icon, appName, bool, Time, false, PackageName));
+                                        }
+
+                                    } catch (PackageManager.NameNotFoundException e) {
+                                        e.printStackTrace();
+
+
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        }
+
+
+
+
+
+
+                        // end of new stuff //
+
+
+
+                        ///////////// update adapters here //////////////////
+                        mAdapter.notifyDataSetChanged();
+                        ////////////////////////////////////////////////////
+
+
+                        //// save info / Setting ToReturn to updated information////
+
+
+                        MainActivity.ToReturn = "";
+
+                        for (int i = 0; i < TextWithInfo.length; ++i)
+                        {
+                            MainActivity.ToReturn += TextWithInfo[i] +  (System.getProperty("line.separator"));
+
+
+                        }
+
+                        // save //
+
+
+
+
+                        // String[] TextWithInfo = MainActivity.ToReturn.split(System.getProperty("line.separator"));
+
+
+                        for (int i = 0; i < CloseList.Holder.size(); ++i)
+                        {
+                            for (int x = 0; x < TextWithInfo.length; x = x + 4)
+
+                            {
+
+                                String tempstring = TextWithInfo[x].replace(System.getProperty("line.separator"), "");
+                                String tempstring2 = CloseList.Holder.get(i).getAppName().replace(System.getProperty("line.separator"), "");
+
+                                if (tempstring2.equals(tempstring))
+
+                                {
+                                    TextWithInfo[x+1] = String.valueOf(CloseList.Holder.get(i).getNumberPicker());
+
+                                    if (mSwitch.isChecked())
+                                    {
+                                        TextWithInfo[x+2] = String.valueOf(1);
+                                        // Toast.makeText(WhiteList.this,"IM IN. ON", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        TextWithInfo[x+2] = String.valueOf(0);
+                                        //  Toast.makeText(WhiteList.this,"IM IN. OFF", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+
+                                }
+                                else{
+                                    //Toast.makeText(WhiteList.this,"IM NOT IN", Toast.LENGTH_SHORT).show();
+                                }
+
+
+
+                            }
+
+
+
+                        }
+
+                        // sets runnables //
+
+
+                        for (int i = 0; i < TextWithInfo.length; i = i + 4)
+                        {
+
+                            if (Integer.valueOf(TextWithInfo[i + 2]) == 1)
+                            {
+                                MainActivity.ListHandlers.get(i).postDelayed(MainActivity.ListRunnables.get(i), MainActivity.ListRunnables.get(i).GetTimer() * 60 * 1000);
+                            }
+
+                        }
+
+                        //
+
+
+
+                        saveFile(WhiteList.filename2, MainActivity.ToReturn);
+
+                        // end of saving //
+
+                        hideKeyboard(v);
+
+
+
+
+                        debug.setText(Database = ref.child(User.getUid()).toString());
+
+
+
+
+                    }
+
+
+
+                   /* } catch
                             (Exception e)
                     {
 
-                        //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                else
-                {
-                    //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
-                }
+                          Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                    }*/
 
 
 
 
 
 
+
+
+                //  Toast.makeText(WhiteList.this,"END", Toast.LENGTH_SHORT).show();
 
 
 
@@ -830,9 +947,7 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (!LoginScreen.emailID.equals(""))
-                {
-                    try
+                try
                     {
                         if (firebaseauth.getCurrentUser() == null)
                         {
@@ -857,19 +972,14 @@ public class WhiteList extends AppCompatActivity {
                             (Exception e)
                     {
 
-                      //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                          Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else
-                {
-                  //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
-                }
 
 
 
 
-                
+
             }
         });
 
@@ -886,7 +996,7 @@ public class WhiteList extends AppCompatActivity {
 
             fos.write(text.getBytes());
             fos.close();
-           // Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(WhiteList.this,"Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e)
         {
             e.printStackTrace();

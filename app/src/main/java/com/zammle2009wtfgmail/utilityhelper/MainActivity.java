@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     static String ToReturn = "";
 
 
+    boolean Hints = false;
+
 
 
 
@@ -60,8 +62,6 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-
-
         cap = 0;
 
       //  startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
@@ -74,7 +74,14 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         }
 
-        final ImageButton pressedhistory = (ImageButton) findViewById(R.id.history);
+
+
+
+
+
+
+
+        final Button pressedhistory = (Button) findViewById(R.id.history);
         pressedhistory.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -87,7 +94,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         });
 
 
-        final ImageButton pressedwhitelist = (ImageButton) findViewById(R.id.whitelist);
+        final Button pressedwhitelist = (Button) findViewById(R.id.whitelist);
         pressedwhitelist.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -98,18 +105,8 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             }
 
         });
-        final ImageButton pressednotifications = (ImageButton) findViewById(R.id.notifications);
-        pressednotifications.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent history = new Intent (MainActivity.this, Notifications.class );
-                //startActivity(history);
-            }
 
-        });
-        final ImageButton pressedtimer = (ImageButton) findViewById(R.id.timer);
+        final Button pressedtimer = (Button) findViewById(R.id.timer);
         pressedtimer.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -122,7 +119,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         });
 
     //testing
-        final ImageButton presseddetails = (ImageButton) findViewById(R.id.SpecDetail);
+        final Button presseddetails = (Button) findViewById(R.id.SpecDetail);
         presseddetails.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -136,7 +133,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         });
 
 
-        final ImageButton pressedsettings = (ImageButton) findViewById(R.id.settings);
+        final Button pressedsettings = (Button) findViewById(R.id.settings);
         pressedsettings.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -149,6 +146,46 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
         });
 
 
+        if (Hints == false)
+        {
+            presseddetails.setText("");
+            pressedhistory.setText("");
+            pressedwhitelist.setText("");
+            pressedtimer.setText("");
+            pressedsettings.setText("");
+
+        }
+
+
+
+        final Button pressedhints = (Button) findViewById(R.id.hintss);
+        pressedhints.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (Hints == true) {
+                    presseddetails.setText("");
+                    pressedhistory.setText("");
+                    pressedwhitelist.setText("");
+                    pressedtimer.setText("");
+                    pressedsettings.setText("");
+                    Hints = false;
+                }
+                else
+                {
+
+                    presseddetails.setText("Specs");
+                    pressedhistory.setText("HISTORY");
+                    pressedwhitelist.setText("Blacklist");
+                    pressedtimer.setText("Apps");
+                    pressedsettings.setText("Settings");
+                    Hints = true;
+                }
+
+            }
+
+        });
 
 
 
@@ -180,7 +217,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
         String Totalbattery = "";
 
-        if (batteryPct > 10)
+        if (batteryPct > 9)
         {
             for (int i = 0; i < 2; ++i) {
                 Totalbattery += String.valueOf(mychars[i]);
@@ -376,7 +413,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                         {
                             final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                             am.killBackgroundProcesses(newText[i + 3]);
-                            Toast.makeText(MainActivity.this,"Closed " + newText[i+3], Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(MainActivity.this,"Closed " + newText[i+3], Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -389,7 +426,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                     }
                     catch (Exception e)
                     {
-                        Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(MainActivity.this,"FAIL", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -399,7 +436,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
                 }
 
 
-                Toast.makeText(MainActivity.this,"Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Completed closing applications.", Toast.LENGTH_SHORT).show();
 
             }
 
