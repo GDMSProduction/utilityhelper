@@ -84,13 +84,14 @@
 
     <Button
         android:id="@+id/expandButton"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/button"
         android:text="Info"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

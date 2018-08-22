@@ -20,10 +20,12 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:paddingTop="8dp"
             android:text="   Chipset\n"
             android:textColor="@android:color/background_light" />
@@ -33,6 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
 
@@ -45,6 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Current Frequency\n"
             android:textColor="@android:color/background_light" />
 
@@ -53,6 +57,7 @@
 
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="Core 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\n"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
@@ -66,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   CPU Usage\n"
             android:textColor="@android:color/background_light" />
 
@@ -74,6 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -86,6 +93,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   CPU Cores\n"
             android:textColor="@android:color/background_light" />
 
@@ -94,6 +102,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -106,6 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Installed RAM\n"
             android:textColor="@android:color/background_light" />
 
@@ -114,6 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -126,6 +137,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   RAM Usage\n"
             android:textColor="@android:color/background_light" />
 
@@ -134,6 +146,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -146,6 +159,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Free RAM\n"
             android:textColor="@android:color/background_light" />
 
@@ -154,6 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -166,6 +181,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Battery Remaining\n"
             android:textColor="@android:color/background_light" />
 
@@ -175,6 +191,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -187,6 +204,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Battery Voltage\n"
             android:textColor="@android:color/background_light" />
 
@@ -195,6 +213,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -207,6 +226,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Battery Temperature\n"
             android:textColor="@android:color/background_light" />
 
@@ -215,6 +235,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 
@@ -227,6 +248,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:text="   Charging\n"
             android:textColor="@android:color/background_light" />
 
@@ -235,6 +257,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:fontFamily="@font/kavivanar"
             android:textColor="@color/cardview_light_background" />
 
     </LinearLayout>

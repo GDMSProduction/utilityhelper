@@ -27,7 +27,6 @@
         <activity android:name=".SettingScreen" />
         <activity android:name=".History" />
         <activity android:name=".WhiteList" />
-        <activity android:name=".Notifications" />
         <activity android:name=".Hardware_Spec" />
         <activity android:name=".LoginScreen">
             <intent-filter>

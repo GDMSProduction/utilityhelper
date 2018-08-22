@@ -66,7 +66,7 @@ public class ChangeUserEmail extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()){
-                                    Toast.makeText(ChangeUserEmail.this, "Email Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(ChangeUserEmail.this, "Email Successfully Changed", Toast.LENGTH_SHORT).show();
                                     //sign out with the email and password you created
                                     firebaseAuth.signOut();
                                     finish();
@@ -75,7 +75,7 @@ public class ChangeUserEmail extends AppCompatActivity {
                                     startActivity(changeActivity);
                                 }
                                 else{
-                                    Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
 
                                 }
 
