@@ -658,8 +658,7 @@ public class WhiteList extends AppCompatActivity {
 
 
 
-                if (!LoginScreen.emailID.equals(""))
-                {
+
                    /* try
                     {*/
                     if (firebaseauth.getCurrentUser() == null)
@@ -928,11 +927,7 @@ public class WhiteList extends AppCompatActivity {
                           Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
                     }*/
 
-                }
-                else
-                {
-                    // Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
-                }
+
 
 
 
@@ -952,9 +947,7 @@ public class WhiteList extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (!LoginScreen.emailID.equals(""))
-                {
-                    try
+                try
                     {
                         if (firebaseauth.getCurrentUser() == null)
                         {
@@ -979,14 +972,9 @@ public class WhiteList extends AppCompatActivity {
                             (Exception e)
                     {
 
-                        //  Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
+                          Toast.makeText(WhiteList.this,"Failed Catch", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else
-                {
-                    //  Toast.makeText(WhiteList.this,"Failed If", Toast.LENGTH_SHORT).show();
-                }
 
 
 
@@ -1069,6 +1057,5 @@ public class WhiteList extends AppCompatActivity {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
-
 
 }
