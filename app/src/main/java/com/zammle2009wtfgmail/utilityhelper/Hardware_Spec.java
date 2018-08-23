@@ -1,6 +1,8 @@
 package com.zammle2009wtfgmail.utilityhelper;
 
 import android.app.ActivityManager;
+import java.io.IOException;
+import java.io.InputStream;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +31,10 @@ import java.security.PrivateKey;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import static com.zammle2009wtfgmail.utilityhelper.SystemUtils.getCPUFrequencyCurrent01;
 
 public class Hardware_Spec extends AppCompatActivity {
 
@@ -72,6 +77,7 @@ public class Hardware_Spec extends AppCompatActivity {
         //show battery temperature, getBatterTemp function defined at the bottom
         // TODO: 8/14/2018 get views by ID here
         CPUBrand = (TextView)findViewById(R.id.iDCPUBrand);
+        currentCpuFrequency= (TextView)findViewById(R.id.allCPUFrequency);
         CPUusage = (TextView) findViewById(R.id.iDCPUusage);
         activeCores = (TextView)findViewById(R.id.iDCPUCores);
         installedRAM = (TextView)findViewById(R.id.iDtotalRAM);
@@ -261,6 +267,10 @@ public class Hardware_Spec extends AppCompatActivity {
 
     }
 
+    //get current CPU frequency
+
+
+
 
 
 
@@ -272,13 +282,19 @@ public class Hardware_Spec extends AppCompatActivity {
         public void run()
         {
 
-                if (timer < 300) {
+                if (timer < 600) {
 
                     //Textview set text here
                     // TODO: 8/14/2018 set CPU brand name here
-//                    CPUBrand.setText(ReadCPUinfo());
-                    // TODO: 8/14/2018 set each cores here
-                    //
+//                    CPUBrand.setText(ReadCPUinfo().);
+                    // TODO: 8/14/2018 set each cores here;
+                    try {
+                        currentCpuFrequency.setText("Core1 "+ SystemUtils.getCPUFrequencyCurrent01()+"\n" + "Core2 " + SystemUtils.getCPUFrequencyCurrent02()+"\n" +"Core3 "+ SystemUtils.getCPUFrequencyCurrent03()+"\n" +"Core4 "+SystemUtils.getCPUFrequencyCurrent04()+"\n");
+                    }
+                    catch(Exception e) {
+
+                    }
+
                     CPUusage.setText(String.valueOf(getCPUUsage()) + " %");
                     activeCores.setText(String.valueOf(getNumCores()));
                     installedRAM.setText(getTotalRAM());
@@ -299,3 +315,6 @@ public class Hardware_Spec extends AppCompatActivity {
 
 
 }
+//helper class for reading CPU info
+// TODO: 2018/8/23 read CPU info helper class
+
