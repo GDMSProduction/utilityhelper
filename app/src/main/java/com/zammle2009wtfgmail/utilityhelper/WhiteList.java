@@ -626,6 +626,22 @@ public class WhiteList extends AppCompatActivity {
 
 
 
+                FirebaseUser User = firebaseauth.getCurrentUser();
+
+                ref.child(User.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Database = dataSnapshot.getValue(String.class);
+                        // Toast.makeText(WhiteList.this,"READING FROM DATABASE", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError)
+                    {
+                        // Toast.makeText(WhiteList.this,"READING FROM DATABASE part 2", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
             }
@@ -935,6 +951,7 @@ public class WhiteList extends AppCompatActivity {
 
 
                 //  Toast.makeText(WhiteList.this,"END", Toast.LENGTH_SHORT).show();
+
 
 
 
