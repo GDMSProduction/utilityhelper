@@ -297,8 +297,30 @@ public class Hardware_Spec extends AppCompatActivity {
                     catch(Exception e) {
 
                     }
+
+
+                String mytext = String.valueOf(getCPUUsage());
+
+                char[] mychars = mytext.toCharArray();
+
+
+                String CPUusages = "";
+
+               for (int i = 0; i < 4; ++i)
+               {
+                   try
+                   {
+                       CPUusages += mychars[i];
+                   }
+                   catch (Exception e)
+                   {
+
+                   }
+               }
+
+
                     CPUBrand.setText(cpuname);
-                    CPUusage.setText(String.valueOf(getCPUUsage()) + " %");
+                    CPUusage.setText(CPUusages + " %");
                     activeCores.setText(String.valueOf(getNumCores()));
                     installedRAM.setText(getTotalRAM());
                     currentRAMUsage.setText(getRAMUsage());
