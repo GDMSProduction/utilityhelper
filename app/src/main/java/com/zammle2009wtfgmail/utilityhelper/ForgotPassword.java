@@ -32,6 +32,8 @@ public class ForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
+        Hardware_Spec.timer = 601;
         firebaseAuth = FirebaseAuth.getInstance();
         resetPassword = findViewById(R.id.resetpasswordButton);
 

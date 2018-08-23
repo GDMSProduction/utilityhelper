@@ -94,6 +94,7 @@ public class WhiteList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_white_list);
 
+        Hardware_Spec.timer = 601;
 
         Database = "";
 
@@ -653,7 +654,7 @@ public class WhiteList extends AppCompatActivity {
         });
 
 
-        
+
 
 
 
