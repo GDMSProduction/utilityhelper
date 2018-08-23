@@ -3,16 +3,21 @@ package com.zammle2009wtfgmail.utilityhelper;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,15 +39,11 @@ public class LoginScreen extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
-    private Button login;
-    private Button createAccount;
-    private Button forgotPassword;
     private  static final String TAG = "simplifiedcoding";
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     static String emailID = "";
-    private Button googleSignIn;
     GoogleSignInClient googleSignInClient;
     int RC_SIGN_IN = 2;
 
@@ -59,23 +60,62 @@ public class LoginScreen extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-       login = findViewById(R.id.LoginButton);
-       createAccount = findViewById(R.id.createaccountButton);
+        Button login = findViewById(R.id.LoginButton);
+        Button createAccount = findViewById(R.id.createaccountButton);
        email = findViewById(R.id.EmaileditText);
        password = findViewById(R.id.PasswordeditText);
-       progressDialog = new ProgressDialog(this);
+       final TextView ShowPassword = findViewById(R.id.showPassword);
+        progressDialog = new ProgressDialog(this);
        firebaseAuth = FirebaseAuth.getInstance();
-       googleSignIn = findViewById(R.id.GoogleSignIn);
+        Button googleSignIn = findViewById(R.id.GoogleSignIn);
        googleSignInClient = GoogleSignIn.getClient(this, gso);
-       forgotPassword = findViewById(R.id.forgotpasswordButton);
+        Button forgotPassword = findViewById(R.id.forgotpasswordButton);
 
+        ShowPassword.setVisibility(View.GONE);
+        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-       forgotPassword.setOnClickListener(new View.OnClickListener() {
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (password.getText().length() > 0){
+                    ShowPassword.setVisibility(View.VISIBLE);
+                }else{
+                    ShowPassword.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        ShowPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ShowPassword.getText() == "SHOW"){
+                    ShowPassword.setText("HIDE");
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setSelection(password.length());
+                }else{
+                    ShowPassword.setText("SHOW");
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    password.setSelection(password.length());
+                }
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               //Intent changeActivity = new Intent(LoginScreen.this, ForgotUserPassword.class);
+               Intent changeActivity = new Intent(LoginScreen.this, ForgotPassword.class);
 
-               //startActivity(changeActivity);
+               startActivity(changeActivity);
            }
        });
 

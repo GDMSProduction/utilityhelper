@@ -86,14 +86,19 @@ public class UsagePresenter implements UsageContract.Presenter {
                 if (name.equals(stat.getPackageName())) {
                     added = true;
    try{
-                        list.add(fromUsageStat(stat));
-
+       UsageStatsWrapper usageStatsWrapper = fromUsageStat(stat);
+       if (usageStatsWrapper != null) {
+           list.add(usageStatsWrapper);
+       }
                     }catch (Exception ignored){
 
                     }                }
             }
             if (!added) {
-                list.add(fromUsageStat(name));
+                UsageStatsWrapper usageStatsWrapper = fromUsageStat(name);
+                if (usageStatsWrapper != null) {
+                    list.add(usageStatsWrapper);
+                }
             }
         }
         Collections.sort(list);
@@ -108,7 +113,8 @@ public class UsagePresenter implements UsageContract.Presenter {
             return new UsageStatsWrapper(null, packageManager.getApplicationIcon(ai), packageManager.getApplicationLabel(ai).toString(), packageManager.getApplicationLabel(ai).length(), packageName);
 
         } catch (PackageManager.NameNotFoundException e) {
-            throw new IllegalArgumentException(e);
+            System.out.println(e.getMessage());
+           return null;
         }
     }
 
