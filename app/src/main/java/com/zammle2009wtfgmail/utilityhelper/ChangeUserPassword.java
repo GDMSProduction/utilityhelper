@@ -165,7 +165,7 @@ public class ChangeUserPassword extends AppCompatActivity {
                                     startActivity(changeActivity);
                                 }
                                 else{
-                                    //Toast.makeText(ChangeUserPassword.this, "Password not Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangeUserPassword.this, "Password not Successfully Changed", Toast.LENGTH_SHORT).show();
 
                                 }
                             }

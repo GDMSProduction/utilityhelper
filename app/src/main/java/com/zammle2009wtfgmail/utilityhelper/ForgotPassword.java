@@ -68,7 +68,7 @@ public class ForgotPassword extends AppCompatActivity {
 
 
                         } else {
-                            //Toast.makeText(ForgotPassword.this, "Email Not Registered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPassword.this, "Email Not Registered", Toast.LENGTH_SHORT).show();
 
                         }
                     }

@@ -16,16 +16,6 @@
         android:text="Storage Used: 288MB"
         android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/AppDetailButton"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="111dp"
-        android:background="@drawable/moredetails"
-        android:text="Button" />
-
     <TextView
         android:id="@+id/info"
         android:layout_width="wrap_content"

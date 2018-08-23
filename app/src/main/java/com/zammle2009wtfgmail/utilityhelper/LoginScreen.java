@@ -176,7 +176,7 @@ public class LoginScreen extends AppCompatActivity {
 
                             startActivity(changeActivity);
                         } else {
-                            //Toast.makeText(LoginScreen.this, "Login Not Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginScreen.this, "Login Not Successful", Toast.LENGTH_SHORT).show();
                         }
 
                     }

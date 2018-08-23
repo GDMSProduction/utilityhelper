@@ -61,6 +61,8 @@ public class templateAdapter extends RecyclerView.Adapter<templateAdapter.Exampl
             mNumber.setEnabled(false);
             mSwitch.setEnabled(false);
 
+            mImageView.getLayoutParams().width = 130;
+            mImageView.getLayoutParams().height = 130;
 
 
             itemView.setOnClickListener(new View.OnClickListener()

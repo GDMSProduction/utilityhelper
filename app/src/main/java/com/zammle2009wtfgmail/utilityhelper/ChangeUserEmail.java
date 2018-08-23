@@ -75,7 +75,7 @@ public class ChangeUserEmail extends AppCompatActivity {
                                     startActivity(changeActivity);
                                 }
                                 else{
-                                    //Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangeUserEmail.this, "Email not Successfully Changed", Toast.LENGTH_SHORT).show();
 
                                 }
 
