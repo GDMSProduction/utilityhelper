@@ -74,8 +74,8 @@ public class Hardware_Spec extends AppCompatActivity {
         setContentView(R.layout.activity_hardware__spec);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        timer = 0;
 
+        timer = 0;
         //show battery temperature, getBatterTemp function defined at the bottom
         // TODO: 8/14/2018 get views by ID here
         CPUBrand = (TextView)findViewById(R.id.iDCPUBrand);
@@ -97,7 +97,7 @@ public class Hardware_Spec extends AppCompatActivity {
         temperature = getBatterTemp(this);
         voltage = getBatVoltage(this);
         batLevel = bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        timer = 0;
+
         handler.postDelayed(running, 1000);
 
         // TODO: 8/14/2018 make the ifcharging to a function later  
@@ -283,7 +283,9 @@ public class Hardware_Spec extends AppCompatActivity {
         public void run()
         {
 
-                if (timer < 30) {
+            if (timer < 30)
+
+            {
 
                     //Textview set text here
                     // TODO: 8/14/2018 set CPU brand name here
