@@ -49,11 +49,11 @@
             android:textColor="@android:color/background_light" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/allCPUFrequency"
 
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Core 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\nCore 1\n"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
 
