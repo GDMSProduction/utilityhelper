@@ -170,7 +170,7 @@ public class LoginScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                             Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
 
@@ -214,13 +214,13 @@ public class LoginScreen extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if(task.isSuccessful()){
-                            Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginScreen.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent changeActivity = new Intent(LoginScreen.this, MainActivity.class);
 
                             startActivity(changeActivity);
                         }
                         else {
-                            Toast.makeText(LoginScreen.this, "Please enter the correct email and password!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginScreen.this, "Please enter the correct email and password!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

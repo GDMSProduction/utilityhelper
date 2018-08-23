@@ -63,7 +63,7 @@ public class ForgotPassword extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(ForgotPassword.this, "Reset Password Link Sent To Email!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ForgotPassword.this, "Reset Password Link Sent To Email!", Toast.LENGTH_SHORT).show();
                             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 

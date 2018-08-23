@@ -173,11 +173,11 @@ public class CreateAccount extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(CreateAccount.this, "Account Successfully Created", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(CreateAccount.this, "Account Successfully Created", Toast.LENGTH_SHORT).show();
                                         Intent changeActivity = new Intent(CreateAccount.this, MainActivity.class);
                                         startActivity(changeActivity);
                                     } else {
-                                        Toast.makeText(CreateAccount.this, "Could Not Create Account, Please Try Again!", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(CreateAccount.this, "Could Not Create Account, Please Try Again!", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }

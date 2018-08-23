@@ -16,16 +16,6 @@
         android:text="Storage Used: 288MB"
         android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/AppDetailButton"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="111dp"
-        android:background="@drawable/moredetails"
-        android:text="Button" />
-
     <TextView
         android:id="@+id/info"
         android:layout_width="wrap_content"
@@ -84,13 +74,14 @@
 
     <Button
         android:id="@+id/expandButton"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/button"
         android:text="Info"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

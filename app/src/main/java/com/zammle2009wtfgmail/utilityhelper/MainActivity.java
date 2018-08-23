@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
             public void run()
             {
 
-                if (cap < 45)
+                if (cap < 240)
                 {
                     cap += 1;
 
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
 
 
 
-                    handler.postDelayed(this, 3000);
+                    handler.postDelayed(this, 2000);
                 }
             }
         };

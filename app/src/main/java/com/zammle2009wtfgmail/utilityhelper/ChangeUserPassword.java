@@ -156,7 +156,7 @@ public class ChangeUserPassword extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()){
-                                    Toast.makeText(ChangeUserPassword.this, "Password Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(ChangeUserPassword.this, "Password Successfully Changed", Toast.LENGTH_SHORT).show();
                                     //sign out with the email and password you created
                                     firebaseAuth.signOut();
                                     finish();

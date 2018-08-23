@@ -76,6 +76,7 @@ public class WhiteList extends AppCompatActivity {
     private TextView mTextView;
     private EditText mAppTime;
     private ImageView mWHite;
+    private ImageView myIcon;
     private Switch mSwitch;
 
     private boolean OpenAPP = true;
@@ -114,6 +115,7 @@ public class WhiteList extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.apptextview2);
         mWHite = (ImageView) findViewById(R.id.appwhite2);
         mSwitch = (Switch) findViewById(R.id.appswitch2);
+        myIcon = findViewById(R.id.Myicon);
 
         mAppWindow.setVisibility(View.INVISIBLE);
         mBlack.setVisibility(View.INVISIBLE);
@@ -126,6 +128,7 @@ public class WhiteList extends AppCompatActivity {
         mTextView.setVisibility(View.INVISIBLE);
         mWHite.setVisibility(View.INVISIBLE);
         mSwitch.setVisibility(View.INVISIBLE);
+
 
 
         mSwitch.setEnabled(false);
