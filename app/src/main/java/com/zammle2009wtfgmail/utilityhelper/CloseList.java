@@ -84,6 +84,7 @@ public class CloseList extends AppCompatActivity {
 
 
 
+        Hardware_Spec.timer = 601;
 
 
         Listsave = (Button) findViewById(R.id.Save);

@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity  implements UsageContract.Vi
     {   super.onCreate(savedInstanceState);
 
 
+      Hardware_Spec.timer = 601;
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

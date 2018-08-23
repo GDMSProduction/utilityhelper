@@ -72,6 +72,8 @@ public class History extends AppCompatActivity implements UsageContract.View, an
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        Hardware_Spec.timer = 601;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         permissionMessage = (TextView) findViewById(R.id.grant_permission_message);

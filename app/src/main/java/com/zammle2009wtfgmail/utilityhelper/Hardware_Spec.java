@@ -57,7 +57,7 @@ public class Hardware_Spec extends AppCompatActivity {
     private int voltage;
 
     //runnable
-    private int timer;
+    static int timer = 0;
     private Handler handler = new Handler();
 
     //managers
@@ -73,6 +73,7 @@ public class Hardware_Spec extends AppCompatActivity {
         setContentView(R.layout.activity_hardware__spec);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        timer = 0;
 
         //show battery temperature, getBatterTemp function defined at the bottom
         // TODO: 8/14/2018 get views by ID here
@@ -282,7 +283,7 @@ public class Hardware_Spec extends AppCompatActivity {
         public void run()
         {
 
-                if (timer < 600) {
+                if (timer < 300) {
 
                     //Textview set text here
                     // TODO: 8/14/2018 set CPU brand name here
