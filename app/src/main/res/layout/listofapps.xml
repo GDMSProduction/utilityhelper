@@ -74,8 +74,8 @@
 
     <Button
         android:id="@+id/expandButton"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_width="75dp"
+        android:layout_height="36dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/button"
