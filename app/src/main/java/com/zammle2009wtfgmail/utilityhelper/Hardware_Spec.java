@@ -77,7 +77,7 @@ public class Hardware_Spec extends AppCompatActivity {
         //show battery temperature, getBatterTemp function defined at the bottom
         // TODO: 8/14/2018 get views by ID here
         CPUBrand = (TextView)findViewById(R.id.iDCPUBrand);
-        currentCpuFrequency= (TextView)findViewById(R.id.allCPUFrequency);
+        currentCpuFrequency = (TextView)findViewById(R.id.allCPUFrequency);
         CPUusage = (TextView) findViewById(R.id.iDCPUusage);
         activeCores = (TextView)findViewById(R.id.iDCPUCores);
         installedRAM = (TextView)findViewById(R.id.iDtotalRAM);
