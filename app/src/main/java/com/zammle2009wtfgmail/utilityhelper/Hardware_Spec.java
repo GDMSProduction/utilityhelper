@@ -55,6 +55,7 @@ public class Hardware_Spec extends AppCompatActivity {
     private int batLevel;
     private int temperature;
     private int voltage;
+    private String cpuname;
 
     //runnable
     static int timer = 0;
@@ -88,10 +89,10 @@ public class Hardware_Spec extends AppCompatActivity {
         batteryVoltage = (TextView)findViewById(R.id.iDbatteryVoltage);
         batteryTemp = (TextView) findViewById(R.id.iDbatteryTemp);
         batteryCharging = (TextView) findViewById(R.id.iDbatteryCharging);
+        CPUBrand = (TextView) findViewById(R.id.iDCPUBrand);
 
 
-
-
+        cpuname = getCpuInfo()[0];
         bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         temperature = getBatterTemp(this);
         voltage = getBatVoltage(this);
@@ -166,27 +167,26 @@ public class Hardware_Spec extends AppCompatActivity {
         return 0;
     }
     //get device CPU brand name
-    private String ReadCPUinfo()
-    {
-        ProcessBuilder cmd;
-        String result="";
-
-        try{
-            String[] args = {"/system/bin/cat", "/proc/cpuinfo"};
-            cmd = new ProcessBuilder(args);
-
-            Process process = cmd.start();
-            InputStream in = process.getInputStream();
-            byte[] re = new byte[1024];
-            while(in.read(re) != -1){
-                System.out.println(new String(re));
-                result = result + new String(re);
+    public String[] getCpuInfo() {
+        String str1 = "/proc/cpuinfo";
+        String str2="";
+        String[] cpuInfo={"",""};
+        String[] arrayOfString;
+        try {
+            FileReader fr = new FileReader(str1);
+            BufferedReader localBufferedReader = new BufferedReader(fr, 8192);
+            str2 = localBufferedReader.readLine();
+            arrayOfString = str2.split("\\s+");
+            for (int i = 2; i < arrayOfString.length; i++) {
+                cpuInfo[0] = cpuInfo[0] + arrayOfString[i] + " ";
             }
-            in.close();
-        } catch(IOException ex){
-            ex.printStackTrace();
+            str2 = localBufferedReader.readLine();
+            arrayOfString = str2.split("\\s+");
+            cpuInfo[1] += arrayOfString[2];
+            localBufferedReader.close();
+        } catch (IOException e) {
         }
-        return result;
+        return cpuInfo;
     }
 
     //get number of device CPU cores
@@ -295,7 +295,7 @@ public class Hardware_Spec extends AppCompatActivity {
                     catch(Exception e) {
 
                     }
-
+                    CPUBrand.setText(cpuname);
                     CPUusage.setText(String.valueOf(getCPUUsage()) + " %");
                     activeCores.setText(String.valueOf(getNumCores()));
                     installedRAM.setText(getTotalRAM());
@@ -316,6 +316,5 @@ public class Hardware_Spec extends AppCompatActivity {
 
 
 }
-//helper class for reading CPU info
-// TODO: 2018/8/23 read CPU info helper class
+
 

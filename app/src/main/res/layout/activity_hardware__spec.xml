@@ -26,9 +26,14 @@
             android:layout_weight="1"
             android:fontFamily="@font/kavivanar"
             android:paddingTop="8dp"
+<<<<<<< HEAD
             android:text="   Chipset\n"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
+=======
+            android:text="   Chipset\n\n"
+            android:textColor="@android:color/background_light" />
+>>>>>>> SpecdetailPage_2ndWeekDOne
 
         <TextView
             android:id="@+id/iDCPUBrand"
