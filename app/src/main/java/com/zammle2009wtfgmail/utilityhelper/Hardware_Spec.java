@@ -283,7 +283,7 @@ public class Hardware_Spec extends AppCompatActivity {
         public void run()
         {
 
-                if (timer < 60) {
+                if (timer < 30) {
 
                     //Textview set text here
                     // TODO: 8/14/2018 set CPU brand name here
