@@ -282,7 +282,7 @@ public class Hardware_Spec extends AppCompatActivity {
         public void run()
         {
 
-                if (timer < 600) {
+                if (timer < 90) {
 
                     //Textview set text here
                     // TODO: 8/14/2018 set CPU brand name here
@@ -305,7 +305,7 @@ public class Hardware_Spec extends AppCompatActivity {
                     batteryTemp.setText(String.valueOf(temperature) + " ℃");
                     
                     timer += 1;
-                    handler.postDelayed(this, 1000);
+                    handler.postDelayed(this, 3000);
                 }
 
 
